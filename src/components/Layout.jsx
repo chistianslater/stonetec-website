@@ -1,8 +1,8 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-/* ─── SVG Logo Components ──────────────────────────────────── */
-function StonetecLogo({ variant = 'light', className = '' }) {
+/* ─── Full Logo with Text ──────────────────────────────────── */
+function FullLogo({ variant = 'light', className = '' }) {
   const isLight = variant === 'light'
   const c1 = isLight ? '#9a9590' : '#8a8580'
   const c2 = isLight ? '#6a6560' : '#b0aaa5'
@@ -21,6 +21,7 @@ function StonetecLogo({ variant = 'light', className = '' }) {
   )
 }
 
+/* ─── Logo Mark Only (3 squares, no text) ──────────────────────────────────── */
 function LogoMark({ variant = 'light', className = '', animate = false }) {
   const isLight = variant === 'light'
   const c1 = isLight ? '#9a9590' : '#8a8580'
@@ -30,7 +31,7 @@ function LogoMark({ variant = 'light', className = '', animate = false }) {
   return (
     <svg 
       viewBox="0 0 140 140" 
-      className={`${className} ${animate ? 'logo-mark-pulse' : ''}`} 
+      className={`${className} ${animate ? 'logo-pulse' : ''}`}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g transform="translate(70, 70)">
@@ -56,7 +57,6 @@ function Header() {
       
       if (newScrolled !== scrolled) {
         setScrolled(newScrolled)
-        // Trigger heartbeat animation when switching to mark
         if (newScrolled) {
           setAnimateMark(true)
           setTimeout(() => setAnimateMark(false), 1200)
@@ -70,49 +70,65 @@ function Header() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
         scrolled 
-          ? 'header-glass pt-4 pb-6' 
+          ? 'bg-warm-bg/90 backdrop-blur-xl border-b border-warm-anthrazit/10 py-3' 
           : isHome 
-            ? 'bg-transparent py-5' 
-            : 'bg-warm-bg/95 backdrop-blur-sm py-5 border-b border-warm-anthrazit/10'
+            ? 'bg-transparent py-6' 
+            : 'bg-warm-bg/95 backdrop-blur-sm py-6 border-b border-warm-anthrazit/10'
       }`}
     >
       <nav className="flex items-center justify-between px-6 md:px-12 lg:px-20">
-        <Link to="/" className="transition-all duration-500">
-          {scrolled ? (
+        <Link to="/" className="flex items-center h-12">
+          <div 
+            className="transition-all duration-500 ease-out"
+            style={{
+              opacity: scrolled ? 0 : 1,
+              transform: scrolled ? 'scale(0.8)' : 'scale(1)',
+              position: 'absolute',
+              pointerEvents: scrolled ? 'none' : 'auto'
+            }}
+          >
+            <FullLogo 
+              variant={isHome ? 'dark' : 'light'}
+              className="w-36 md:w-44 h-auto" 
+            />
+          </div>
+          <div 
+            className="transition-all duration-500 ease-out"
+            style={{
+              opacity: scrolled ? 1 : 0,
+              transform: scrolled ? 'scale(1)' : 'scale(0.8)',
+              pointerEvents: scrolled ? 'auto' : 'none'
+            }}
+          >
             <LogoMark 
-              variant={isHome ? 'dark' : 'light'} 
-              className="w-12 h-12 md:w-14 md:h-14" 
+              variant="light"
+              className="w-11 h-11 md:w-12 md:h-12" 
               animate={animateMark}
             />
-          ) : (
-            <StonetecLogo 
-              variant={isHome ? 'dark' : 'light'} 
-              className="w-32 md:w-40 lg:w-44" 
-            />
-          )}
+          </div>
         </Link>
         
         <div className="hidden lg:flex items-center gap-8">
-          <Link to="/portfolio" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-inv-light hover:text-white' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/portfolio" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Portfolio
           </Link>
-          <Link to="/projekte" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-inv-light hover:text-white' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/projekte" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Projekte
           </Link>
-          <Link to="/lookbook" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-inv-light hover:text-white' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/lookbook" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Lookbook
           </Link>
-          <Link to="/team" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-inv-light hover:text-white' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/team" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Team
           </Link>
-          <Link to="/magazin" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-inv-light hover:text-white' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/magazin" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Magazin
           </Link>
           <Link 
             to="/kontakt" 
-            className={`px-5 py-2.5 font-dm text-[0.75rem] font-semibold tracking-wider uppercase transition-all duration-300 ${scrolled ? 'bg-inv-light text-warm-text hover:bg-white' : isHome ? 'bg-inv-light text-warm-text hover:bg-white' : 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit'}`}
+            className={`px-5 py-2.5 font-dm text-[0.75rem] font-semibold tracking-wider uppercase transition-all duration-300 ${scrolled ? 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit' : isHome ? 'bg-inv-light text-warm-text hover:bg-white' : 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit'}`}
           >
             Kontakt
           </Link>
@@ -120,7 +136,7 @@ function Header() {
 
         {/* Mobile Menu Button */}
         <button className="lg:hidden p-2" aria-label="Menu">
-          <svg className={`w-6 h-6 ${scrolled ? 'text-inv-light' : isHome ? 'text-inv-light' : 'text-warm-text'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-6 h-6 ${scrolled ? 'text-warm-text' : isHome ? 'text-inv-light' : 'text-warm-text'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
@@ -137,9 +153,9 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           <div className="lg:col-span-1">
             <Link to="/">
-              <StonetecLogo variant="dark" className="w-32 mb-6" />
+              <FullLogo variant="dark" className="w-32" />
             </Link>
-            <p className="font-dm text-[0.82rem] text-inv-muted leading-relaxed">
+            <p className="font-dm text-[0.82rem] text-inv-muted leading-relaxed mt-4">
               Premium Fliesenverlegung, Keramikmanufaktur und 3D-Raumplanung in Bocholt.
             </p>
           </div>

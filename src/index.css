@@ -99,53 +99,24 @@ body {
   mix-blend-mode: overlay;
 }
 
-/* Glass Morphism Header */
-.header-glass {
-  background: rgba(6, 6, 6, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(240, 236, 232, 0.08);
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 60%,
-    rgba(0, 0, 0, 0.8) 75%,
-    rgba(0, 0, 0, 0.4) 90%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 60%,
-    rgba(0, 0, 0, 0.8) 75%,
-    rgba(0, 0, 0, 0.4) 90%,
-    rgba(0, 0, 0, 0) 100%
-  );
+/* Header transitions */
+header {
+  transition: background-color 0.5s ease-out, 
+              backdrop-filter 0.5s ease-out,
+              border-color 0.5s ease-out,
+              padding 0.5s ease-out;
 }
 
-/* Logo Mark Heartbeat Animation - two quick pulses like a heartbeat */
-@keyframes heartbeat {
-  0% {
-    transform: scale(1);
-  }
-  15% {
-    transform: scale(1.15);
-  }
-  30% {
-    transform: scale(1);
-  }
-  45% {
-    transform: scale(1.12);
-  }
-  60% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1);
-  }
+/* Logo pulse animation - two quick beats like a heartbeat */
+@keyframes logoHeartbeat {
+  0%, 100% { transform: scale(1); }
+  10% { transform: scale(1.15); }
+  20% { transform: scale(1); }
+  30% { transform: scale(1.12); }
+  40% { transform: scale(1); }
 }
 
-.logo-mark-pulse {
-  animation: heartbeat 1.2s ease-in-out;
+.logo-pulse {
+  animation: logoHeartbeat 0.8s ease-in-out;
   transform-origin: center;
 }
