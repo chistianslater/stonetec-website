@@ -6,6 +6,10 @@ export default function MagazinPost() {
   const { id } = useParams()
   const article = articles.find(a => a.id === id)
 
+  const currentIndex = articles.findIndex(a => a.id === id)
+  const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null
+  const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null
+
   if (!article) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-warm-bg">
@@ -18,14 +22,14 @@ export default function MagazinPost() {
   }
 
   return (
-    <article className="bg-warm-bg min-h-screen pt-32 pb-24">
+    <article className="bg-warm-bg min-h-screen pt-48 pb-24">
       {/* Header */}
       <header className="max-w-4xl mx-auto px-6 md:px-12 mb-16">
         <Link to="/magazin" className="inline-flex items-center gap-2 font-dm text-[0.75rem] uppercase tracking-[2px] text-warm-mittel hover:text-warm-text transition-colors mb-12">
           <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
-          Zurück zum Magazin
+          Zurück zur Übersicht
         </Link>
         
         <div className="flex items-center gap-4 mb-6">
@@ -67,6 +71,30 @@ export default function MagazinPost() {
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
         
+        {/* Post Navigation */}
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-warm-anthrazit/10 pt-12">
+          {prevArticle ? (
+            <Link to={`/magazin/${prevArticle.id}`} className="group block">
+              <p className="font-dm text-[0.7rem] uppercase tracking-[2px] text-warm-mittel mb-2">Vorheriger Beitrag</p>
+              <h4 className="font-sora font-light text-lg text-warm-text group-hover:text-warm-anthrazit transition-colors">{prevArticle.title}</h4>
+            </Link>
+          ) : <div />}
+          
+          {nextArticle ? (
+            <Link to={`/magazin/${nextArticle.id}`} className="group block text-right">
+              <p className="font-dm text-[0.7rem] uppercase tracking-[2px] text-warm-mittel mb-2">Nächster Beitrag</p>
+              <h4 className="font-sora font-light text-lg text-warm-text group-hover:text-warm-anthrazit transition-colors">{nextArticle.title}</h4>
+            </Link>
+          ) : <div />}
+        </div>
+
+        {/* Back to Overview */}
+        <div className="mt-16 text-center">
+          <Link to="/magazin" className="inline-flex items-center gap-3 px-8 py-4 border border-warm-anthrazit/10 text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-warm-anthrazit hover:text-warm-bg transition-all duration-500 rounded-none">
+            Zurück zur Übersicht
+          </Link>
+        </div>
+
         {/* Footer */}
         <footer className="mt-24 pt-12 border-t border-warm-anthrazit/10">
           <div className="bg-dark-bg rounded-[2rem] p-8 md:p-12 text-center">
