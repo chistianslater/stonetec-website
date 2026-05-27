@@ -158,7 +158,7 @@ export default function Team() {
           {teamMembers.map((member, index) => (
             <Reveal key={member.id} delay={index * 100}>
               <div className="group">
-                <div className="relative aspect-[3/4] rounded-none overflow-hidden mb-4 bg-dark-bg">
+                <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4 bg-dark-bg">
                   <img
                     src={member.image}
                     alt={member.name}
@@ -201,7 +201,7 @@ export default function Team() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {values.map((value, index) => (
             <Reveal key={value.title} delay={index * 100}>
-              <div className="bg-dark-bg rounded-none p-6 h-full">
+              <div className="bg-dark-bg rounded-xl p-6 h-full">
                 <h3 className="font-sora font-light text-lg text-inv-light tracking-[-0.01em] mb-3">
                   {value.title}
                 </h3>
@@ -217,7 +217,7 @@ export default function Team() {
       {/* Recruiting CTA */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-20">
         <Reveal>
-          <div className="bg-dark-bg rounded-none p-8 md:p-12 text-center">
+          <div className="bg-dark-bg rounded-xl p-8 md:p-12 text-center">
             <h2 className="font-sora font-extralight text-2xl md:text-3xl text-inv-light tracking-[-0.01em] mb-4">
               Du bist Meister und sucht neue Herausforderungen?
             </h2>
@@ -227,7 +227,7 @@ export default function Team() {
             </p>
             <a
               href="mailto:info@stonetec-bocholt.de?subject=Bewerbung Fliesenlegermeister"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 rounded-none"
             >
               Bewirb dich bei uns
             </a>

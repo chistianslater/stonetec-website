@@ -77,7 +77,7 @@ function ImageCard({ image, index }) {
   return (
     <Reveal delay={index * 100}>
       <div className="group cursor-pointer">
-        <div className="relative aspect-[4/5] rounded-none overflow-hidden mb-3">
+        <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-3">
           <img
             src={image.src}
             alt={image.caption}
@@ -169,7 +169,7 @@ export default function Lookbook() {
             <Reveal key={section.id} delay={index * 100}>
               <button
                 onClick={() => setActiveSection(section.id)}
-                className={`group relative aspect-[16/9] rounded-none overflow-hidden text-left ${
+                className={`group relative aspect-[16/9] rounded-xl overflow-hidden text-left ${
                   activeSection === section.id ? 'ring-2 ring-warm-text' : ''
                 }`}
               >
@@ -196,7 +196,7 @@ export default function Lookbook() {
       {/* Download CTA */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-16">
         <Reveal>
-          <div className="bg-dark-bg rounded-none p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="bg-dark-bg rounded-xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 className="font-sora font-light text-xl text-inv-light tracking-[-0.01em] mb-2">
                 Vollständiges Lookbook als PDF
@@ -207,7 +207,7 @@ export default function Lookbook() {
             </div>
             <a
               href="#"
-              className="inline-flex items-center gap-3 px-6 py-3 bg-warm-bg text-warm-text font-dm text-[0.8rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 whitespace-nowrap"
+              className="inline-flex items-center gap-3 px-6 py-3 bg-warm-bg text-warm-text font-dm text-[0.8rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 whitespace-nowrap rounded-none"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

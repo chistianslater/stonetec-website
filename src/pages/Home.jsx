@@ -317,7 +317,7 @@ function ServiceCard({ service, index }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to="/kontakt" className="group block relative overflow-hidden rounded-none aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer">
+      <Link to="/kontakt" className="group block relative overflow-hidden rounded-2xl aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer">
         <motion.div 
           className="absolute inset-0"
           animate={{ scale: isHovered ? 1.05 : 1 }}
@@ -463,7 +463,7 @@ function Markenversprechen() {
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative rounded-none overflow-hidden aspect-[4/5]">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
               <img src="/images/beratung.jpg" alt="StoneTec Beratungsgespräch im Showroom Bocholt" className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06060640] to-transparent" />
             </div>
@@ -521,7 +521,7 @@ function Grossformate() {
         {images.map((img, i) => (
           <motion.div 
             key={img.src}
-            className="flex-shrink-0 w-[75vw] md:w-[45vw] lg:w-[35vw] aspect-[3/2] rounded-none overflow-hidden"
+            className="flex-shrink-0 w-[75vw] md:w-[45vw] lg:w-[35vw] aspect-[3/2] rounded-2xl overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
@@ -609,7 +609,7 @@ function Prozess() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.3 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="bg-white/40 backdrop-blur-sm border border-warm-anthrazit/5 p-8 md:p-12 lg:p-16 rounded-none h-full flex flex-col justify-between group hover:bg-white/60 transition-colors duration-700"
+                    className="bg-white/40 backdrop-blur-sm border border-warm-anthrazit/5 p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-between group hover:bg-white/60 transition-colors duration-700"
                   >
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
@@ -657,7 +657,7 @@ function Prozess() {
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8 }}
-                  className="bg-dark-bg p-8 md:p-12 lg:p-16 rounded-none h-full flex flex-col justify-center items-center text-center"
+                  className="bg-dark-bg p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-center items-center text-center"
                 >
                   <h3 className="font-sora font-extralight text-3xl lg:text-5xl text-inv-light mb-8 leading-tight">
                     Bereit für deinen<br />neuen Raum?
