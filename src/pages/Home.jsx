@@ -487,11 +487,11 @@ function Grossformate() {
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-20%'])
 
   const images = [
-    { src: '/images/Sonstiges/IMG_0482-web.webp', alt: 'Großformatige Fliesen im Badezimmer — StoneTec Bocholt' },
-    { src: '/images/Sonstiges/IMG_0655-web.webp', alt: 'Großformat Feinsteinzeug Wohnraum' },
-    { src: '/images/Sonstiges/IMG_0714-web.webp', alt: 'Großformatige Keramikplatten Showroom Bocholt' },
-    { src: '/images/Sonstiges/IMG_0816-web.webp', alt: 'Großformat Fliesen Design' },
-    { src: '/images/Sonstiges/IMG_0851-web.webp', alt: 'Großformat Fliesen minimalistisch' },
+    { src: '/images/Sonstiges/IMG_0655-web.webp', alt: 'Großformatige Fliesen im Badezimmer — StoneTec Bocholt' },
+    { src: '/images/Sonstiges/IMG_0657-web.webp', alt: 'Großformat Feinsteinzeug Wohnraum' },
+    { src: '/images/Sonstiges/IMG_0659-web.webp', alt: 'Großformatige Keramikplatten Showroom Bocholt' },
+    { src: '/images/Sonstiges/IMG_0714-web.webp', alt: 'Großformat Fliesen Design' },
+    { src: '/images/Sonstiges/IMG_0715-web.webp', alt: 'Großformat Fliesen minimalistisch' },
   ]
 
   return (
