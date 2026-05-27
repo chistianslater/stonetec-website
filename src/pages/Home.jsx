@@ -156,7 +156,7 @@ function Hero() {
       {/* Parallax Background */}
       <motion.div className="absolute inset-0" style={{ y: springY, scale: springScale }}>
         <motion.img
-          src="/images/Sonstiges/IMG_0450-2-web.webp"
+          src="/images/hero-2.jpg"
           alt="Luxuriöses Badezimmer mit großformatigen Fliesen von StoneTec Bocholt"
           className="w-full h-full object-cover"
           initial={{ scale: 1.2, opacity: 0 }}
@@ -298,8 +298,8 @@ function Intro() {
 const services = [
   { img: '/images/Sonstiges/Matthias @Work-web.webp', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
   { img: '/images/Keramik-Manufaktur/IMG_5118-web.webp', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
-  { img: '/images/Sonstiges/image00019-web.webp', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheiden erst, wenn du siehst, wie es wird.' },
-  { img: '/images/Sonstiges/Beratung und Konzeptentwicklung-web.webp', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
+  { img: '/images/visualisierung.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheiden erst, wenn du siehst, wie es wird.' },
+  { img: '/images/ausstellung.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
 ]
 
 function ServiceCard({ service, index }) {
@@ -700,7 +700,7 @@ function Showroom() {
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
         <img
-          src="/images/Sonstiges/Showroom-2-web.webp"
+          src="/images/showroom.jpg"
           alt="StoneTec Fliesenausstellung und Showroom in Bocholt"
           className="w-full h-full object-cover"
           loading="lazy"
