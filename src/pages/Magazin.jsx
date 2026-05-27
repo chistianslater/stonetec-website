@@ -29,18 +29,42 @@ export const articles = [
     image: '/images/website-extract/Raumgefuehl-4-3.jpg',
     featured: true,
     content: `
-      <p>Sie möchten Großformatfliesen verlegen in Bocholt lassen und legen Wert auf ein modernes, nahezu fugenloses Design? Dann ist die Wahl des richtigen Fachbetriebs entscheidend. Denn während Großformatfliesen optisch für Eleganz und Großzügigkeit stehen, gehören sie technisch zu den anspruchsvollsten Disziplinen im Fliesenhandwerk.</p>
-      
-      <h2>Warum Großformatfliesen so gefragt sind</h2>
-      <p>Großformatige Fliesen – häufig in Formaten wie 80×80 cm, 100×100 cm oder 120×120 cm – sorgen für ein ruhiges, modernes Raumgefühl. Weniger Fugen bedeuten eine großzügige, offene Raumwirkung, leichtere Reinigung und ein hochwertiges, minimalistisches Design.</p>
-      
-      <h2>Technik ist entscheidend</h2>
-      <p>Je größer die Fliese, desto höher die Anforderungen an den Untergrund. Beim Großformatfliesen verlegen in Bocholt gelten strengere Toleranzen als bei Standardformaten. Entscheidend sind perfekte Ebenheit, fachgerechte Spachtelarbeiten und das Buttering-Floating-Verfahren.</p>
-      
-      <blockquote>"Großformatfliesen verzeihen keine Fehler. Wahre Meisterschaft zeigt sich in der Vorbereitung."</blockquote>
-      
-      <h2>Herausforderungen im Bad</h2>
-      <p>Gerade im Bad ist das Großformatfliesen verlegen technisch anspruchsvoll. In Duschen müssen Gefälle exakt berechnet werden, damit Wasser zuverlässig abläuft. Ein professioneller Fachbetrieb achtet auf normgerechte Verbundabdichtung und saubere Silikonfugen.</p>
+      <div className="space-y-12">
+        <section>
+          <p className="text-xl leading-relaxed mb-8">Sie möchten Großformatfliesen verlegen in Bocholt lassen und legen Wert auf ein modernes, nahezu fugenloses Design? Dann ist die Wahl des richtigen Fachbetriebs entscheidend. Denn während Großformatfliesen optisch für Eleganz und Großzügigkeit stehen, gehören sie technisch zu den anspruchsvollsten Disziplinen im Fliesenhandwerk.</p>
+          <p>Das Großformatfliesen verlegen in Bocholt erfordert präzise Planung, absolut ebene Untergründe, spezielles Werkzeug und fundiertes Fachwissen. In diesem Beitrag erfahren Sie, worauf es wirklich ankommt, welche Herausforderungen auftreten können und warum professionelle Meisterarbeit hier unverzichtbar ist.</p>
+        </section>
+
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Warum Großformatfliesen so gefragt sind</h2>
+          <p>Großformatige Fliesen – häufig in Formaten wie 80×80 cm, 100×100 cm oder 120×120 cm – sorgen für ein ruhiges, modernes Raumgefühl. Weniger Fugen bedeuten:</p>
+          <ul className="list-disc pl-6 space-y-2 mt-4">
+            <li>eine großzügige, offene Raumwirkung</li>
+            <li>leichtere Reinigung und geringere Schmutzanfälligkeit</li>
+            <li>ein hochwertiges, minimalistisches Design</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Technik ist entscheidend</h2>
+          <p>Je größer die Fliese, desto höher die Anforderungen an den Untergrund. Beim Großformatfliesen verlegen in Bocholt gelten strengere Toleranzen als bei Standardformaten. Entscheidend sind:</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div className="p-4 bg-warm-anthrazit/5 border-l-2 border-warm-stein">perfekte Ebenheit des Untergrunds</div>
+            <div className="p-4 bg-warm-anthrazit/5 border-l-2 border-warm-stein">fachgerechte Spachtelarbeiten</div>
+            <div className="p-4 bg-warm-anthrazit/5 border-l-2 border-warm-stein">Buttering-Floating-Verfahren</div>
+            <div className="p-4 bg-warm-anthrazit/5 border-l-2 border-warm-stein">Nivelliersysteme zur Höhenkontrolle</div>
+          </div>
+        </section>
+        
+        <blockquote className="text-2xl font-light italic border-l-4 border-warm-stein pl-8 py-4 my-12 text-warm-mittel">
+          "Großformatfliesen verzeihen keine Fehler. Wahre Meisterschaft zeigt sich in der Vorbereitung."
+        </blockquote>
+        
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Herausforderungen im Bad</h2>
+          <p>Gerade im Bad ist das Großformatfliesen verlegen technisch anspruchsvoll. In Duschen müssen Gefälle exakt berechnet werden, damit Wasser zuverlässig abläuft. Ein professioneller Fachbetrieb achtet auf normgerechte Verbundabdichtung und saubere Silikonfugen.</p>
+        </section>
+      </div>
     `
   },
   {
@@ -53,9 +77,23 @@ export const articles = [
     image: '/images/website-extract/Raumgefuehl-8-2-scaled-1.jpg',
     featured: false,
     content: `
-      <p>Die Suche nach einem hochwertigen Fliesenleger führt oft über Empfehlungen und Referenzen. Doch was unterscheidet einen Meisterbetrieb von einem Standard-Verleger?</p>
-      <h2>Qualität ist kein Zufall</h2>
-      <p>Ein hochwertiger Fliesenleger zeichnet sich durch Beratungskompetenz, technisches Verständnis und Liebe zum Detail aus. Es geht nicht nur um das Kleben von Fliesen, sondern um das Schaffen von Werten.</p>
+      <div className="space-y-12">
+        <section>
+          <p className="text-xl leading-relaxed mb-8">Die Suche nach einem hochwertigen Fliesenleger führt oft über Empfehlungen und Referenzen. Doch was unterscheidet einen Meisterbetrieb von einem Standard-Verleger?</p>
+        </section>
+        
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Qualität ist kein Zufall</h2>
+          <p>Ein hochwertiger Fliesenleger zeichnet sich durch Beratungskompetenz, technisches Verständnis und Liebe zum Detail aus. Es geht nicht nur um das Kleben von Fliesen, sondern um das Schaffen von Werten.</p>
+          <h3 className="text-xl font-medium mt-8 mb-4">Wichtige Kriterien:</h3>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Transparente Angebotserstellung (Pauschalpreise)</li>
+            <li>Eigene Meister im Team (keine Subunternehmer)</li>
+            <li>Moderne Werkzeuge und Verlegetechniken</li>
+            <li>Umfassende Beratung vor Ort</li>
+          </ul>
+        </section>
+      </div>
     `
   },
   {
@@ -68,9 +106,22 @@ export const articles = [
     image: '/images/website-extract/Beratung-und-Konzeptentwicklung.jpg',
     featured: false,
     content: `
-      <p>Jedes Projekt beginnt mit einem Gespräch. In unserer Ausstellung in Bocholt nehmen wir uns Zeit für Ihre Vision.</p>
-      <h2>Materialien erleben</h2>
-      <p>Haptik kann man nicht digital vermitteln. Deshalb setzen wir auf echte Materialcollagen und Bemusterungen vor Ort.</p>
+      <div className="space-y-12">
+        <section>
+          <p className="text-xl leading-relaxed mb-8">Jedes Projekt beginnt mit einem Gespräch. In unserer Ausstellung in Bocholt nehmen wir uns Zeit für Ihre Vision.</p>
+        </section>
+        
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Materialien erleben</h2>
+          <p>Haptik kann man nicht digital vermitteln. Deshalb setzen wir auf echte Materialcollagen und Bemusterungen vor Ort.</p>
+          <p>In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint.</p>
+        </section>
+
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Digitale Planung</h2>
+          <p>Dank modernster 3D-Visualisierungen und Virtual-Reality-Technologien können Sie Ihr Projekt bereits vor der Umsetzung realitätsnah erleben.</p>
+        </section>
+      </div>
     `
   },
   {
@@ -83,10 +134,29 @@ export const articles = [
     image: '/images/website-extract/Perfekte-Linien_1-scaled.jpg',
     featured: false,
     content: `
-      <p>Ein fugenloses Bad wirkt wie aus einem Guss. Es strahlt Ruhe aus und ist zudem extrem pflegeleicht.</p>
-      <h2>Die Rolle der Keramik</h2>
-      <p>Mit Platten bis zu 3,20 Meter Höhe lassen sich Wände nahezu ohne horizontale Unterbrechung gestalten.</p>
+      <div className="space-y-12">
+        <section>
+          <p className="text-xl leading-relaxed mb-8">Ein fugenloses Bad wirkt wie aus einem Guss. Es strahlt Ruhe aus und ist zudem extrem pflegeleicht.</p>
+        </section>
+        
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Die Rolle der Keramik</h2>
+          <p>Mit Platten bis zu 3,20 Meter Höhe lassen sich Wände nahezu ohne horizontale Unterbrechung gestalten.</p>
+          <p>Das Ergebnis ist eine homogene Fläche, die den Raum optisch vergrößert und eine exklusive Atmosphäre schafft.</p>
+        </section>
+
+        <section>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Vorteile auf einen Blick</h2>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Hygienisch und leicht zu reinigen</li>
+            <li>Keine verfärbten Fugen mehr</li>
+            <li>Moderne, architektonische Optik</li>
+            <li>Individuelle Maßanfertigung</li>
+          </ul>
+        </section>
+      </div>
     `
+  }
   }
 ]
 
