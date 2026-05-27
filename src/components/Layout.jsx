@@ -84,35 +84,41 @@ function Header() {
           </div>
         </Link>
         
-        <div className="hidden lg:flex items-center gap-8">
-          <Link to="/portfolio" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+        <div className="hidden lg:flex items-center gap-10">
+          <Link to="/portfolio" className={`font-dm text-[0.95rem] font-medium tracking-[0.08em] uppercase transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Portfolio
           </Link>
-          <Link to="/projekte" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/projekte" className={`font-dm text-[0.95rem] font-medium tracking-[0.08em] uppercase transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Projekte
           </Link>
-          <Link to="/lookbook" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/lookbook" className={`font-dm text-[0.95rem] font-medium tracking-[0.08em] uppercase transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Lookbook
           </Link>
-          <Link to="/team" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/team" className={`font-dm text-[0.95rem] font-medium tracking-[0.08em] uppercase transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Team
           </Link>
-          <Link to="/magazin" className={`font-dm text-[0.85rem] font-medium tracking-wide transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
+          <Link to="/magazin" className={`font-dm text-[0.95rem] font-medium tracking-[0.08em] uppercase transition-colors duration-300 ${scrolled ? 'text-warm-text hover:text-warm-anthrazit' : isHome ? 'text-inv-light hover:text-white' : 'text-warm-mittel hover:text-warm-text'}`}>
             Magazin
           </Link>
           <Link 
             to="/kontakt" 
-            className={`px-5 py-2.5 font-dm text-[0.75rem] font-semibold tracking-wider uppercase transition-all duration-300 ${scrolled ? 'bg-warm-anthrazit text-warm-bg hover:bg-warm-text' : isHome ? 'bg-inv-light text-warm-text hover:bg-white' : 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit'}`}
+            className={`px-6 py-3 font-dm text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-all duration-300 ${scrolled ? 'bg-warm-anthrazit text-warm-bg hover:bg-warm-text' : isHome ? 'bg-inv-light text-warm-text hover:bg-white' : 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit'}`}
           >
             Kontakt
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button className="lg:hidden p-2" aria-label="Menu">
-          <svg className={`w-6 h-6 ${scrolled ? 'text-warm-anthrazit' : isHome ? 'text-inv-light' : 'text-warm-text'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+        {/* Mobile Menu Button — Modern Animated Hamburger */}
+        <button 
+          className="lg:hidden relative w-10 h-10 flex items-center justify-center" 
+          aria-label="Menu"
+          aria-expanded="false"
+        >
+          <div className="w-6 flex flex-col gap-1.5">
+            <span className={`block h-0.5 w-full transition-all duration-300 ${scrolled ? 'bg-warm-anthrazit' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`}></span>
+            <span className={`block h-0.5 w-4/5 transition-all duration-300 ${scrolled ? 'bg-warm-anthrazit' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`}></span>
+            <span className={`block h-0.5 w-full transition-all duration-300 ${scrolled ? 'bg-warm-anthrazit' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`}></span>
+          </div>
         </button>
       </nav>
     </header>
