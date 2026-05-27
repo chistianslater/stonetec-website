@@ -32,61 +32,61 @@ const teamMembers = [
     quote: 'Qualität ist keine Zufälligkeit. Sie ist das Ergebnis bewusster Entscheidungen.',
     experience: '25+ Jahre',
     expertise: ['Strategie', 'Manufaktur', 'Großformate'],
-    image: '/images/team-tim.jpg'
+    image: '/images/Mitarbeiter/Tim Dunkerbeck-web.webp'
   },
   {
     id: 2,
-    name: 'Markus Weber',
-    role: 'Leitender Fliesenlegermeister',
+    name: 'Frank Brendjes',
+    role: 'Fliesenlegermeister',
     quote: 'Der Gehrungsschnitt zeigt, wer wirklich Meister ist.',
     experience: '20 Jahre',
     expertise: ['Großformate', 'Sanierung', 'Spezialanfertigungen'],
-    image: '/images/team-markus.jpg'
+    image: '/images/Mitarbeiter/Frank Brendjes-web.webp'
   },
   {
     id: 3,
-    name: 'Stefan Klein',
+    name: 'Matthias Krabbe',
     role: 'Fliesenlegermeister',
     quote: 'Jede Fuge erzählt eine Geschichte über die Person, die sie gesetzt hat.',
     experience: '18 Jahre',
     expertise: ['Bäder', 'Bodenbeläge', 'Wandgestaltung'],
-    image: '/images/team-stefan.jpg'
+    image: '/images/Mitarbeiter/Matthias Krabbe-web.webp'
   },
   {
     id: 4,
-    name: 'Andreas Müller',
+    name: 'Mario Weidemann',
     role: 'Fliesenlegermeister',
     quote: 'Präzision ist keine Fähigkeit. Sie ist eine Haltung.',
     experience: '15 Jahre',
     expertise: ['Keramik', 'Naturstein', 'Details'],
-    image: '/images/team-andreas.jpg'
+    image: '/images/Mitarbeiter/Mario Weidemann-web.webp'
   },
   {
     id: 5,
-    name: 'Michael Schäfer',
+    name: 'Thorsten Ueffing',
     role: 'Fliesenlegermeister',
     quote: 'Das Material verdient Respekt. Wir geben ihm den richtigen Rahmen.',
     experience: '12 Jahre',
     expertise: ['Großformate', 'Technik', 'Schulung'],
-    image: '/images/team-michael.jpg'
+    image: '/images/Mitarbeiter/Thorsten Ueffing-web.webp'
   },
   {
     id: 6,
-    name: 'Thomas Bauer',
+    name: 'Lars Brodzinski',
     role: 'Fliesenlegermeister',
     quote: 'Ein guter Raum fühlt sich an wie nach Hause kommen.',
     experience: '10 Jahre',
     expertise: ['Visualisierung', 'Kundenberatung', 'Planung'],
-    image: '/images/team-thomas.jpg'
+    image: '/images/Mitarbeiter/Lars Brodzinski-web.webp'
   },
   {
     id: 7,
-    name: 'Jürgen Hoffmann',
+    name: 'Mujo Pobric',
     role: 'Fliesenlegermeister',
     quote: 'Handwerk lebt von der Überzeugung, dass es anders nicht geht.',
     experience: '8 Jahre',
     expertise: ['Manufaktur', 'Sonderlösungen', 'Innovation'],
-    image: '/images/team-juergen.jpg'
+    image: '/images/Mitarbeiter/Mujo Pobric-web.webp'
   }
 ]
 

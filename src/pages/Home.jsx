@@ -156,7 +156,7 @@ function Hero() {
       {/* Parallax Background */}
       <motion.div className="absolute inset-0" style={{ y: springY, scale: springScale }}>
         <motion.img
-          src="/images/hero-2.jpg"
+          src="/images/Sonstiges/IMG_0450-2-web.webp"
           alt="Luxuriöses Badezimmer mit großformatigen Fliesen von StoneTec Bocholt"
           className="w-full h-full object-cover"
           initial={{ scale: 1.2, opacity: 0 }}
@@ -296,10 +296,10 @@ function Intro() {
    LEISTUNGEN — Bento Grid
    ═══════════════════════════════════════════════════════════ */
 const services = [
-  { img: '/images/verlegung.jpg', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
-  { img: '/images/keramikmanufaktur.jpg', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
-  { img: '/images/visualisierung.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheiden erst, wenn du siehst, wie es wird.' },
-  { img: '/images/ausstellung.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
+  { img: '/images/Sonstiges/IMG_0643-web.webp', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
+  { img: '/images/Keramik-Manufaktur/IMG_5118-web.webp', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
+  { img: '/images/Sonstiges/IMG_0948-web.webp', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheiden erst, wenn du siehst, wie es wird.' },
+  { img: '/images/Sonstiges/Showroom-2-web.webp', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
 ]
 
 function ServiceCard({ service, index }) {
@@ -464,7 +464,7 @@ function Markenversprechen() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
-              <img src="/images/beratung.jpg" alt="StoneTec Beratungsgespräch im Showroom Bocholt" className="w-full h-full object-cover" loading="lazy" />
+              <img src="/images/Sonstiges/Beratung und Konzeptentwicklung-web.webp" alt="StoneTec Beratungsgespräch im Showroom Bocholt" className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06060640] to-transparent" />
             </div>
           </motion.div>
@@ -487,11 +487,11 @@ function Grossformate() {
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-20%'])
 
   const images = [
-    { src: '/images/grossformat-1.jpg', alt: 'Großformatige Fliesen im Badezimmer — StoneTec Bocholt' },
-    { src: '/images/grossformat-2.jpg', alt: 'Großformat Feinsteinzeug Wohnraum' },
-    { src: '/images/grossformat-3.jpg', alt: 'Großformatige Keramikplatten Showroom Bocholt' },
-    { src: '/images/grossformat-4.jpg', alt: 'Großformat Fliesen Design' },
-    { src: '/images/hero-4.jpg', alt: 'Großformat Fliesen minimalistisch' },
+    { src: '/images/Sonstiges/IMG_0482-web.webp', alt: 'Großformatige Fliesen im Badezimmer — StoneTec Bocholt' },
+    { src: '/images/Sonstiges/IMG_0655-web.webp', alt: 'Großformat Feinsteinzeug Wohnraum' },
+    { src: '/images/Sonstiges/IMG_0714-web.webp', alt: 'Großformatige Keramikplatten Showroom Bocholt' },
+    { src: '/images/Sonstiges/IMG_0816-web.webp', alt: 'Großformat Fliesen Design' },
+    { src: '/images/Sonstiges/IMG_0851-web.webp', alt: 'Großformat Fliesen minimalistisch' },
   ]
 
   return (
@@ -700,7 +700,7 @@ function Showroom() {
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       >
         <img
-          src="/images/showroom.jpg"
+          src="/images/Sonstiges/Showroom-2-web.webp"
           alt="StoneTec Fliesenausstellung und Showroom in Bocholt"
           className="w-full h-full object-cover"
           loading="lazy"
