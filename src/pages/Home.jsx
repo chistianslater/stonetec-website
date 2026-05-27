@@ -1,36 +1,99 @@
 import { useEffect, useRef, useState } from 'react'
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
-/* ─── Scroll Reveal Hook ──────────────────────────────────── */
-function useReveal(threshold = 0.15) {
+/* ─── Magnetic Link Component ──────────────────────────────────── */
+function MagneticLink({ to, children, className }) {
   const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.unobserve(el) } },
-      { threshold }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [threshold])
-  return ref
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return
+    const { clientX, clientY } = e
+    const { left, top, width, height } = ref.current.getBoundingClientRect()
+    const x = (clientX - left - width / 2) * 0.2
+    const y = (clientY - top - height / 2) * 0.2
+    setPosition({ x, y })
+  }
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 })
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: 'spring', stiffness: 350, damping: 15, mass: 0.5 }}
+    >
+      <Link to={to} className={className}>
+        {children}
+      </Link>
+    </motion.div>
+  )
 }
 
-function Reveal({ children, className = '', delay = 0 }) {
-  const ref = useReveal()
+/* ─── Text Reveal Component ──────────────────────────────────── */
+function TextReveal({ children, className = '', delay = 0 }) {
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
-      {children}
+    <div className={`overflow-hidden ${className}`}>
+      <motion.div
+        initial={{ y: '100%', opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ 
+          duration: 0.8, 
+          delay,
+          ease: [0.16, 1, 0.3, 1]
+        }}
+      >
+        {children}
+      </motion.div>
     </div>
   )
 }
 
-/* ─── Overline Label ──────────────────────────────────────── */
-function Overline({ children, dark = false }) {
+/* ─── Stagger Container ──────────────────────────────────── */
+function StaggerContainer({ children, className = '', staggerDelay = 0.1 }) {
   return (
-    <p className={`font-dm text-[0.68rem] font-medium tracking-[3px] uppercase mb-4 ${dark ? 'text-warm-tagline' : 'text-warm-mittel'}`}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+      variants={{
+        visible: {
+          transition: {
+            staggerChildren: staggerDelay
+          }
+        }
+      }}
+      className={className}
+    >
       {children}
-    </p>
+    </motion.div>
+  )
+}
+
+function StaggerItem({ children, className = '' }) {
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        visible: { 
+          opacity: 1, 
+          y: 0,
+          transition: {
+            duration: 0.8,
+            ease: [0.16, 1, 0.3, 1]
+          }
+        }
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   )
 }
 
@@ -39,45 +102,130 @@ function Overline({ children, dark = false }) {
    ═══════════════════════════════════════════════════════════ */
 function Hero() {
   const [imgLoaded, setImgLoaded] = useState(false)
+  const containerRef = useRef(null)
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start']
+  })
+  
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+  
+  const springY = useSpring(y, { stiffness: 100, damping: 30, restDelta: 0.001 })
+  const springScale = useSpring(scale, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
   return (
-    <section className="relative h-screen min-h-[700px] flex items-end overflow-hidden">
-      <div className="absolute inset-0">
-        <img
+    <section ref={containerRef} className="relative h-screen min-h-[700px] flex items-end overflow-hidden">
+      {/* Parallax Background */}
+      <motion.div className="absolute inset-0" style={{ y: springY, scale: springScale }}>
+        <motion.img
           src="/images/hero-2.jpg"
           alt="Luxuriöses Badezimmer mit großformatigen Fliesen von StoneTec Bocholt"
-          className={`w-full h-full object-cover transition-transform duration-[2s] ease-out ${imgLoaded ? 'scale-100' : 'scale-110'}`}
+          className="w-full h-full object-cover"
+          initial={{ scale: 1.2, opacity: 0 }}
+          animate={imgLoaded ? { scale: 1, opacity: 1 } : {}}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           onLoad={() => setImgLoaded(true)}
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-[#06060680] to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#060606cc] via-transparent to-transparent" />
-      </div>
+      </motion.div>
 
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 pb-16 md:pb-24 hero-stagger">
-        <div className="w-16 h-[1px] bg-warm-stein/50 mb-8" />
-        <h1 className="font-sora font-extralight text-[clamp(2.8rem,7vw,5.5rem)] text-inv-light leading-[1.05] tracking-[-0.03em] max-w-4xl">
-          Räume,<br />die man spürt.
-        </h1>
-        <p className="font-dm text-inv-muted text-[clamp(0.95rem,1.5vw,1.15rem)] mt-6 max-w-lg leading-relaxed">
-          Meisterhafte Fliesenverlegung, eigene Keramikmanufaktur und 3D&#8209;Visualisierung in Bocholt — alles aus einer Hand.
-        </p>
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-          <a
-            href="/kontakt"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-inv-light text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300"
-          >
-            <span>Zeig uns deinen Raum</span>
-            <span className="inline-block w-6 h-[1px] bg-warm-text/60" />
-          </a>
-          <a
-            href="#leistungen"
-            className="inline-flex items-center gap-3 px-8 py-4 border border-inv-light/40 text-inv-light font-dm text-[0.82rem] font-medium tracking-wider uppercase hover:bg-inv-light/10 hover:border-inv-light/70 transition-all duration-300"
-          >
-            Leistungen ansehen
-          </a>
+      {/* Hero Content */}
+      <motion.div 
+        className="relative z-10 w-full px-6 md:px-12 lg:px-20 pb-16 md:pb-24"
+        style={{ opacity }}
+      >
+        <div className="overflow-hidden mb-8">
+          <motion.div 
+            className="w-16 h-[1px] bg-warm-stein/50"
+            initial={{ scaleX: 0, originX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          />
         </div>
-      </div>
+        
+        <div className="overflow-hidden">
+          <motion.h1 
+            className="font-sora font-extralight text-[clamp(2.8rem,7vw,5.5rem)] text-inv-light leading-[1.05] tracking-[-0.03em] max-w-4xl"
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Räume,<br />die man spürt.
+          </motion.h1>
+        </div>
+        
+        <div className="overflow-hidden mt-6">
+          <motion.p 
+            className="font-dm text-inv-muted text-[clamp(0.95rem,1.5vw,1.15rem)] max-w-lg leading-relaxed"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Meisterhafte Fliesenverlegung, eigene Keramikmanufaktur und 3D&#8209;Visualisierung in Bocholt — alles aus einer Hand.
+          </motion.p>
+        </div>
+
+        <motion.div 
+          className="mt-10 flex flex-wrap items-center gap-4"
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <MagneticLink
+            to="/kontakt"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-inv-light text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 overflow-hidden relative"
+          >
+            <span className="relative z-10">Zeig uns deinen Raum</span>
+            <motion.span 
+              className="inline-block w-6 h-[1px] bg-warm-text/60 relative z-10"
+              whileHover={{ width: 32 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div 
+              className="absolute inset-0 bg-white"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            />
+          </MagneticLink>
+          
+          <MagneticLink
+            to="#leistungen"
+            className="group inline-flex items-center gap-3 px-8 py-4 border border-inv-light/40 text-inv-light font-dm text-[0.82rem] font-medium tracking-wider uppercase hover:bg-inv-light/10 hover:border-inv-light/70 transition-all duration-300"
+          >
+            <span>Leistungen ansehen</span>
+            <motion.span
+              initial={{ x: 0 }}
+              whileHover={{ x: 4 }}
+              transition={{ duration: 0.3 }}
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </motion.span>
+          </MagneticLink>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <span className="font-dm text-[0.7rem] text-inv-muted uppercase tracking-widest">Scroll</span>
+        <motion.div 
+          className="w-px h-8 bg-inv-muted/50"
+          animate={{ scaleY: [1, 0.5, 1] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </motion.div>
     </section>
   )
 }
@@ -87,18 +235,19 @@ function Hero() {
    ═══════════════════════════════════════════════════════════ */
 function Intro() {
   return (
-    <section className="bg-warm-bg py-24 md:py-36 noise">
+    <section className="bg-warm-bg py-24 md:py-36 noise relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
-        <Reveal>
+        <TextReveal delay={0}>
           <p className="font-sora font-extralight text-[clamp(1.6rem,3vw,2.6rem)] text-warm-text leading-[1.35] tracking-[-0.02em]">
             Zwischen der Vision in deinem Kopf und der Realität in deinem Raum liegen Entscheidungen, die sich endgültig anfühlen. Materialien, die du nicht kennst. Formate, die Präzision verlangen. Und die Frage, wem du das anvertraust.
           </p>
-        </Reveal>
-        <Reveal delay={200}>
+        </TextReveal>
+        
+        <TextReveal delay={0.2}>
           <p className="font-dm text-[0.95rem] text-warm-mittel mt-8 max-w-2xl leading-relaxed">
             Dafür gibt es uns. Sieben Meister, eigene Fertigung, ein klarer Prozess — und den Anspruch, dass jeder Raum genau so wird, wie du ihn dir vorstellst. Oder besser.
           </p>
-        </Reveal>
+        </TextReveal>
       </div>
     </section>
   )
@@ -114,35 +263,108 @@ const services = [
   { img: '/images/ausstellung.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
 ]
 
+function ServiceCard({ service, index }) {
+  const ref = useRef(null)
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className={service.large ? 'md:col-span-2' : ''}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link to="/kontakt" className="group block relative overflow-hidden rounded-2xl aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer">
+        <motion.div 
+          className="absolute inset-0"
+          animate={{ scale: isHovered ? 1.05 : 1 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img
+            src={service.img}
+            alt={`${service.title} — StoneTec Bocholt`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </motion.div>
+        
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1815ee] via-[#1A181540] to-transparent" />
+        
+        <motion.div 
+          className="absolute bottom-0 left-0 right-0 p-6 md:p-10"
+          animate={{ y: isHovered ? -8 : 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <motion.p 
+            className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-stein mb-2"
+            animate={{ opacity: isHovered ? 0.7 : 1 }}
+          >
+            {service.sub}
+          </motion.p>
+          <h3 className="font-sora font-light text-[clamp(1.4rem,2.5vw,2rem)] text-white leading-tight tracking-[-0.01em] mb-3">
+            {service.title}
+          </h3>
+          <motion.p 
+            className="font-dm text-[0.88rem] text-[#b0aaa5] max-w-md leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {service.desc}
+          </motion.p>
+        </motion.div>
+
+        {/* Hover Arrow */}
+        <motion.div 
+          className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
+          transition={{ duration: 0.3 }}
+        >
+          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
+        </motion.div>
+      </Link>
+    </motion.div>
+  )
+}
+
 function Leistungen() {
   return (
     <section id="leistungen" className="bg-dark-bg py-24 md:py-36 noise">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <Reveal>
-          <Overline dark>Was wir tun</Overline>
-          <h2 className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-inv-light leading-tight tracking-[-0.02em] max-w-3xl">
+        <div className="overflow-hidden mb-4">
+          <motion.p 
+            className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-tagline"
+            initial={{ y: '100%' }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Was wir tun
+          </motion.p>
+        </div>
+        
+        <div className="overflow-hidden mb-16">
+          <motion.h2 
+            className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-inv-light leading-tight tracking-[-0.02em] max-w-3xl"
+            initial={{ y: '100%' }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
             Fliesenverlegung, Keramikmanufaktur<br />und 3D-Raumplanung aus Bocholt.
-          </h2>
-        </Reveal>
+          </motion.h2>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-16">
-          {services.map((s, i) => (
-            <Reveal key={s.title} delay={i * 100} className={s.large ? 'md:col-span-2' : ''}>
-              <a href="/kontakt" className="group block relative overflow-hidden rounded-2xl aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer">
-                <img
-                  src={s.img}
-                  alt={`${s.title} — StoneTec Bocholt`}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1815ee] via-[#1A181540] to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-                  <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-stein mb-2">{s.sub}</p>
-                  <h3 className="font-sora font-light text-[clamp(1.4rem,2.5vw,2rem)] text-white leading-tight tracking-[-0.01em]">{s.title}</h3>
-                  <p className="font-dm text-[0.88rem] text-[#b0aaa5] mt-3 max-w-md leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">{s.desc}</p>
-                </div>
-              </a>
-            </Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {services.map((service, i) => (
+            <ServiceCard key={service.title} service={service} index={i} />
           ))}
         </div>
       </div>
@@ -167,29 +389,46 @@ function Markenversprechen() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div>
-            <Reveal>
-              <Overline>So arbeiten wir</Overline>
+            <TextReveal>
+              <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
+                So arbeiten wir
+              </p>
+            </TextReveal>
+            
+            <TextReveal delay={0.1}>
               <h2 className="font-sora font-extralight text-[clamp(1.8rem,3vw,2.8rem)] text-warm-text leading-[1.2] tracking-[-0.02em] mb-6">
                 Du siehst dein Ergebnis, bevor wir anfangen. Du kennst den Preis, bevor wir anfangen. Und du weißt, wer bei dir arbeitet.
               </h2>
-            </Reveal>
-            <Reveal delay={200}>
-              <div className="mt-8 space-y-4">
-                {facts.map((p) => (
-                  <div key={p} className="flex items-start gap-4">
-                    <span className="mt-2 w-1.5 h-1.5 bg-warm-stein rounded-full flex-shrink-0" />
-                    <p className="font-dm text-[0.92rem] text-warm-mittel leading-relaxed">{p}</p>
+            </TextReveal>
+            
+            <StaggerContainer className="mt-8 space-y-4" staggerDelay={0.1}>
+              {facts.map((fact) => (
+                <StaggerItem key={fact}>
+                  <div className="flex items-start gap-4">
+                    <motion.span 
+                      className="mt-2 w-1.5 h-1.5 bg-warm-stein rounded-full flex-shrink-0"
+                      whileInView={{ scale: [0, 1.2, 1] }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, ease: 'backOut' }}
+                    />
+                    <p className="font-dm text-[0.92rem] text-warm-mittel leading-relaxed">{fact}</p>
                   </div>
-                ))}
-              </div>
-            </Reveal>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           </div>
-          <Reveal delay={300}>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 40 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
               <img src="/images/beratung.jpg" alt="StoneTec Beratungsgespräch im Showroom Bocholt" className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06060640] to-transparent" />
             </div>
-          </Reveal>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -200,6 +439,14 @@ function Markenversprechen() {
    GROßFORMATE — Horizontal Scroll Gallery
    ═══════════════════════════════════════════════════════════ */
 function Grossformate() {
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start']
+  })
+  
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-20%'])
+
   const images = [
     { src: '/images/grossformat-1.jpg', alt: 'Großformatige Fliesen im Badezimmer — StoneTec Bocholt' },
     { src: '/images/grossformat-2.jpg', alt: 'Großformat Feinsteinzeug Wohnraum' },
@@ -209,32 +456,48 @@ function Grossformate() {
   ]
 
   return (
-    <section id="grossformate" className="bg-dark-bg py-24 md:py-36 noise">
+    <section ref={containerRef} id="grossformate" className="bg-dark-bg py-24 md:py-36 noise overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-12">
-        <Reveal>
-          <Overline dark>Großformate bis 320 cm</Overline>
+        <TextReveal>
+          <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-tagline mb-4">Großformate bis 320 cm</p>
+        </TextReveal>
+        
+        <TextReveal delay={0.1}>
           <h2 className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-inv-light leading-tight tracking-[-0.02em]">
             Großformatige Fliesen.<br />Präzise verlegt.
           </h2>
+        </TextReveal>
+        
+        <TextReveal delay={0.2}>
           <p className="font-dm text-[0.95rem] text-inv-muted mt-4 max-w-lg leading-relaxed">
             Keramikplatten bis 160 &times; 320 cm. Nahezu fugenlose Flächen, die Weite schaffen. Die Verarbeitung verlangt Meister-Erfahrung und Spezialwerkzeug — beides bringen wir mit.
           </p>
-        </Reveal>
+        </TextReveal>
       </div>
-      <div className="scroll-gallery">
+      
+      <motion.div 
+        className="flex gap-5 px-6 md:px-12 lg:px-20"
+        style={{ x }}
+      >
         {images.map((img, i) => (
-          <Reveal key={img.src} delay={i * 80}>
-            <div className="w-[75vw] md:w-[45vw] lg:w-[35vw] aspect-[3/2] rounded-xl overflow-hidden">
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-out"
-                loading="lazy"
-              />
-            </div>
-          </Reveal>
+          <motion.div 
+            key={img.src}
+            className="flex-shrink-0 w-[75vw] md:w-[45vw] lg:w-[35vw] aspect-[3/2] rounded-xl overflow-hidden"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   )
 }
@@ -253,22 +516,38 @@ function Prozess() {
   return (
     <section id="prozess" className="bg-warm-bg py-24 md:py-36 noise">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <Reveal>
-          <Overline>Der Weg</Overline>
-          <h2 className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-2xl">
+        <TextReveal>
+          <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">Der Weg</p>
+        </TextReveal>
+        
+        <TextReveal delay={0.1}>
+          <h2 className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-2xl mb-16">
             Vier Schritte.<br />Kein Rätselraten.
           </h2>
-        </Reveal>
+        </TextReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px mt-20 bg-warm-anthrazit/10 rounded-2xl overflow-hidden">
-          {steps.map((s, i) => (
-            <Reveal key={s.num} delay={i * 120}>
-              <div className="bg-warm-bg p-8 md:p-10 h-full flex flex-col">
-                <span className="font-sora font-extralight text-4xl text-warm-stein/30 mb-6">{s.num}</span>
-                <h3 className="font-sora font-light text-xl text-warm-text mb-4 tracking-[-0.01em]">{s.title}</h3>
-                <p className="font-dm text-[0.88rem] text-warm-mittel leading-relaxed mt-auto">{s.desc}</p>
-              </div>
-            </Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-warm-anthrazit/10 rounded-2xl overflow-hidden">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.num}
+              className="bg-warm-bg p-8 md:p-10 h-full flex flex-col"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <motion.span 
+                className="font-sora font-extralight text-4xl text-warm-stein/30 mb-6 block"
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 + 0.2, ease: 'backOut' }}
+              >
+                {step.num}
+              </motion.span>
+              <h3 className="font-sora font-light text-xl text-warm-text mb-4 tracking-[-0.01em]">{step.title}</h3>
+              <p className="font-dm text-[0.88rem] text-warm-mittel leading-relaxed mt-auto">{step.desc}</p>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -282,30 +561,59 @@ function Prozess() {
 function Showroom() {
   return (
     <section id="showroom" className="relative min-h-[70vh] flex items-center overflow-hidden">
-      <img
-        src="/images/showroom.jpg"
-        alt="StoneTec Fliesenausstellung und Showroom in Bocholt"
-        className="absolute inset-0 w-full h-full object-cover"
-        loading="lazy"
-      />
+      <motion.div 
+        className="absolute inset-0"
+        initial={{ scale: 1.1 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <img
+          src="/images/showroom.jpg"
+          alt="StoneTec Fliesenausstellung und Showroom in Bocholt"
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </motion.div>
       <div className="absolute inset-0 bg-[#060606cc]" />
+      
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-24 w-full">
-        <Reveal>
-          <Overline dark>Showroom Bocholt</Overline>
+        <TextReveal>
+          <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-tagline mb-4">Showroom Bocholt</p>
+        </TextReveal>
+        
+        <TextReveal delay={0.1}>
           <h2 className="font-sora font-extralight text-[clamp(2.2rem,4.5vw,3.8rem)] text-inv-light leading-tight tracking-[-0.02em] max-w-2xl">
             Komm vorbei.<br />Lass dich inspirieren.
           </h2>
+        </TextReveal>
+        
+        <TextReveal delay={0.2}>
           <address className="font-dm text-inv-muted mt-6 max-w-md leading-relaxed not-italic">
             Hamalandstraße 2, 46399 Bocholt<br />
             Beratung nach Terminvereinbarung
           </address>
-          <a
-            href="/kontakt"
-            className="inline-flex items-center gap-3 mt-10 px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] tracking-wider uppercase hover:bg-white transition-colors duration-300"
+        </TextReveal>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <MagneticLink
+            to="/kontakt"
+            className="group inline-flex items-center gap-3 mt-10 px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] tracking-wider uppercase hover:bg-white transition-colors duration-300 overflow-hidden relative"
           >
-            Termin vereinbaren
-          </a>
-        </Reveal>
+            <span className="relative z-10">Termin vereinbaren</span>
+            <motion.div 
+              className="absolute inset-0 bg-white"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            />
+          </MagneticLink>
+        </motion.div>
       </div>
     </section>
   )
@@ -339,36 +647,79 @@ const faqs = [
 
 function FAQ() {
   const [open, setOpen] = useState(null)
+
   return (
     <section className="bg-dark-bg py-24 md:py-36 noise">
       <div className="max-w-3xl mx-auto px-6 md:px-12">
-        <Reveal>
-          <Overline dark>Häufige Fragen</Overline>
+        <TextReveal>
+          <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-tagline mb-4">Häufige Fragen</p>
+        </TextReveal>
+        
+        <TextReveal delay={0.1}>
           <h2 className="font-sora font-extralight text-[clamp(1.8rem,3vw,2.6rem)] text-inv-light leading-tight tracking-[-0.02em] mb-12">
             Was du wissen solltest.
           </h2>
-        </Reveal>
+        </TextReveal>
 
-        <div className="space-y-0 border-t border-[#ffffff08]">
+        <motion.div 
+          className="space-y-0 border-t border-[#ffffff08]"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+        >
           {faqs.map((f, i) => (
-            <Reveal key={i} delay={i * 60}>
-              <div className="border-b border-[#ffffff08]">
-                <button
-                  onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full flex items-start justify-between py-6 text-left group cursor-pointer"
+            <motion.div 
+              key={i} 
+              className="border-b border-[#ffffff08]"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+              }}
+            >
+              <motion.button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-start justify-between py-6 text-left group cursor-pointer"
+                whileHover={{ x: 4 }}
+                transition={{ duration: 0.3 }}
+              >
+                <span className={`font-dm font-medium text-[0.95rem] pr-8 leading-snug transition-colors duration-300 ${open === i ? 'text-inv-light' : 'text-inv-mid group-hover:text-inv-light'}`}>
+                  {f.q}
+                </span>
+                <motion.span 
+                  className="mt-1 flex-shrink-0 w-5 h-5 flex items-center justify-center text-inv-muted"
+                  animate={{ rotate: open === i ? 45 : 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <span className="font-dm font-medium text-[0.95rem] text-inv-mid pr-8 leading-snug group-hover:text-inv-light transition-colors">{f.q}</span>
-                  <span className={`mt-1 flex-shrink-0 w-5 h-5 flex items-center justify-center text-inv-muted transition-transform duration-300 ${open === i ? 'rotate-45' : ''}`}>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0v14M0 7h14" stroke="currentColor" strokeWidth="1.2"/></svg>
-                  </span>
-                </button>
-                <div className={`overflow-hidden transition-all duration-500 ease-out ${open === i ? 'max-h-96 pb-6' : 'max-h-0'}`}>
-                  <p className="font-dm text-[0.88rem] text-inv-muted leading-relaxed pr-12">{f.a}</p>
-                </div>
-              </div>
-            </Reveal>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 0v14M0 7h14" stroke="currentColor" strokeWidth="1.2"/></svg>
+                </motion.span>
+              </motion.button>
+              
+              <AnimatePresence>
+                {open === i && (
+                  <motion.div 
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <motion.p 
+                      className="font-dm text-[0.88rem] text-inv-muted leading-relaxed pr-12 pb-6"
+                      initial={{ y: -10 }}
+                      animate={{ y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                      {f.a}
+                    </motion.p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )
