@@ -124,7 +124,7 @@ function MobileMenu({ isOpen, onClose }) {
           >
             <button
               onClick={onClose}
-              className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-warm-anthrazit/5 hover:bg-warm-anthrazit/10 transition-colors"
+              className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-warm-anthrazit/5 hover:bg-warm-anthrazit/10 transition-colors cursor-pointer"
             >
               <svg className="w-6 h-6 text-warm-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -143,11 +143,22 @@ function MobileMenu({ isOpen, onClose }) {
                     to={item.path}
                     onClick={onClose}
                     className={item.isButton 
-                      ? "inline-block px-10 py-4 bg-warm-anthrazit text-warm-bg font-dm text-lg font-semibold tracking-wider uppercase"
-                      : "font-sora text-4xl font-light text-warm-text hover:text-warm-mittel transition-colors"
+                      ? "inline-block px-10 py-4 bg-warm-anthrazit text-warm-bg font-dm text-lg font-semibold tracking-[0.1em] uppercase hover:bg-warm-text transition-colors duration-300"
+                      : "group relative block overflow-hidden h-[1.2em] font-sora text-4xl font-light text-warm-text"
                     }
                   >
-                    {item.name}
+                    {!item.isButton ? (
+                      <>
+                        <span className="block transition-transform duration-500 ease-out group-hover:-translate-y-full uppercase tracking-wider">
+                          {item.name}
+                        </span>
+                        <span className="absolute top-full left-0 block transition-transform duration-500 ease-out group-hover:-translate-y-full uppercase tracking-wider text-warm-mittel">
+                          {item.name}
+                        </span>
+                      </>
+                    ) : (
+                      item.name
+                    )}
                   </Link>
                 </motion.div>
               ))}
@@ -246,11 +257,12 @@ function Header() {
 
           <button 
             onClick={() => setMenuOpen(true)}
-            className="lg:hidden flex flex-col gap-1.5 items-end group"
+            className="lg:hidden flex flex-col gap-1.5 items-end group cursor-pointer"
+            aria-label="Menu öffnen"
           >
-            <span className={`block h-0.5 w-6 transition-colors ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
-            <span className={`block h-0.5 w-4 transition-colors ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
-            <span className={`block h-0.5 w-6 transition-colors ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
+            <span className={`block h-0.5 w-6 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
+            <span className={`block h-0.5 w-4 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
+            <span className={`block h-0.5 w-6 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
           </button>
         </nav>
       </header>

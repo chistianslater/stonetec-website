@@ -55,6 +55,41 @@ function TextReveal({ children, className = '', delay = 0 }) {
   )
 }
 
+/* ─── Scroll Word Reveal Component ──────────────────────────────────── */
+function ScrollRevealText({ text, className = '' }) {
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.8", "end 0.2"]
+  })
+
+  const words = text.split(" ")
+
+  return (
+    <p ref={containerRef} className={`${className} flex flex-wrap`}>
+      {words.map((word, i) => {
+        const start = i / words.length
+        const end = start + 1 / words.length
+        return (
+          <Word key={i} progress={scrollYProgress} range={[start, end]}>
+            {word}
+          </Word>
+        )
+      })}
+    </p>
+  )
+}
+
+function Word({ children, progress, range }) {
+  const opacity = useTransform(progress, range, [0.15, 1])
+  return (
+    <span className="relative mr-[0.25em] mt-[0.1em]">
+      <span className="absolute opacity-[0.15]">{children}</span>
+      <motion.span style={{ opacity }}>{children}</motion.span>
+    </span>
+  )
+}
+
 /* ─── Stagger Container ──────────────────────────────────── */
 function StaggerContainer({ children, className = '', staggerDelay = 0.1 }) {
   return (
@@ -234,20 +269,24 @@ function Hero() {
    INTRO
    ═══════════════════════════════════════════════════════════ */
 function Intro() {
+  const text1 = "Zwischen der Vision in deinem Kopf und der Realität in deinem Raum liegen Entscheidungen, die sich endgültig anfühlen. Materialien, die du nicht kennst. Formate, die Präzision verlangen. Und die Frage, wem du das anvertraust."
+  const text2 = "Dafür gibt es uns. Sieben Meister, eigene Fertigung, ein klarer Prozess — und den Anspruch, dass jeder Raum genau so wird, wie du ihn dir vorstellst. Oder besser."
+
   return (
     <section className="bg-warm-bg py-24 md:py-36 noise relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
-        <TextReveal delay={0}>
-          <p className="font-sora font-extralight text-[clamp(1.6rem,3vw,2.6rem)] text-warm-text leading-[1.35] tracking-[-0.02em]">
-            Zwischen der Vision in deinem Kopf und der Realität in deinem Raum liegen Entscheidungen, die sich endgültig anfühlen. Materialien, die du nicht kennst. Formate, die Präzision verlangen. Und die Frage, wem du das anvertraust.
-          </p>
-        </TextReveal>
+        <ScrollRevealText 
+          text={text1}
+          className="font-sora font-extralight text-[clamp(1.6rem,3vw,2.6rem)] text-warm-text leading-[1.35] tracking-[-0.02em]"
+        />
         
-        <TextReveal delay={0.2}>
-          <p className="font-dm text-[0.95rem] text-warm-mittel mt-8 max-w-2xl leading-relaxed">
-            Dafür gibt es uns. Sieben Meister, eigene Fertigung, ein klarer Prozess — und den Anspruch, dass jeder Raum genau so wird, wie du ihn dir vorstellst. Oder besser.
-          </p>
-        </TextReveal>
+        <div className="mt-12">
+          <TextReveal delay={0.5}>
+            <p className="font-dm text-[0.95rem] text-warm-mittel max-w-2xl leading-relaxed">
+              {text2}
+            </p>
+          </TextReveal>
+        </div>
       </div>
     </section>
   )
@@ -259,7 +298,7 @@ function Intro() {
 const services = [
   { img: '/images/verlegung.jpg', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
   { img: '/images/keramikmanufaktur.jpg', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
-  { img: '/images/visualisierung.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheidest erst, wenn du siehst, wie es wird.' },
+  { img: '/images/visualisierung.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheiden erst, wenn du siehst, wie es wird.' },
   { img: '/images/ausstellung.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
 ]
 
@@ -482,7 +521,7 @@ function Grossformate() {
         {images.map((img, i) => (
           <motion.div 
             key={img.src}
-            className="flex-shrink-0 w-[75vw] md:w-[45vw] lg:w-[35vw] aspect-[3/2] rounded-xl overflow-hidden"
+            className="flex-shrink-0 w-[75vw] md:w-[45vw] lg:w-[35vw] aspect-[3/2] rounded-none overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
@@ -503,52 +542,154 @@ function Grossformate() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PROZESS — Timeline
+   PROZESS — Horizontal Scroll Reveal
    ═══════════════════════════════════════════════════════════ */
 const steps = [
-  { num: '01', title: 'Gespräch', desc: 'Du erzählst. Wir hören zu, stellen die richtigen Fragen und geben dir eine erste Einschätzung — ehrlich, unverbindlich, auf den Punkt.' },
-  { num: '02', title: 'Visualisierung', desc: 'Du siehst deinen Raum in 3D, mit echten Materialien. Dazu ein transparenter Pauschalpreis. Keine Überraschungen, keine Nachträge.' },
-  { num: '03', title: 'Umsetzung', desc: 'Unsere Meister arbeiten bei dir — saubere Baustelle, klare Zeitpläne, eigene Leute. Jeden Tag.' },
-  { num: '04', title: 'Ergebnis', desc: 'Ein Raum, der genau so aussieht wie die Visualisierung. Oder besser.' },
+  { 
+    num: '01', 
+    title: 'Gespräch', 
+    desc: 'Du erzählst. Wir hören zu, stellen die richtigen Fragen und geben dir eine erste Einschätzung — ehrlich, unverbindlich, auf den Punkt.',
+    detail: 'Kein Verkaufsgespräch, sondern eine fachliche Einordnung deiner Vision.'
+  },
+  { 
+    num: '02', 
+    title: 'Visualisierung', 
+    desc: 'Du siehst deinen Raum in 3D, mit echten Materialien. Dazu ein transparenter Pauschalpreis. Keine Überraschungen, keine Nachträge.',
+    detail: 'Wir machen deine Vision greifbar, bevor der erste Stein liegt.'
+  },
+  { 
+    num: '03', 
+    title: 'Umsetzung', 
+    desc: 'Unsere Meister arbeiten bei dir — saubere Baustelle, klare Zeitpläne, eigene Leute. Jeden Tag.',
+    detail: 'Handwerkliche Präzision ohne Kompromisse und ohne Subunternehmer.'
+  },
+  { 
+    num: '04', 
+    title: 'Ergebnis', 
+    desc: 'Ein Raum, der genau so aussieht wie die Visualisierung. Oder besser.',
+    detail: 'Die Qualität, die man nicht nur sieht, sondern jeden Tag spürt.'
+  },
 ]
 
 function Prozess() {
-  return (
-    <section id="prozess" className="bg-warm-bg py-24 md:py-36 noise">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <TextReveal>
-          <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">Der Weg</p>
-        </TextReveal>
-        
-        <TextReveal delay={0.1}>
-          <h2 className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-2xl mb-16">
-            Vier Schritte.<br />Kein Rätselraten.
-          </h2>
-        </TextReveal>
+  const targetRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"]
+  })
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-warm-anthrazit/10 rounded-2xl overflow-hidden">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.num}
-              className="bg-warm-bg p-8 md:p-10 h-full flex flex-col"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <motion.span 
-                className="font-sora font-extralight text-4xl text-warm-stein/30 mb-6 block"
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 + 0.2, ease: 'backOut' }}
-              >
-                {step.num}
-              </motion.span>
-              <h3 className="font-sora font-light text-xl text-warm-text mb-4 tracking-[-0.01em]">{step.title}</h3>
-              <p className="font-dm text-[0.88rem] text-warm-mittel leading-relaxed mt-auto">{step.desc}</p>
+  // We have 4 steps + 1 CTA card. 
+  // To scroll through all of them, we need a larger negative X value.
+  // -80% is usually a good starting point for 5 large cards.
+  const x = useTransform(scrollYProgress, [0, 0.95], ['0%', '-82%'])
+
+  return (
+    <section ref={targetRef} className="relative h-[500vh] bg-warm-bg">
+      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+        {/* Background Decorative Text */}
+        <motion.div 
+          style={{ opacity: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.03, 0.03, 0]) }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        >
+          <span className="font-sora font-bold text-[25vw] text-warm-anthrazit uppercase leading-none mt-[-10vh]">
+            Process
+          </span>
+        </motion.div>
+
+        <div className="relative flex flex-col w-full">
+          {/* Header Area */}
+          <div className="px-6 md:px-12 lg:px-20 mb-16">
+            <TextReveal>
+              <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">Der Weg</p>
+            </TextReveal>
+            <TextReveal delay={0.1}>
+              <h2 className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-2xl">
+                Vier Schritte.<br />Kein Rätselraten.
+              </h2>
+            </TextReveal>
+          </div>
+
+          {/* Horizontal Track - Added more bottom padding to avoid overlap */}
+          <div className="pb-24">
+            <motion.div style={{ x }} className="flex gap-8 px-6 md:px-12 lg:px-20">
+              {steps.map((step, i) => (
+                <div key={step.num} className="relative flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw]">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="bg-white/40 backdrop-blur-sm border border-warm-anthrazit/5 p-8 md:p-12 lg:p-16 rounded-none h-full flex flex-col justify-between group hover:bg-white/60 transition-colors duration-700"
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                      <div className="flex items-baseline gap-4 mb-8">
+                        <span className="font-sora font-extralight text-6xl lg:text-8xl text-warm-stein/20 group-hover:text-warm-stein/40 transition-colors duration-700">
+                          {step.num}
+                        </span>
+                        <h3 className="font-sora font-light text-3xl lg:text-4xl text-warm-text tracking-tight">
+                          {step.title}
+                        </h3>
+                      </div>
+                      <p className="font-dm text-lg lg:text-xl text-warm-text/80 leading-relaxed mb-6">
+                        {step.desc}
+                      </p>
+                    </motion.div>
+                    
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      className="pt-8 border-t border-warm-anthrazit/10"
+                    >
+                      <p className="font-dm text-sm text-warm-mittel uppercase tracking-widest mb-2">Details</p>
+                      <p className="font-dm text-base text-warm-mittel leading-relaxed">
+                        {step.detail}
+                      </p>
+                    </motion.div>
+
+                    {/* Decorative element */}
+                    <div className="absolute top-12 right-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                      <svg className="w-12 h-12 text-warm-stein/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
+              
+              {/* Final CTA Card */}
+              <div className="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] pr-20">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="bg-dark-bg p-8 md:p-12 lg:p-16 rounded-none h-full flex flex-col justify-center items-center text-center"
+                >
+                  <h3 className="font-sora font-extralight text-3xl lg:text-5xl text-inv-light mb-8 leading-tight">
+                    Bereit für deinen<br />neuen Raum?
+                  </h3>
+                  <MagneticLink
+                    to="/kontakt"
+                    className="px-10 py-5 bg-warm-bg text-warm-text font-dm text-sm font-semibold tracking-widest uppercase hover:bg-white transition-colors duration-300 rounded-none"
+                  >
+                    Projekt starten
+                  </MagneticLink>
+                </motion.div>
+              </div>
             </motion.div>
-          ))}
+          </div>
+
+          {/* Progress Bar - Positioned clearly below the cards */}
+          <div className="absolute bottom-8 left-6 md:left-12 lg:left-20 right-6 md:right-12 lg:right-20 h-[2px] bg-warm-anthrazit/5">
+            <motion.div 
+              className="h-full bg-warm-stein origin-left"
+              style={{ scaleX: scrollYProgress }}
+            />
+          </div>
         </div>
       </div>
     </section>
