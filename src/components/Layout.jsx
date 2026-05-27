@@ -10,13 +10,13 @@ function FullLogo({ variant = 'light', className = '' }) {
   const text = isLight ? '#1a1815' : '#f0ece8'
 
   return (
-    <svg viewBox="0 0 400 340" className={className} xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(200, 100)">
+    <svg viewBox="0 0 400 280" className={className} style={{ display: 'block' }} xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(200, 90)">
         <g transform="translate(-50, -18) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="2" fill={c1}/></g>
         <g transform="translate(50, -18) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="2" fill={c2}/></g>
         <g transform="translate(0, 32) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="2" fill={c3}/></g>
       </g>
-      <text x="200" y="260" textAnchor="middle" fontFamily="Sora, sans-serif" fontWeight="400" fontSize="52" fill={text} letterSpacing="2">stonetec</text>
+      <text x="200" y="240" textAnchor="middle" fontFamily="Sora, sans-serif" fontWeight="400" fontSize="48" fill={text} letterSpacing="2">stonetec</text>
     </svg>
   )
 }
@@ -48,64 +48,38 @@ function Header() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const [scrolled, setScrolled] = useState(false)
-  const [animateMark, setAnimateMark] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
-      const newScrolled = scrollY > 100
-      
-      if (newScrolled !== scrolled) {
-        setScrolled(newScrolled)
-        if (newScrolled) {
-          setAnimateMark(true)
-          setTimeout(() => setAnimateMark(false), 1200)
-        }
-      }
+      setScrolled(scrollY > 100)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [scrolled])
+  }, [])
 
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
         scrolled 
-          ? 'bg-warm-bg/90 backdrop-blur-xl border-b border-warm-anthrazit/10 py-3' 
+          ? 'bg-warm-bg/90 backdrop-blur-xl border-b border-warm-anthrazit/10 py-4' 
           : isHome 
             ? 'bg-transparent py-6' 
             : 'bg-warm-bg/95 backdrop-blur-sm py-6 border-b border-warm-anthrazit/10'
       }`}
     >
       <nav className="flex items-center justify-between px-6 md:px-12 lg:px-20">
-        <Link to="/" className="flex items-center h-12">
+        <Link to="/" className="flex items-center">
           <div 
-            className="transition-all duration-500 ease-out"
+            className="transition-transform duration-500 ease-out origin-left"
             style={{
-              opacity: scrolled ? 0 : 1,
-              transform: scrolled ? 'scale(0.8)' : 'scale(1)',
-              position: 'absolute',
-              pointerEvents: scrolled ? 'none' : 'auto'
+              transform: scrolled ? 'scale(0.88)' : 'scale(1)'
             }}
           >
             <FullLogo 
-              variant={isHome ? 'dark' : 'light'}
-              className="w-36 md:w-44 h-auto" 
-            />
-          </div>
-          <div 
-            className="transition-all duration-500 ease-out"
-            style={{
-              opacity: scrolled ? 1 : 0,
-              transform: scrolled ? 'scale(1)' : 'scale(0.8)',
-              pointerEvents: scrolled ? 'auto' : 'none'
-            }}
-          >
-            <LogoMark 
-              variant="light"
-              className="w-11 h-11 md:w-12 md:h-12" 
-              animate={animateMark}
+              variant={scrolled ? 'light' : (isHome ? 'dark' : 'light')}
+              className="w-36 md:w-40 h-auto" 
             />
           </div>
         </Link>
@@ -128,7 +102,7 @@ function Header() {
           </Link>
           <Link 
             to="/kontakt" 
-            className={`px-5 py-2.5 font-dm text-[0.75rem] font-semibold tracking-wider uppercase transition-all duration-300 ${scrolled ? 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit' : isHome ? 'bg-inv-light text-warm-text hover:bg-white' : 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit'}`}
+            className={`px-5 py-2.5 font-dm text-[0.75rem] font-semibold tracking-wider uppercase transition-all duration-300 ${scrolled ? 'bg-warm-anthrazit text-warm-bg hover:bg-warm-text' : isHome ? 'bg-inv-light text-warm-text hover:bg-white' : 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit'}`}
           >
             Kontakt
           </Link>
@@ -136,7 +110,7 @@ function Header() {
 
         {/* Mobile Menu Button */}
         <button className="lg:hidden p-2" aria-label="Menu">
-          <svg className={`w-6 h-6 ${scrolled ? 'text-warm-text' : isHome ? 'text-inv-light' : 'text-warm-text'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className={`w-6 h-6 ${scrolled ? 'text-warm-anthrazit' : isHome ? 'text-inv-light' : 'text-warm-text'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
