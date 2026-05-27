@@ -1,126 +1,131 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
-function useReveal(threshold = 0.15) {
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.unobserve(el) } },
-      { threshold }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [threshold])
-  return ref
-}
-
+/* ─── Reveal Component ───────────────────────────────────────── */
 function Reveal({ children, className = '', delay = 0 }) {
-  const ref = useReveal()
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <motion.div
+      initial={{ y: 30, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+    >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
-const articles = [
+/* ─── Magazine Data ──────────────────────────────────────────── */
+export const articles = [
   {
-    id: 1,
-    title: 'Großformate: Was bei der Verlegung wirklich wichtig ist',
-    excerpt: 'Keramikplatten bis 160×320 cm verlangen mehr als gute Materialien. Sie verlangen Präzision, Erfahrung und das richtige Werkzeug. Was Sie über Großformate wissen sollten.',
+    id: 'grossformatfliesen-verlegen-in-bocholt',
+    title: 'Großformatfliesen verlegen in Bocholt – Präzision, Technik und Meisterkompetenz',
+    excerpt: 'Warum XXL-Fliesen mehr als nur ein Trend sind und welche technischen Herausforderungen sie an das Handwerk stellen.',
     category: 'Fachwissen',
-    readTime: '5 Min.',
-    date: 'Dezember 2024',
-    image: '/images/magazin-1.jpg',
-    featured: true
+    readTime: '10 Min.',
+    date: 'Februar 2026',
+    image: '/images/website-extract/Raumgefuehl-4-3.jpg',
+    featured: true,
+    content: `
+      <p>Sie möchten Großformatfliesen verlegen in Bocholt lassen und legen Wert auf ein modernes, nahezu fugenloses Design? Dann ist die Wahl des richtigen Fachbetriebs entscheidend. Denn während Großformatfliesen optisch für Eleganz und Großzügigkeit stehen, gehören sie technisch zu den anspruchsvollsten Disziplinen im Fliesenhandwerk.</p>
+      
+      <h2>Warum Großformatfliesen so gefragt sind</h2>
+      <p>Großformatige Fliesen – häufig in Formaten wie 80×80 cm, 100×100 cm oder 120×120 cm – sorgen für ein ruhiges, modernes Raumgefühl. Weniger Fugen bedeuten eine großzügige, offene Raumwirkung, leichtere Reinigung und ein hochwertiges, minimalistisches Design.</p>
+      
+      <h2>Technik ist entscheidend</h2>
+      <p>Je größer die Fliese, desto höher die Anforderungen an den Untergrund. Beim Großformatfliesen verlegen in Bocholt gelten strengere Toleranzen als bei Standardformaten. Entscheidend sind perfekte Ebenheit, fachgerechte Spachtelarbeiten und das Buttering-Floating-Verfahren.</p>
+      
+      <blockquote>"Großformatfliesen verzeihen keine Fehler. Wahre Meisterschaft zeigt sich in der Vorbereitung."</blockquote>
+      
+      <h2>Herausforderungen im Bad</h2>
+      <p>Gerade im Bad ist das Großformatfliesen verlegen technisch anspruchsvoll. In Duschen müssen Gefälle exakt berechnet werden, damit Wasser zuverlässig abläuft. Ein professioneller Fachbetrieb achtet auf normgerechte Verbundabdichtung und saubere Silikonfugen.</p>
+    `
   },
   {
-    id: 2,
-    title: 'Der Gehrungsschnitt: Ein Detail, das den Unterschied macht',
-    excerpt: 'Sie sehen ihn nicht. Aber Sie würden es merken, wenn er nicht perfekt wäre. Warum der Gehrungsschnitt die Qualität einer Verlegung definiert.',
-    category: 'Handwerk',
-    readTime: '4 Min.',
-    date: 'November 2024',
-    image: '/images/magazin-2.jpg',
-    featured: false
-  },
-  {
-    id: 3,
-    title: 'Warum wir keine Subunternehmer beschäftigen',
-    excerpt: 'Sieben Meister unter einem Dach. Null Fremdfirmen. Eine bewusste Entscheidung, die Qualität garantiert — und Verantwortung erlebbar macht.',
+    id: 'hochwertiger-fliesenleger',
+    title: 'Hochwertiger Fliesenleger – Was macht ihn wirklich aus?',
+    excerpt: 'Qualität im Handwerk ist messbar. Erfahren Sie, worauf Sie bei der Wahl Ihres Fliesenlegers achten sollten.',
     category: 'Unternehmen',
-    readTime: '3 Min.',
-    date: 'Oktober 2024',
-    image: '/images/magazin-3.jpg',
-    featured: false
+    readTime: '8 Min.',
+    date: 'Januar 2026',
+    image: '/images/website-extract/Raumgefuehl-8-2-scaled-1.jpg',
+    featured: false,
+    content: `
+      <p>Die Suche nach einem hochwertigen Fliesenleger führt oft über Empfehlungen und Referenzen. Doch was unterscheidet einen Meisterbetrieb von einem Standard-Verleger?</p>
+      <h2>Qualität ist kein Zufall</h2>
+      <p>Ein hochwertiger Fliesenleger zeichnet sich durch Beratungskompetenz, technisches Verständnis und Liebe zum Detail aus. Es geht nicht nur um das Kleben von Fliesen, sondern um das Schaffen von Werten.</p>
+    `
   },
   {
-    id: 4,
-    title: 'Materialien, die wir empfehlen (und warum)',
-    excerpt: 'Vom Feinsteinzeug bis zum hochtechnologischen SLAB: Welche Materialien unseren Ansprüchen entsprechen — und was Sie bei der Auswahl beachten sollten.',
-    category: 'Materialkunde',
-    readTime: '6 Min.',
-    date: 'September 2024',
-    image: '/images/magazin-4.jpg',
-    featured: false
+    id: 'fliesenberatung',
+    title: 'Individuelle Fliesenberatung: Von der Idee zum Konzept',
+    excerpt: 'Wie wir gemeinsam mit Ihnen Räume planen, die Ihre Persönlichkeit widerspiegeln.',
+    category: 'Beratung',
+    readTime: '5 Min.',
+    date: 'Juni 2025',
+    image: '/images/website-extract/Beratung-und-Konzeptentwicklung.jpg',
+    featured: false,
+    content: `
+      <p>Jedes Projekt beginnt mit einem Gespräch. In unserer Ausstellung in Bocholt nehmen wir uns Zeit für Ihre Vision.</p>
+      <h2>Materialien erleben</h2>
+      <p>Haptik kann man nicht digital vermitteln. Deshalb setzen wir auf echte Materialcollagen und Bemusterungen vor Ort.</p>
+    `
   },
   {
-    id: 5,
-    title: 'Pauschalpreis vs. Stundensatz: Was ist fair?',
-    excerpt: 'Warum wir auf Pauschalpreise setzen — und wie Sie als Kunde davon profitieren. Eine ehrliche Betrachtung über Preistransparenz im Handwerk.',
-    category: 'Fachwissen',
-    readTime: '4 Min.',
-    date: 'August 2024',
-    image: '/images/magazin-5.jpg',
-    featured: false
-  },
-  {
-    id: 6,
-    title: 'Villa Münsterland: Ein Projekt im Detail',
-    excerpt: '145 m² Großformatverlegung, maßgefertigte Waschtische, fugenlose Dusche. Ein Einblick in eines unserer Highlights 2024.',
-    category: 'Projekte',
+    id: 'fugenloses-bad',
+    title: 'Fugenloses Bad: Maximale Ruhe durch XXL-Keramik',
+    excerpt: 'Fugenlose Flächen liegen im Trend. Erfahren Sie, wie wir mit großformatiger Keramik fugenlose Träume wahr machen.',
+    category: 'Bad',
     readTime: '7 Min.',
-    date: 'Juli 2024',
-    image: '/images/magazin-6.jpg',
-    featured: false
+    date: 'Mai 2025',
+    image: '/images/website-extract/Perfekte-Linien_1-scaled.jpg',
+    featured: false,
+    content: `
+      <p>Ein fugenloses Bad wirkt wie aus einem Guss. Es strahlt Ruhe aus und ist zudem extrem pflegeleicht.</p>
+      <h2>Die Rolle der Keramik</h2>
+      <p>Mit Platten bis zu 3,20 Meter Höhe lassen sich Wände nahezu ohne horizontale Unterbrechung gestalten.</p>
+    `
   }
 ]
 
-const categories = ['Alle', 'Fachwissen', 'Handwerk', 'Unternehmen', 'Materialkunde', 'Projekte']
+const categories = ['Alle', 'Fachwissen', 'Handwerk', 'Unternehmen', 'Beratung', 'Bad']
 
+/* ─── Article Card Component ─────────────────────────────────── */
 function ArticleCard({ article, index, featured = false }) {
   if (featured) {
     return (
       <Reveal delay={index * 100}>
         <Link to={`/magazin/${article.id}`} className="group block">
-          <article className="grid md:grid-cols-2 gap-6 bg-dark-bg rounded-xl overflow-hidden">
-            <div className="aspect-[16/10] md:aspect-auto overflow-hidden">
+          <article className="grid lg:grid-cols-2 gap-8 bg-dark-bg rounded-[2rem] overflow-hidden shadow-xl">
+            <div className="aspect-[16/10] lg:aspect-auto overflow-hidden">
               <img
                 src={article.image}
                 alt={article.title}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
               />
             </div>
-            <div className="p-6 md:p-8 flex flex-col justify-center">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="px-3 py-1 bg-inv-light/10 font-dm text-[0.72rem] text-inv-mid uppercase tracking-wide">
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="px-4 py-1.5 bg-inv-light/10 font-dm text-[0.7rem] text-inv-mid uppercase tracking-[2px]">
                   {article.category}
                 </span>
-                <span className="font-dm text-[0.75rem] text-inv-tagline">{article.readTime}</span>
+                <span className="font-dm text-[0.75rem] text-inv-tagline uppercase tracking-widest">{article.readTime} Lesezeit</span>
               </div>
-              <h2 className="font-sora font-light text-xl md:text-2xl text-inv-light tracking-[-0.01em] mb-3 leading-snug">
+              <h2 className="font-sora font-extralight text-2xl md:text-4xl text-inv-light tracking-tight mb-6 leading-tight">
                 {article.title}
               </h2>
-              <p className="font-dm text-[0.9rem] text-inv-muted leading-relaxed mb-4">
+              <p className="font-dm text-[1.05rem] text-inv-muted leading-relaxed mb-8">
                 {article.excerpt}
               </p>
-              <div className="flex items-center gap-2 font-dm text-[0.82rem] text-inv-light group-hover:text-white transition-colors">
-                Weiterlesen
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+              <div className="flex items-center gap-3 font-dm text-[0.82rem] font-semibold text-inv-light uppercase tracking-widest group-hover:text-white transition-colors">
+                <span>Beitrag lesen</span>
+                <motion.div 
+                  className="w-8 h-[1px] bg-inv-light/50"
+                  whileHover={{ width: 48 }}
+                  transition={{ duration: 0.3 }}
+                />
               </div>
             </div>
           </article>
@@ -133,28 +138,28 @@ function ArticleCard({ article, index, featured = false }) {
     <Reveal delay={index * 100}>
       <Link to={`/magazin/${article.id}`} className="group block">
         <article className="h-full">
-          <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4">
+          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden mb-6 shadow-sm">
             <img
               src={article.image}
               alt={article.title}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
             />
             <div className="absolute top-4 left-4">
-              <span className="px-3 py-1.5 bg-warm-bg/90 backdrop-blur-sm font-dm text-[0.72rem] text-warm-text tracking-wide">
+              <span className="px-3 py-1.5 bg-warm-bg/90 backdrop-blur-sm font-dm text-[0.65rem] text-warm-text uppercase tracking-[2px]">
                 {article.category}
               </span>
             </div>
           </div>
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-warm-mittel">
-              <span className="font-dm text-[0.75rem]">{article.date}</span>
-              <span className="w-1 h-1 rounded-full bg-warm-mittel" />
-              <span className="font-dm text-[0.75rem]">{article.readTime}</span>
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 text-warm-mittel">
+              <span className="font-dm text-[0.7rem] uppercase tracking-widest">{article.date}</span>
+              <span className="w-1 h-1 rounded-full bg-warm-stein/30" />
+              <span className="font-dm text-[0.7rem] uppercase tracking-widest">{article.readTime}</span>
             </div>
-            <h3 className="font-sora font-light text-lg text-warm-text tracking-[-0.01em] leading-snug group-hover:text-warm-anthrazit transition-colors">
+            <h3 className="font-sora font-light text-xl text-warm-text tracking-tight leading-snug group-hover:text-warm-anthrazit transition-colors">
               {article.title}
             </h3>
-            <p className="font-dm text-[0.85rem] text-warm-mittel leading-relaxed line-clamp-2">
+            <p className="font-dm text-[0.9rem] text-warm-mittel leading-relaxed line-clamp-2">
               {article.excerpt}
             </p>
           </div>
@@ -164,6 +169,7 @@ function ArticleCard({ article, index, featured = false }) {
   )
 }
 
+/* ─── Main Component ─────────────────────────────────────────── */
 export default function Magazin() {
   const [filter, setFilter] = useState('Alle')
   
@@ -175,51 +181,56 @@ export default function Magazin() {
   return (
     <div className="bg-warm-bg min-h-screen pt-32 pb-24">
       {/* Header */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
         <Reveal>
           <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
             Wissen & Inspiration
           </p>
-          <h1 className="font-sora font-extralight text-[clamp(2.5rem,5vw,4rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-3xl mb-6">
-            Magazin
+          <h1 className="font-sora font-extralight text-[clamp(3rem,8vw,6rem)] text-warm-text leading-[1] tracking-[-0.03em] max-w-4xl mb-8">
+            Unser Magazin.
           </h1>
-          <p className="font-dm text-[0.95rem] text-warm-mittel max-w-2xl leading-relaxed">
-            Fachwissen, Einblicke und Inspiration aus der Welt der Premium-Fliesenverlegung.
+          <p className="font-dm text-[1.1rem] text-warm-mittel max-w-2xl leading-relaxed">
+            Fachwissen, Einblicke und Inspiration aus der Welt der Premium-Fliesenverlegung. Ehrlich, kompetent und auf den Punkt.
           </p>
         </Reveal>
       </div>
 
       {/* Filter */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-12">
-        <Reveal delay={100}>
-          <div className="flex flex-wrap gap-2 border-b border-warm-anthrazit/10 pb-6">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-4 py-2 font-dm text-[0.8rem] tracking-wide transition-all duration-300 ${
-                  filter === cat 
-                    ? 'bg-warm-text text-warm-bg' 
-                    : 'bg-transparent text-warm-mittel hover:text-warm-text'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </Reveal>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
+        <div className="flex flex-wrap gap-2 border-b border-warm-anthrazit/10 pb-8">
+          {categories.map(cat => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`px-6 py-2 font-dm text-[0.82rem] font-semibold tracking-wider uppercase transition-all duration-500 relative ${
+                filter === cat 
+                  ? 'text-warm-text' 
+                  : 'text-warm-mittel hover:text-warm-text'
+              }`}
+            >
+              {cat}
+              {filter === cat && (
+                <motion.div 
+                  layoutId="activeCategory"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-warm-stein"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Featured Article */}
       {featuredArticle && filter === 'Alle' && (
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-12">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-20">
           <ArticleCard article={featuredArticle} index={0} featured />
         </div>
       )}
 
       {/* Articles Grid */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
           {filteredArticles.map((article, index) => (
             <ArticleCard key={article.id} article={article} index={index} />
           ))}
@@ -227,28 +238,29 @@ export default function Magazin() {
       </div>
 
       {/* Newsletter CTA */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-32">
         <Reveal>
-          <div className="bg-dark-bg rounded-xl p-8 md:p-12">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="bg-dark-bg rounded-[2rem] p-8 md:p-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+            
+            <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="font-sora font-extralight text-2xl md:text-3xl text-inv-light tracking-[-0.01em] mb-3">
-                  Neuigkeiten per E-Mail
+                <h2 className="font-sora font-extralight text-3xl md:text-4xl text-inv-light tracking-tight mb-4">
+                  Bleiben Sie informiert.
                 </h2>
-                <p className="font-dm text-[0.9rem] text-inv-muted leading-relaxed">
-                  Einmal im Monat: Fachwissen, Projekt-Einblicke und Inspiration. 
-                  Kein Spam, kein Bullshit. Abmeldung jederzeit möglich.
+                <p className="font-dm text-[1rem] text-inv-muted leading-relaxed">
+                  Einmal im Monat: Fachwissen, Projekt-Einblicke und Inspiration direkt in Ihr Postfach. Kein Spam, nur Relevanz.
                 </p>
               </div>
-              <form className="flex flex-col sm:flex-row gap-3">
+              <form className="flex flex-col sm:flex-row gap-4" onSubmit={(e) => e.preventDefault()}>
                 <input
                   type="email"
-                  placeholder="deine@email.de"
-                  className="flex-1 px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
+                  placeholder="Ihre E-Mail-Adresse"
+                  className="flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-none font-dm text-[0.95rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-white/30 transition-colors"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-warm-bg text-warm-text font-dm text-[0.8rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 whitespace-nowrap rounded-none"
+                  className="px-10 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-widest uppercase hover:bg-white transition-all duration-500 rounded-none whitespace-nowrap"
                 >
                   Anmelden
                 </button>

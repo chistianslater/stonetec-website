@@ -8,6 +8,7 @@ import Lookbook from './pages/Lookbook.jsx'
 import Team from './pages/Team.jsx'
 import Kontakt from './pages/Kontakt.jsx'
 import Magazin from './pages/Magazin.jsx'
+import MagazinPost from './pages/MagazinPost.jsx'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="team" element={<Team />} />
           <Route path="kontakt" element={<Kontakt />} />
           <Route path="magazin" element={<Magazin />} />
+          <Route path="magazin/:id" element={<MagazinPost />} />
         </Route>
       </Routes>
     </>
