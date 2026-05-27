@@ -1,239 +1,255 @@
 import { useEffect, useRef, useState } from 'react'
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
-function useReveal(threshold = 0.15) {
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.unobserve(el) } },
-      { threshold }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [threshold])
-  return ref
-}
-
+/* ─── Reveal Component ───────────────────────────────────────── */
 function Reveal({ children, className = '', delay = 0 }) {
-  const ref = useReveal()
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <motion.div
+      initial={{ y: 40, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+    >
       {children}
-    </div>
+    </motion.div>
   )
 }
 
+/* ─── Project Data ───────────────────────────────────────────── */
 const projects = [
   {
     id: 1,
-    title: 'Villa Münsterland',
-    client: 'Privat',
+    title: 'Design Statement',
+    category: 'Badezimmer',
     location: 'Borken',
     year: '2024',
-    duration: '8 Wochen',
-    area: '145 m²',
-    category: 'Badezimmer',
-    challenge: 'Maximale Fugenreduktion bei komplexer Raumgeometrie',
-    solution: 'Großformatige Keramikplatten 160×320 cm mit präziser Schnittführung',
-    materials: ['Keramik SLAB 160×320', 'Marmoroptik Feinsteinzeug', 'Maßgefertigte Waschtische'],
-    images: ['/images/projekt-1-1.jpg', '/images/projekt-1-2.jpg', '/images/projekt-1-3.jpg'],
-    featured: true
+    description: 'Maximale Fugenreduktion trifft auf skulpturale Formgebung. Ein Bad, das Ruhe ausstrahlt und handwerkliche Perfektion in jedem Detail feiert.',
+    mainImage: '/images/website-extract/Design-Statement-2.jpg',
+    gallery: [
+      '/images/website-extract/Design-Statement-1.jpg',
+      '/images/website-extract/Design-Statement-3.jpg',
+      '/images/website-extract/Design-Statement-4.jpg',
+      '/images/website-extract/Design-Statement-5.jpg',
+      '/images/website-extract/Design-Statement-6.jpg'
+    ],
+    stats: { area: '145 m²', duration: '8 Wochen', materials: 'Keramik SLAB 160×320' }
   },
   {
     id: 2,
-    title: 'Penthouse Bocholt',
-    client: 'Privat',
+    title: 'praemium GmbH',
+    category: 'Gewerbe | Interior Design',
     location: 'Bocholt',
     year: '2024',
-    duration: '12 Wochen',
-    area: '280 m²',
-    category: 'Wohnraum',
-    challenge: 'Durchgängige Verlegung über mehrere Räume ohne Übergänge',
-    solution: 'Reduzierte Fugenführung mit Spezialanfertigung für Treppenstufen',
-    materials: ['Großformat Feinsteinzeug', 'Dekor-Fliesen Akzente', 'Beheizte Böden'],
-    images: ['/images/projekt-2-1.jpg', '/images/projekt-2-2.jpg'],
-    featured: true
+    description: 'Repräsentativer Empfangsbereich mit monolithischem Charakter. Großformatige Keramik schafft eine nahtlose Verbindung zwischen Architektur und Design.',
+    mainImage: '/images/website-extract/Interior-Design-1.jpg',
+    gallery: [],
+    stats: { area: '280 m²', duration: '12 Wochen', materials: 'SLAB-Keramik Tresen' }
   },
   {
     id: 3,
-    title: 'Landsitz Ahaus',
-    client: 'Privat',
+    title: 'Perfekte Linien',
+    category: 'Wellness | Spa',
     location: 'Ahaus',
     year: '2023',
-    duration: '16 Wochen',
-    area: '95 m²',
-    category: 'Wellness',
-    challenge: 'Private Spa-Anlage mit Dampfbad und speziellen Feuchtigkeitsanforderungen',
-    solution: 'Spezialkeramiken mit abriebfester Oberfläche, maßgefertigte Sitzbänke',
-    materials: ['Rutschhemmende Keramik', 'Mosaik-Akzente', 'Maßgefertigte Möbel'],
-    images: ['/images/projekt-3-1.jpg', '/images/projekt-3-2.jpg', '/images/projekt-3-3.jpg'],
-    featured: false
+    description: 'Präzision bis in die letzte Fuge. Ein privater Wellnessbereich, der durch klare Linienführung und hochwertige Materialität besticht.',
+    mainImage: '/images/website-extract/Perfekte-Linien_11.jpg',
+    gallery: [],
+    stats: { area: '95 m²', duration: '16 Wochen', materials: 'Rutschhemmende Keramik' }
   },
   {
     id: 4,
-    title: 'Küchenmanufaktur Isselburg',
-    client: 'Gewerbe',
+    title: 'Natural Beauty',
+    category: 'Wohnraum',
     location: 'Isselburg',
     year: '2023',
-    duration: '6 Wochen',
-    area: '120 m²',
-    category: 'Gewerbe',
-    challenge: 'Repräsentativer Empfangsbereich mit hoher Belastbarkeit',
-    solution: 'Großformat-Empfangstresen aus SLAB-Keramik, fugenlose Böden',
-    materials: ['SLAB-Keramik Tresen', 'Großformat Boden', 'Wandgestaltung'],
-    images: ['/images/projekt-4-1.jpg', '/images/projekt-4-2.jpg'],
-    featured: false
+    description: 'Die Wärme von Naturstein vereint mit der Beständigkeit von Feinsteinzeug. Ein Wohnkonzept, das Natürlichkeit und Moderne harmonisch verbindet.',
+    mainImage: '/images/website-extract/Natural-Beauty-5.jpg',
+    gallery: [],
+    stats: { area: '120 m²', duration: '6 Wochen', materials: 'Natursteinoptik Feinsteinzeug' }
   }
 ]
 
-function ProjectCard({ project, index }) {
-  const [isExpanded, setIsExpanded] = useState(false)
+/* ─── Project Section Component ──────────────────────────────── */
+function ProjectSection({ project, index }) {
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95])
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+  const isEven = index % 2 === 0
 
   return (
-    <Reveal delay={index * 150}>
-      <article className={`bg-dark-bg rounded-xl overflow-hidden ${project.featured ? 'md:col-span-2' : ''}`}>
-        <div className={`grid ${project.featured ? 'md:grid-cols-2' : 'grid-cols-1'}`}>
-          {/* Image */}
-          <div className={`relative ${project.featured ? 'aspect-[4/3]' : 'aspect-[16/9]'} overflow-hidden`}>
-            <img
-              src={project.images[0]}
-              alt={project.title}
+    <section 
+      ref={containerRef} 
+      className="relative min-h-screen flex items-center justify-center py-24 overflow-hidden"
+    >
+      <motion.div 
+        style={{ opacity, scale }}
+        className="container mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center"
+      >
+        {/* Text Content */}
+        <div className={`lg:col-span-5 z-10 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+          <Reveal delay={0.1}>
+            <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
+              {project.category}
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <h2 className="font-sora font-extralight text-[clamp(2.5rem,5vw,4.5rem)] text-warm-text leading-[1.1] tracking-[-0.03em] mb-8">
+              {project.title}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.3}>
+            <p className="font-dm text-[1.1rem] text-warm-mittel leading-relaxed mb-10 max-w-md">
+              {project.description}
+            </p>
+          </Reveal>
+          
+          <Reveal delay={0.4}>
+            <div className="grid grid-cols-2 gap-8 py-8 border-y border-warm-anthrazit/10 mb-10">
+              <div>
+                <p className="font-dm text-[0.7rem] text-warm-mittel uppercase tracking-widest mb-1">Ort</p>
+                <p className="font-sora font-light text-lg text-warm-text">{project.location}</p>
+              </div>
+              <div>
+                <p className="font-dm text-[0.7rem] text-warm-mittel uppercase tracking-widest mb-1">Jahr</p>
+                <p className="font-sora font-light text-lg text-warm-text">{project.year}</p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.5}>
+            <Link 
+              to="/kontakt" 
+              className="group inline-flex items-center gap-4 px-8 py-4 bg-dark-bg text-inv-light font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-black transition-all duration-500 rounded-none"
+            >
+              <span>Projekt anfragen</span>
+              <motion.span 
+                className="w-8 h-[1px] bg-inv-light/50"
+                whileHover={{ width: 48 }}
+                transition={{ duration: 0.3 }}
+              />
+            </Link>
+          </Reveal>
+        </div>
+
+        {/* Image Display */}
+        <div className={`lg:col-span-7 relative ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+          <motion.div 
+            style={{ y }}
+            className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+          >
+            <img 
+              src={project.mainImage} 
+              alt={project.title} 
               className="w-full h-full object-cover"
             />
-            <div className="absolute top-4 left-4">
-              <span className="px-3 py-1.5 bg-warm-bg/90 backdrop-blur-sm font-dm text-[0.72rem] text-warm-text tracking-wide">
-                {project.category}
-              </span>
-            </div>
-            {project.featured && (
-              <div className="absolute top-4 right-4">
-                <span className="px-3 py-1.5 bg-inv-light/90 backdrop-blur-sm font-dm text-[0.72rem] text-warm-text tracking-wide font-semibold">
-                  Highlight
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Content */}
-          <div className="p-6 md:p-8 flex flex-col">
-            <div className="flex items-start justify-between mb-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#06060630] to-transparent" />
+          </motion.div>
+          
+          {/* Decorative Stats Card */}
+          <motion.div 
+            initial={{ x: isEven ? 40 : -40, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className={`absolute -bottom-10 bg-white/80 backdrop-blur-xl p-8 rounded-2xl shadow-xl hidden md:block max-w-[280px] ${isEven ? '-left-10 md:-left-20' : '-right-10 md:-right-20'}`}
+          >
+            <div className="space-y-6">
               <div>
-                <h3 className="font-sora font-light text-xl md:text-2xl text-inv-light tracking-[-0.01em] mb-1">
-                  {project.title}
-                </h3>
-                <p className="font-dm text-[0.82rem] text-inv-muted">{project.location} · {project.year}</p>
+                <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Material</p>
+                <p className="font-sora font-light text-sm text-warm-text leading-tight">{project.stats.materials}</p>
               </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 mb-6 py-4 border-y border-inv-light/10">
-              <div>
-                <p className="font-dm text-[0.72rem] text-inv-tagline uppercase tracking-wide">Fläche</p>
-                <p className="font-sora font-light text-lg text-inv-light">{project.area}</p>
-              </div>
-              <div>
-                <p className="font-dm text-[0.72rem] text-inv-tagline uppercase tracking-wide">Dauer</p>
-                <p className="font-sora font-light text-lg text-inv-light">{project.duration}</p>
-              </div>
-              <div>
-                <p className="font-dm text-[0.72rem] text-inv-tagline uppercase tracking-wide">Bereich</p>
-                <p className="font-sora font-light text-lg text-inv-light">{project.category}</p>
+              <div className="flex justify-between gap-8">
+                <div>
+                  <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Fläche</p>
+                  <p className="font-sora font-light text-sm text-warm-text">{project.stats.area}</p>
+                </div>
+                <div>
+                  <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Dauer</p>
+                  <p className="font-sora font-light text-sm text-warm-text">{project.stats.duration}</p>
+                </div>
               </div>
             </div>
-
-            <div className="space-y-4 mb-6 flex-1">
-              <div>
-                <p className="font-dm text-[0.72rem] text-inv-tagline uppercase tracking-wide mb-1">Herausforderung</p>
-                <p className="font-dm text-[0.9rem] text-inv-mid leading-relaxed">{project.challenge}</p>
-              </div>
-              <div>
-                <p className="font-dm text-[0.72rem] text-inv-tagline uppercase tracking-wide mb-1">Lösung</p>
-                <p className="font-dm text-[0.9rem] text-inv-mid leading-relaxed">{project.solution}</p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              {project.materials.map(material => (
-                <span key={material} className="px-3 py-1.5 bg-inv-light/10 font-dm text-[0.75rem] text-inv-mid">
-                  {material}
-                </span>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-2 font-dm text-[0.82rem] text-inv-light hover:text-white transition-colors"
-            >
-              {isExpanded ? 'Weniger anzeigen' : 'Projektdetails'}
-              <svg className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            {isExpanded && (
-              <div className="mt-6 pt-6 border-t border-inv-light/10 grid grid-cols-2 gap-4">
-                {project.images.slice(1).map((img, i) => (
-                  <div key={i} className="aspect-[4/3] rounded-xl overflow-hidden">
-                    <img src={img} alt={`${project.title} Detail ${i + 2}`} className="w-full h-full object-cover" />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          </motion.div>
         </div>
-      </article>
-    </Reveal>
+      </motion.div>
+    </section>
   )
 }
 
+/* ─── Main Component ─────────────────────────────────────────── */
 export default function Projekte() {
   return (
-    <div className="bg-warm-bg min-h-screen pt-32 pb-24">
-      {/* Header */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
+    <div className="bg-warm-bg min-h-screen pt-32">
+      {/* Hero Section */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
         <Reveal>
           <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
-            Ausgewählte Projekte
+            Portfolio
           </p>
-          <h1 className="font-sora font-extralight text-[clamp(2.5rem,5vw,4rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-3xl mb-6">
+          <h1 className="font-sora font-extralight text-[clamp(3rem,8vw,6rem)] text-warm-text leading-[0.95] tracking-[-0.04em] max-w-4xl mb-8">
             Das Beste an unserer Arbeit sieht man nicht.
           </h1>
-          <p className="font-dm text-[0.95rem] text-warm-mittel max-w-2xl leading-relaxed">
+          <div className="w-24 h-[1px] bg-warm-stein/30 mb-8" />
+          <p className="font-dm text-[1.1rem] text-warm-mittel max-w-2xl leading-relaxed">
             Jedes Projekt ist eine Geschichte — von der ersten Idee bis zur letzten Fuge. 
-            Hier zeigen wir ausgewählte Realisierungen, die uns besonders wichtig sind.
+            Wir gestalten Räume, die bleiben. Mit Leidenschaft fürs Detail und einem Blick fürs Ganze.
           </p>
         </Reveal>
       </div>
 
-      {/* Projects Grid */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
-          ))}
-        </div>
+      {/* Projects List */}
+      <div className="space-y-0">
+        {projects.map((project, index) => (
+          <ProjectSection key={project.id} project={project} index={index} />
+        ))}
       </div>
 
-      {/* Stats */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-24">
+      {/* Stats Footer */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-32">
         <Reveal>
-          <div className="bg-dark-bg rounded-xl p-8 md:p-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">350+</p>
-                <p className="font-dm text-[0.82rem] text-inv-muted">Realisierte Projekte</p>
+          <div className="bg-dark-bg rounded-[2rem] p-12 md:p-20 text-center relative overflow-hidden">
+            {/* Background Decoration */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-warm-stein/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-warm-stein/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+            
+            <div className="relative z-10">
+              <h2 className="font-sora font-extralight text-3xl md:text-5xl text-inv-light mb-16 tracking-tight">
+                Meisterschaft in Zahlen.
+              </h2>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+                <div className="space-y-2">
+                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">350+</p>
+                  <p className="font-dm text-[0.75rem] text-inv-muted uppercase tracking-[2px]">Projekte</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">12</p>
+                  <p className="font-dm text-[0.75rem] text-inv-muted uppercase tracking-[2px]">Meister</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">180+</p>
+                  <p className="font-dm text-[0.75rem] text-inv-muted uppercase tracking-[2px]">Jahre Erfahrung</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">0</p>
+                  <p className="font-dm text-[0.75rem] text-inv-muted uppercase tracking-[2px]">Subunternehmer</p>
+                </div>
               </div>
-              <div className="text-center">
-                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">12</p>
-                <p className="font-dm text-[0.82rem] text-inv-muted">Fliesenlegermeister</p>
-              </div>
-              <div className="text-center">
-                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">25+</p>
-                <p className="font-dm text-[0.82rem] text-inv-muted">Jahre Erfahrung</p>
-              </div>
-              <div className="text-center">
-                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">0</p>
-                <p className="font-dm text-[0.82rem] text-inv-muted">Subunternehmer</p>
+              
+              <div className="mt-20">
+                <Link 
+                  to="/kontakt" 
+                  className="inline-flex items-center gap-4 px-10 py-5 bg-warm-bg text-warm-text font-dm text-sm font-semibold tracking-widest uppercase hover:bg-white transition-all duration-500 rounded-none"
+                >
+                  Dein Projekt starten
+                </Link>
               </div>
             </div>
           </div>

@@ -16,6 +16,8 @@ function useSmoothScroll() {
       touchMultiplier: 2,
     })
 
+    window.lenis = lenis
+
     function raf(time) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -25,6 +27,7 @@ function useSmoothScroll() {
 
     return () => {
       lenis.destroy()
+      window.lenis = null
     }
   }, [])
 }
@@ -143,7 +146,7 @@ function MagneticButton({ children, className, ...props }) {
 /* ─── Mobile Menu Overlay ──────────────────────────────────── */
 function MobileMenu({ isOpen, onClose }) {
   const menuItems = [
-    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'Leistungen', path: '/leistungen' },
     { name: 'Projekte', path: '/projekte' },
     { name: 'Lookbook', path: '/lookbook' },
     { name: 'Team', path: '/team' },
@@ -271,7 +274,7 @@ function Header() {
           </Link>
           
           <div className="hidden lg:flex items-center gap-10">
-            {['Portfolio', 'Projekte', 'Lookbook', 'Team', 'Magazin'].map((item) => (
+            {['Leistungen', 'Projekte', 'Lookbook', 'Team', 'Magazin'].map((item) => (
               <Link 
                 key={item}
                 to={`/${item.toLowerCase()}`}
@@ -353,7 +356,7 @@ function Footer() {
           <div>
             <h4 className="font-sora font-light text-sm text-inv-light mb-4 tracking-wide">Navigation</h4>
             <nav className="space-y-2 font-dm text-[0.82rem] text-inv-muted">
-              {['Portfolio', 'Projekte', 'Lookbook', 'Team', 'Magazin', 'Kontakt'].map((item) => (
+              {['Leistungen', 'Projekte', 'Lookbook', 'Team', 'Magazin', 'Kontakt'].map((item) => (
                 <p key={item}>
                   <Link to={`/${item.toLowerCase()}`} className="hover:text-inv-light transition-colors">{item}</Link>
                 </p>

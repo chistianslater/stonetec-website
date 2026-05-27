@@ -33,7 +33,7 @@ const teamGroups = [
         name: 'Tim Dunkerbeck',
         role: 'Geschäftsführer | Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Qualität ist keine Zufälligkeit. Sie ist das Ergebnis bewusster Entscheidungen.',
-        image: '/images/Mitarbeiter/Tim Dunkerbeck-web.webp',
+        image: '/images/website-extract/Tim-Dunkerbeck.jpg',
         expertise: ['Strategie', 'Manufaktur', 'Großformate']
       },
       {
@@ -41,7 +41,7 @@ const teamGroups = [
         name: 'Lisa Niestegge',
         role: 'Geprüfte Bilanzbuchhalterin | Geprüfte Wirtschaftsfachwirtin',
         quote: 'Hinter jedem meisterhaften Projekt steht ein starkes Team.',
-        image: '/images/Mitarbeiter/Lisa Niestegge-web.webp',
+        image: '/images/website-extract/Lisa-Niestegge-1.jpg',
         expertise: ['Organisation', 'Finanzen', 'Service']
       },
       {
@@ -49,7 +49,7 @@ const teamGroups = [
         name: 'Laura Hoffmann',
         role: 'Interior Designerin (Bachelor of Arts)',
         quote: 'Struktur ist das Fundament für kreative Freiheit.',
-        image: '/images/Mitarbeiter/Laura Hoffmann-web.webp',
+        image: '/images/website-extract/Laura-Hoffmann.jpg',
         expertise: ['Planung', 'Kundenbetreuung', 'Konzept']
       },
       {
@@ -57,7 +57,7 @@ const teamGroups = [
         name: 'Simone Lueg',
         role: 'Beratung & Design',
         quote: 'Inspiration findet man dort, wo Ästhetik auf Fachwissen trifft.',
-        image: '/images/Mitarbeiter/Simone Lueg-web.webp',
+        image: '/images/website-extract/Simone-Lueg.jpg',
         expertise: ['Materialberatung', 'Ausstellung', 'Design']
       },
       {
@@ -65,7 +65,7 @@ const teamGroups = [
         name: 'Lotte Storm',
         role: 'Planung & Design',
         quote: 'Von den Besten lernen, um selbst meisterhaft zu werden.',
-        image: '/images/Mitarbeiter/Lotte Storm 2-web.webp',
+        image: '/images/website-extract/Lotte-Storm.jpg',
         expertise: ['Handwerk', 'Lernen', 'Präzision']
       },
       {
@@ -73,7 +73,7 @@ const teamGroups = [
         name: 'Sky',
         role: 'Fliesen-, Platten- & Mosaikaufseher',
         quote: 'Wuff! (Ich habe hier alles im Blick.)',
-        image: '/images/Mitarbeiter/25-DSC07200-web.webp',
+        image: '/images/website-extract/Sky-Niestegge.jpg',
         expertise: ['Aufsicht', 'Motivation', 'Sicherheit']
       }
     ]
@@ -86,7 +86,7 @@ const teamGroups = [
         name: 'Frank Brendjes',
         role: 'Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Der Gehrungsschnitt zeigt, wer wirklich Meister ist.',
-        image: '/images/Sonstiges/Frank-web.webp',
+        image: '/images/website-extract/Frank-Brendjes.jpg',
         expertise: ['Großformate', 'Sanierung', 'Spezialanfertigungen']
       },
       {
@@ -94,7 +94,7 @@ const teamGroups = [
         name: 'Mario Weidemann',
         role: 'Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Präzision ist keine Fähigkeit. Sie ist eine Haltung.',
-        image: '/images/Sonstiges/Mario-2-web.webp',
+        image: '/images/website-extract/Mario-Weidemann.jpg',
         expertise: ['Keramik', 'Naturstein', 'Details']
       },
       {
@@ -102,7 +102,7 @@ const teamGroups = [
         name: 'Thorsten Ueffing',
         role: 'Fliesen-, Platten- und Mosaiklegermeister | Staatl. gepr. Hochbau Techniker',
         quote: 'Das Material verdient Respekt. Wir geben ihm den richtigen Rahmen.',
-        image: '/images/Mitarbeiter/Thorsten Ueffing-web.webp',
+        image: '/images/website-extract/Thorsten-Ueffing.jpg',
         expertise: ['Großformate', 'Technik', 'Schulung']
       },
       {
@@ -110,7 +110,7 @@ const teamGroups = [
         name: 'Tim Grasedieck',
         role: 'Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Wir verlegen nicht nur Fliesen, wir gestalten Lebensraum.',
-        image: '/images/Mitarbeiter/Tim Grasedieck 2-web.webp',
+        image: '/images/website-extract/Tim-Grasedieck-1.jpg',
         expertise: ['Keramikmanufaktur', 'Spezialbau', 'Technik']
       },
       {
@@ -118,7 +118,7 @@ const teamGroups = [
         name: 'Noah Pokart',
         role: 'Angehender Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Die nächste Generation des Handwerks.',
-        image: '/images/Mitarbeiter/27-DSC07474-web.webp',
+        image: '/images/website-extract/Noah-Pokart.jpg',
         expertise: ['Innovation', 'Lernen', 'Präzision']
       },
       {
@@ -126,7 +126,7 @@ const teamGroups = [
         name: 'Ben Brendjes',
         role: 'Angehender Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Meisterschaft liegt in der Familie.',
-        image: '/images/Mitarbeiter/28-DSC07474-web.webp',
+        image: '/images/website-extract/Ben-Brendjes.jpg',
         expertise: ['Handwerk', 'Zukunft', 'Details']
       }
     ]
@@ -139,7 +139,7 @@ const teamGroups = [
         name: 'Matthias Krabbe',
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Jede Fuge erzählt eine Geschichte über die Person, die sie gesetzt hat.',
-        image: '/images/Sonstiges/Matthias @Work-web.webp',
+        image: '/images/website-extract/Matthias-Krabbe.jpg',
         expertise: ['Bäder', 'Bodenbeläge', 'Wandgestaltung']
       },
       {
@@ -147,7 +147,7 @@ const teamGroups = [
         name: 'Marcel Demming',
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Handwerk ist Leidenschaft, die man in jedem Detail sieht.',
-        image: '/images/Mitarbeiter/Marcel Demming-web.webp',
+        image: '/images/website-extract/Marcel-Demming.jpg',
         expertise: ['Großformate', 'Projektleitung', 'Qualitätssicherung']
       },
       {
@@ -155,7 +155,7 @@ const teamGroups = [
         name: 'Felix Terlinden',
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Präzision bis ins letzte Detail.',
-        image: '/images/Mitarbeiter/39-DSC07302-web.webp',
+        image: '/images/website-extract/Felix-Terlinden.jpg',
         expertise: ['Verlegung', 'Technik', 'Sauberkeit']
       },
       {
@@ -163,7 +163,7 @@ const teamGroups = [
         name: 'Lars Brodzinski',
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Ein guter Raum fühlt sich an wie nach Hause kommen.',
-        image: '/images/Mitarbeiter/Lars Brodzinski-web.webp',
+        image: '/images/website-extract/Lars-Brodzinski.jpg',
         expertise: ['Visualisierung', 'Kundenberatung', 'Planung']
       },
       {
@@ -171,7 +171,7 @@ const teamGroups = [
         name: 'Mujo Pobric',
         role: 'Allrounder Verlegung',
         quote: 'Handwerk lebt von der Überzeugung, dass es anders nicht geht.',
-        image: '/images/Mitarbeiter/Mujo Pobric-web.webp',
+        image: '/images/website-extract/Mujo-Pobric.jpg',
         expertise: ['Manufaktur', 'Sonderlösungen', 'Innovation']
       },
       {
@@ -179,7 +179,7 @@ const teamGroups = [
         name: 'Fabian Schmidt',
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Echte Qualität entsteht dort, wo man nicht mehr weglassen kann.',
-        image: '/images/Mitarbeiter/Fabian Schmidt-web.webp',
+        image: '/images/website-extract/Fabian-Schmidt.jpg',
         expertise: ['Badplanung', 'Großformate', 'Design']
       },
       {
@@ -187,7 +187,7 @@ const teamGroups = [
         name: 'Tim Lintfert',
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Perfektion ist das Ziel, Exzellenz der Standard.',
-        image: '/images/Mitarbeiter/Tim Lintfert-web.webp',
+        image: '/images/website-extract/Tim-Lintfert.jpg',
         expertise: ['Sanierung', 'Naturstein', 'Großformate']
       }
     ]
@@ -200,7 +200,7 @@ const teamGroups = [
         name: 'Stephan Wollny',
         role: 'Universalgenie',
         quote: 'Es gibt kein Problem, das man nicht lösen kann.',
-        image: '/images/Mitarbeiter/53-DSC07216-web.webp',
+        image: '/images/website-extract/Stephan-Wollny.jpg',
         expertise: ['Allrounder', 'Technik', 'Lösungen']
       },
       {
@@ -208,7 +208,7 @@ const teamGroups = [
         name: 'Samuel Nordmann',
         role: 'Universalgenie',
         quote: 'Ein Meisterstück ist die Summe aus Erfahrung und Hingabe.',
-        image: '/images/Mitarbeiter/Samuel Nordmann-web.webp',
+        image: '/images/website-extract/Samuel-Nordmann-1.jpg',
         expertise: ['Sonderanfertigungen', 'Baddesign', 'Keramik']
       }
     ]
