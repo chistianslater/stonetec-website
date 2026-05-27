@@ -87,13 +87,94 @@ const teamMembers = [
     experience: '8 Jahre',
     expertise: ['Manufaktur', 'Sonderlösungen', 'Innovation'],
     image: '/images/Mitarbeiter/Mujo Pobric-web.webp'
+  },
+  {
+    id: 8,
+    name: 'Fabian Schmidt',
+    role: 'Fliesenlegermeister',
+    quote: 'Echte Qualität entsteht dort, wo man nicht mehr weglassen kann.',
+    experience: '7 Jahre',
+    expertise: ['Badplanung', 'Großformate', 'Design'],
+    image: '/images/Mitarbeiter/Fabian Schmidt-web.webp'
+  },
+  {
+    id: 9,
+    name: 'Tim Grasedieck',
+    role: 'Fliesenlegermeister',
+    quote: 'Wir verlegen nicht nur Fliesen, wir gestalten Lebensraum.',
+    experience: '10 Jahre',
+    expertise: ['Keramikmanufaktur', 'Spezialbau', 'Technik'],
+    image: '/images/Mitarbeiter/Tim Grasedieck 1-web.webp'
+  },
+  {
+    id: 10,
+    name: 'Tim Lintfert',
+    role: 'Fliesenlegermeister',
+    quote: 'Perfektion ist das Ziel, Exzellenz der Standard.',
+    experience: '9 Jahre',
+    expertise: ['Sanierung', 'Naturstein', 'Großformate'],
+    image: '/images/Mitarbeiter/Tim Lintfert-web.webp'
+  },
+  {
+    id: 11,
+    name: 'Marcel Demming',
+    role: 'Fliesenlegermeister',
+    quote: 'Handwerk ist Leidenschaft, die man in jedem Detail sieht.',
+    experience: '12 Jahre',
+    expertise: ['Großformate', 'Projektleitung', 'Qualitätssicherung'],
+    image: '/images/Mitarbeiter/Marcel Demming-web.webp'
+  },
+  {
+    id: 12,
+    name: 'Samuel Nordmann',
+    role: 'Fliesenlegermeister',
+    quote: 'Ein Meisterstück ist die Summe aus Erfahrung und Hingabe.',
+    experience: '6 Jahre',
+    expertise: ['Sonderanfertigungen', 'Baddesign', 'Keramik'],
+    image: '/images/Mitarbeiter/Samuel Nordmann-web.webp'
+  },
+  {
+    id: 13,
+    name: 'Laura Hoffmann',
+    role: 'Projektkoordination & Design',
+    quote: 'Struktur ist das Fundament für kreative Freiheit.',
+    experience: '8 Jahre',
+    expertise: ['Planung', 'Kundenbetreuung', 'Konzept'],
+    image: '/images/Mitarbeiter/Laura Hoffmann-web.webp'
+  },
+  {
+    id: 14,
+    name: 'Lisa Niestegge',
+    role: 'Backoffice & Organisation',
+    quote: 'Hinter jedem meisterhaften Projekt steht ein starkes Team.',
+    experience: '10 Jahre',
+    expertise: ['Organisation', 'Kommunikation', 'Service'],
+    image: '/images/Mitarbeiter/Lisa Niestegge-web.webp'
+  },
+  {
+    id: 15,
+    name: 'Simone Lueg',
+    role: 'Showroom & Beratung',
+    quote: 'Inspiration findet man dort, wo Ästhetik auf Fachwissen trifft.',
+    experience: '15 Jahre',
+    expertise: ['Materialberatung', 'Ausstellung', 'Design'],
+    image: '/images/Mitarbeiter/Simone Lueg-web.webp'
+  },
+  {
+    id: 16,
+    name: 'Lotte Storm',
+    role: 'Auszubildende',
+    quote: 'Von den Besten lernen, um selbst meisterhaft zu werden.',
+    experience: '2 Jahre',
+    expertise: ['Handwerk', 'Lernen', 'Präzision'],
+    image: '/images/Mitarbeiter/Lotte Storm-web.webp'
   }
 ]
 
 const values = [
   {
     title: 'Meisterhand',
-    description: 'Kein Subunternehmer. Nur eigene Meister. Sieben Fliesenlegermeister unter einem Dach.'
+    description: 'Kein Subunternehmer. Nur eigene Meister. Zwölf Fliesenlegermeister unter einem Dach.'
   },
   {
     title: 'Präzision',
@@ -122,7 +203,7 @@ export default function Team() {
             Auf jeder Baustelle steht ein Meister.
           </h1>
           <p className="font-dm text-[0.95rem] text-warm-mittel max-w-2xl leading-relaxed">
-            Sieben Fliesenlegermeister. Ein Unternehmen. Null Subunternehmer. 
+            Zwölf Fliesenlegermeister. Ein Unternehmen. Null Subunternehmer. 
             Jeder von uns hat seine Spezialität, alle teilen denselben Anspruch.
           </p>
         </Reveal>
@@ -133,11 +214,11 @@ export default function Team() {
         <Reveal delay={100}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-warm-anthrazit/10">
             <div>
-              <p className="font-sora font-extralight text-4xl text-warm-text mb-1">7</p>
+              <p className="font-sora font-extralight text-4xl text-warm-text mb-1">12</p>
               <p className="font-dm text-[0.82rem] text-warm-mittel">Fliesenlegermeister</p>
             </div>
             <div>
-              <p className="font-sora font-extralight text-4xl text-warm-text mb-1">108+</p>
+              <p className="font-sora font-extralight text-4xl text-warm-text mb-1">180+</p>
               <p className="font-dm text-[0.82rem] text-warm-mittel">Jahre Erfahrung</p>
             </div>
             <div>

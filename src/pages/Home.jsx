@@ -270,7 +270,7 @@ function Hero() {
    ═══════════════════════════════════════════════════════════ */
 function Intro() {
   const text1 = "Zwischen der Vision in deinem Kopf und der Realität in deinem Raum liegen Entscheidungen, die sich endgültig anfühlen. Materialien, die du nicht kennst. Formate, die Präzision verlangen. Und die Frage, wem du das anvertraust."
-  const text2 = "Dafür gibt es uns. Sieben Meister, eigene Fertigung, ein klarer Prozess — und den Anspruch, dass jeder Raum genau so wird, wie du ihn dir vorstellst. Oder besser."
+  const text2 = "Dafür gibt es uns. Zwölf Meister, eigene Fertigung, ein klarer Prozess — und den Anspruch, dass jeder Raum genau so wird, wie du ihn dir vorstellst. Oder besser."
 
   return (
     <section className="bg-warm-bg py-24 md:py-36 noise relative overflow-hidden">
@@ -296,7 +296,7 @@ function Intro() {
    LEISTUNGEN — Bento Grid
    ═══════════════════════════════════════════════════════════ */
 const services = [
-  { img: '/images/Sonstiges/Matthias @Work-web.webp', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
+  { img: '/images/Sonstiges/Matthias @Work-web.webp', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Zwölf Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
   { img: '/images/Keramik-Manufaktur/IMG_5118-web.webp', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
   { img: '/images/visualisierung.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheiden erst, wenn du siehst, wie es wird.' },
   { img: '/images/ausstellung.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
@@ -416,7 +416,7 @@ function Leistungen() {
    ═══════════════════════════════════════════════════════════ */
 function Markenversprechen() {
   const facts = [
-    '7 Fliesenlegermeister unter einem Dach',
+    '12 Fliesenlegermeister unter einem Dach',
     'Eigene Keramikmanufaktur für Unikate',
     '3D-Visualisierung vor Baubeginn',
     'Pauschalpreise — keine Nachträge',

@@ -224,11 +224,11 @@ export default function Projekte() {
                 <p className="font-dm text-[0.82rem] text-inv-muted">Realisierte Projekte</p>
               </div>
               <div className="text-center">
-                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">7</p>
+                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">12</p>
                 <p className="font-dm text-[0.82rem] text-inv-muted">Fliesenlegermeister</p>
               </div>
               <div className="text-center">
-                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">15+</p>
+                <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">25+</p>
                 <p className="font-dm text-[0.82rem] text-inv-muted">Jahre Erfahrung</p>
               </div>
               <div className="text-center">
