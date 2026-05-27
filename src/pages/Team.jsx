@@ -236,7 +236,7 @@ const values = [
 
 export default function Team() {
   return (
-    <div className="bg-warm-bg min-h-screen pt-32 pb-24">
+    <div className="bg-warm-bg min-h-screen pt-48 pb-24">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
         <Reveal>

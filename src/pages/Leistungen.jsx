@@ -145,7 +145,7 @@ function ServiceSection({ service, index }) {
 /* ─── Main Component ─────────────────────────────────────────── */
 export default function Leistungen() {
   return (
-    <div className="bg-warm-bg min-h-screen pt-32">
+    <div className="bg-warm-bg min-h-screen pt-48">
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
         <Reveal>
