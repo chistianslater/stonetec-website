@@ -24,150 +24,194 @@ function Reveal({ children, className = '', delay = 0 }) {
   )
 }
 
-const teamMembers = [
+const teamGroups = [
   {
-    id: 1,
-    name: 'Tim Dunkerbeck',
-    role: 'Geschäftsführung',
-    quote: 'Qualität ist keine Zufälligkeit. Sie ist das Ergebnis bewusster Entscheidungen.',
-    experience: '25+ Jahre',
-    expertise: ['Strategie', 'Manufaktur', 'Großformate'],
-    image: '/images/Mitarbeiter/Tim Dunkerbeck-web.webp'
+    title: 'Büro | Planung & Design',
+    members: [
+      {
+        id: 1,
+        name: 'Tim Dunkerbeck',
+        role: 'Geschäftsführer | Fliesen-, Platten- und Mosaiklegermeister',
+        quote: 'Qualität ist keine Zufälligkeit. Sie ist das Ergebnis bewusster Entscheidungen.',
+        image: '/images/Mitarbeiter/Tim Dunkerbeck-web.webp',
+        expertise: ['Strategie', 'Manufaktur', 'Großformate']
+      },
+      {
+        id: 14,
+        name: 'Lisa Niestegge',
+        role: 'Geprüfte Bilanzbuchhalterin | Geprüfte Wirtschaftsfachwirtin',
+        quote: 'Hinter jedem meisterhaften Projekt steht ein starkes Team.',
+        image: '/images/Mitarbeiter/Lisa Niestegge-web.webp',
+        expertise: ['Organisation', 'Finanzen', 'Service']
+      },
+      {
+        id: 13,
+        name: 'Laura Hoffmann',
+        role: 'Interior Designerin (Bachelor of Arts)',
+        quote: 'Struktur ist das Fundament für kreative Freiheit.',
+        image: '/images/Mitarbeiter/Laura Hoffmann-web.webp',
+        expertise: ['Planung', 'Kundenbetreuung', 'Konzept']
+      },
+      {
+        id: 15,
+        name: 'Simone Lueg',
+        role: 'Beratung & Design',
+        quote: 'Inspiration findet man dort, wo Ästhetik auf Fachwissen trifft.',
+        image: '/images/Mitarbeiter/Simone Lueg-web.webp',
+        expertise: ['Materialberatung', 'Ausstellung', 'Design']
+      },
+      {
+        id: 16,
+        name: 'Lotte Storm',
+        role: 'Planung & Design',
+        quote: 'Von den Besten lernen, um selbst meisterhaft zu werden.',
+        image: '/images/Mitarbeiter/Lotte Storm 2-web.webp',
+        expertise: ['Handwerk', 'Lernen', 'Präzision']
+      },
+      {
+        id: 17,
+        name: 'Sky',
+        role: 'Fliesen-, Platten- & Mosaikaufseher',
+        quote: 'Wuff! (Ich habe hier alles im Blick.)',
+        image: '/images/Mitarbeiter/25-DSC07200-web.webp',
+        expertise: ['Aufsicht', 'Motivation', 'Sicherheit']
+      }
+    ]
   },
   {
-    id: 2,
-    name: 'Frank Brendjes',
-    role: 'Fliesenlegermeister',
-    quote: 'Der Gehrungsschnitt zeigt, wer wirklich Meister ist.',
-    experience: '20 Jahre',
-    expertise: ['Großformate', 'Sanierung', 'Spezialanfertigungen'],
-    image: '/images/Mitarbeiter/Frank Brendjes-web.webp'
+    title: 'Meister & Techniker ihres Faches',
+    members: [
+      {
+        id: 2,
+        name: 'Frank Brendjes',
+        role: 'Fliesen-, Platten- und Mosaiklegermeister',
+        quote: 'Der Gehrungsschnitt zeigt, wer wirklich Meister ist.',
+        image: '/images/Sonstiges/Frank-web.webp',
+        expertise: ['Großformate', 'Sanierung', 'Spezialanfertigungen']
+      },
+      {
+        id: 4,
+        name: 'Mario Weidemann',
+        role: 'Fliesen-, Platten- und Mosaiklegermeister',
+        quote: 'Präzision ist keine Fähigkeit. Sie ist eine Haltung.',
+        image: '/images/Sonstiges/Mario-2-web.webp',
+        expertise: ['Keramik', 'Naturstein', 'Details']
+      },
+      {
+        id: 5,
+        name: 'Thorsten Ueffing',
+        role: 'Fliesen-, Platten- und Mosaiklegermeister | Staatl. gepr. Hochbau Techniker',
+        quote: 'Das Material verdient Respekt. Wir geben ihm den richtigen Rahmen.',
+        image: '/images/Mitarbeiter/Thorsten Ueffing-web.webp',
+        expertise: ['Großformate', 'Technik', 'Schulung']
+      },
+      {
+        id: 9,
+        name: 'Tim Grasedieck',
+        role: 'Fliesen-, Platten- und Mosaiklegermeister',
+        quote: 'Wir verlegen nicht nur Fliesen, wir gestalten Lebensraum.',
+        image: '/images/Mitarbeiter/Tim Grasedieck 2-web.webp',
+        expertise: ['Keramikmanufaktur', 'Spezialbau', 'Technik']
+      },
+      {
+        id: 18,
+        name: 'Noah Pokart',
+        role: 'Angehender Fliesen-, Platten- und Mosaiklegermeister',
+        quote: 'Die nächste Generation des Handwerks.',
+        image: '/images/Mitarbeiter/27-DSC07474-web.webp',
+        expertise: ['Innovation', 'Lernen', 'Präzision']
+      },
+      {
+        id: 19,
+        name: 'Ben Brendjes',
+        role: 'Angehender Fliesen-, Platten- und Mosaiklegermeister',
+        quote: 'Meisterschaft liegt in der Familie.',
+        image: '/images/Mitarbeiter/28-DSC07474-web.webp',
+        expertise: ['Handwerk', 'Zukunft', 'Details']
+      }
+    ]
   },
   {
-    id: 3,
-    name: 'Matthias Krabbe',
-    role: 'Fliesenlegermeister',
-    quote: 'Jede Fuge erzählt eine Geschichte über die Person, die sie gesetzt hat.',
-    experience: '18 Jahre',
-    expertise: ['Bäder', 'Bodenbeläge', 'Wandgestaltung'],
-    image: '/images/Mitarbeiter/Matthias Krabbe-web.webp'
+    title: 'Verlegung',
+    members: [
+      {
+        id: 3,
+        name: 'Matthias Krabbe',
+        role: 'Fliesen-, Platten- und Mosaiklegergeselle',
+        quote: 'Jede Fuge erzählt eine Geschichte über die Person, die sie gesetzt hat.',
+        image: '/images/Sonstiges/Matthias @Work-web.webp',
+        expertise: ['Bäder', 'Bodenbeläge', 'Wandgestaltung']
+      },
+      {
+        id: 11,
+        name: 'Marcel Demming',
+        role: 'Fliesen-, Platten- und Mosaiklegergeselle',
+        quote: 'Handwerk ist Leidenschaft, die man in jedem Detail sieht.',
+        image: '/images/Mitarbeiter/Marcel Demming-web.webp',
+        expertise: ['Großformate', 'Projektleitung', 'Qualitätssicherung']
+      },
+      {
+        id: 20,
+        name: 'Felix Terlinden',
+        role: 'Fliesen-, Platten- und Mosaiklegergeselle',
+        quote: 'Präzision bis ins letzte Detail.',
+        image: '/images/Mitarbeiter/39-DSC07302-web.webp',
+        expertise: ['Verlegung', 'Technik', 'Sauberkeit']
+      },
+      {
+        id: 6,
+        name: 'Lars Brodzinski',
+        role: 'Fliesen-, Platten- und Mosaiklegergeselle',
+        quote: 'Ein guter Raum fühlt sich an wie nach Hause kommen.',
+        image: '/images/Mitarbeiter/Lars Brodzinski-web.webp',
+        expertise: ['Visualisierung', 'Kundenberatung', 'Planung']
+      },
+      {
+        id: 7,
+        name: 'Mujo Pobric',
+        role: 'Allrounder Verlegung',
+        quote: 'Handwerk lebt von der Überzeugung, dass es anders nicht geht.',
+        image: '/images/Mitarbeiter/Mujo Pobric-web.webp',
+        expertise: ['Manufaktur', 'Sonderlösungen', 'Innovation']
+      },
+      {
+        id: 8,
+        name: 'Fabian Schmidt',
+        role: 'Fliesen-, Platten- und Mosaiklegergeselle',
+        quote: 'Echte Qualität entsteht dort, wo man nicht mehr weglassen kann.',
+        image: '/images/Mitarbeiter/Fabian Schmidt-web.webp',
+        expertise: ['Badplanung', 'Großformate', 'Design']
+      },
+      {
+        id: 10,
+        name: 'Tim Lintfert',
+        role: 'Fliesen-, Platten- und Mosaiklegergeselle',
+        quote: 'Perfektion ist das Ziel, Exzellenz der Standard.',
+        image: '/images/Mitarbeiter/Tim Lintfert-web.webp',
+        expertise: ['Sanierung', 'Naturstein', 'Großformate']
+      }
+    ]
   },
   {
-    id: 4,
-    name: 'Mario Weidemann',
-    role: 'Fliesenlegermeister',
-    quote: 'Präzision ist keine Fähigkeit. Sie ist eine Haltung.',
-    experience: '15 Jahre',
-    expertise: ['Keramik', 'Naturstein', 'Details'],
-    image: '/images/Mitarbeiter/Mario Weidemann-web.webp'
-  },
-  {
-    id: 5,
-    name: 'Thorsten Ueffing',
-    role: 'Fliesenlegermeister',
-    quote: 'Das Material verdient Respekt. Wir geben ihm den richtigen Rahmen.',
-    experience: '12 Jahre',
-    expertise: ['Großformate', 'Technik', 'Schulung'],
-    image: '/images/Mitarbeiter/Thorsten Ueffing-web.webp'
-  },
-  {
-    id: 6,
-    name: 'Lars Brodzinski',
-    role: 'Fliesenlegermeister',
-    quote: 'Ein guter Raum fühlt sich an wie nach Hause kommen.',
-    experience: '10 Jahre',
-    expertise: ['Visualisierung', 'Kundenberatung', 'Planung'],
-    image: '/images/Mitarbeiter/Lars Brodzinski-web.webp'
-  },
-  {
-    id: 7,
-    name: 'Mujo Pobric',
-    role: 'Fliesenlegermeister',
-    quote: 'Handwerk lebt von der Überzeugung, dass es anders nicht geht.',
-    experience: '8 Jahre',
-    expertise: ['Manufaktur', 'Sonderlösungen', 'Innovation'],
-    image: '/images/Mitarbeiter/Mujo Pobric-web.webp'
-  },
-  {
-    id: 8,
-    name: 'Fabian Schmidt',
-    role: 'Fliesenlegermeister',
-    quote: 'Echte Qualität entsteht dort, wo man nicht mehr weglassen kann.',
-    experience: '7 Jahre',
-    expertise: ['Badplanung', 'Großformate', 'Design'],
-    image: '/images/Mitarbeiter/Fabian Schmidt-web.webp'
-  },
-  {
-    id: 9,
-    name: 'Tim Grasedieck',
-    role: 'Fliesenlegermeister',
-    quote: 'Wir verlegen nicht nur Fliesen, wir gestalten Lebensraum.',
-    experience: '10 Jahre',
-    expertise: ['Keramikmanufaktur', 'Spezialbau', 'Technik'],
-    image: '/images/Mitarbeiter/Tim Grasedieck 1-web.webp'
-  },
-  {
-    id: 10,
-    name: 'Tim Lintfert',
-    role: 'Fliesenlegermeister',
-    quote: 'Perfektion ist das Ziel, Exzellenz der Standard.',
-    experience: '9 Jahre',
-    expertise: ['Sanierung', 'Naturstein', 'Großformate'],
-    image: '/images/Mitarbeiter/Tim Lintfert-web.webp'
-  },
-  {
-    id: 11,
-    name: 'Marcel Demming',
-    role: 'Fliesenlegermeister',
-    quote: 'Handwerk ist Leidenschaft, die man in jedem Detail sieht.',
-    experience: '12 Jahre',
-    expertise: ['Großformate', 'Projektleitung', 'Qualitätssicherung'],
-    image: '/images/Mitarbeiter/Marcel Demming-web.webp'
-  },
-  {
-    id: 12,
-    name: 'Samuel Nordmann',
-    role: 'Fliesenlegermeister',
-    quote: 'Ein Meisterstück ist die Summe aus Erfahrung und Hingabe.',
-    experience: '6 Jahre',
-    expertise: ['Sonderanfertigungen', 'Baddesign', 'Keramik'],
-    image: '/images/Mitarbeiter/Samuel Nordmann-web.webp'
-  },
-  {
-    id: 13,
-    name: 'Laura Hoffmann',
-    role: 'Projektkoordination & Design',
-    quote: 'Struktur ist das Fundament für kreative Freiheit.',
-    experience: '8 Jahre',
-    expertise: ['Planung', 'Kundenbetreuung', 'Konzept'],
-    image: '/images/Mitarbeiter/Laura Hoffmann-web.webp'
-  },
-  {
-    id: 14,
-    name: 'Lisa Niestegge',
-    role: 'Backoffice & Organisation',
-    quote: 'Hinter jedem meisterhaften Projekt steht ein starkes Team.',
-    experience: '10 Jahre',
-    expertise: ['Organisation', 'Kommunikation', 'Service'],
-    image: '/images/Mitarbeiter/Lisa Niestegge-web.webp'
-  },
-  {
-    id: 15,
-    name: 'Simone Lueg',
-    role: 'Showroom & Beratung',
-    quote: 'Inspiration findet man dort, wo Ästhetik auf Fachwissen trifft.',
-    experience: '15 Jahre',
-    expertise: ['Materialberatung', 'Ausstellung', 'Design'],
-    image: '/images/Mitarbeiter/Simone Lueg-web.webp'
-  },
-  {
-    id: 16,
-    name: 'Lotte Storm',
-    role: 'Auszubildende',
-    quote: 'Von den Besten lernen, um selbst meisterhaft zu werden.',
-    experience: '2 Jahre',
-    expertise: ['Handwerk', 'Lernen', 'Präzision'],
-    image: '/images/Mitarbeiter/Lotte Storm-web.webp'
+    title: 'Unser Universalgenie',
+    members: [
+      {
+        id: 21,
+        name: 'Stephan Wollny',
+        role: 'Universalgenie',
+        quote: 'Es gibt kein Problem, das man nicht lösen kann.',
+        image: '/images/Mitarbeiter/53-DSC07216-web.webp',
+        expertise: ['Allrounder', 'Technik', 'Lösungen']
+      },
+      {
+        id: 12,
+        name: 'Samuel Nordmann',
+        role: 'Universalgenie',
+        quote: 'Ein Meisterstück ist die Summe aus Erfahrung und Hingabe.',
+        image: '/images/Mitarbeiter/Samuel Nordmann-web.webp',
+        expertise: ['Sonderanfertigungen', 'Baddesign', 'Keramik']
+      }
+    ]
   }
 ]
 
@@ -233,42 +277,51 @@ export default function Team() {
         </Reveal>
       </div>
 
-      {/* Team Grid */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <Reveal key={member.id} delay={index * 100}>
-              <div className="group">
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4 bg-dark-bg">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#06060680] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="font-sora font-light text-lg text-warm-text tracking-[-0.01em]">
-                      {member.name}
-                    </h3>
-                    <p className="font-dm text-[0.8rem] text-warm-mittel">{member.role}</p>
-                  </div>
-                  <blockquote className="font-dm text-[0.85rem] text-warm-mittel italic leading-relaxed border-l-2 border-warm-stein pl-4">
-                    "{member.quote}"
-                  </blockquote>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {member.expertise.map(skill => (
-                      <span key={skill} className="px-2.5 py-1 bg-warm-anthrazit/10 font-dm text-[0.72rem] text-warm-mittel">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+      {/* Team Groups */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24 space-y-24">
+        {teamGroups.map((group, groupIndex) => (
+          <div key={group.title}>
+            <Reveal delay={groupIndex * 100}>
+              <h2 className="font-sora font-extralight text-2xl md:text-3xl text-warm-text tracking-[-0.01em] mb-12 border-l-2 border-warm-stein pl-6">
+                {group.title}
+              </h2>
             </Reveal>
-          ))}
-        </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {group.members.map((member, index) => (
+                <Reveal key={member.id} delay={index * 100}>
+                  <div className="group">
+                    <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4 bg-dark-bg">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#06060680] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </div>
+                    <div className="space-y-3">
+                      <div>
+                        <h3 className="font-sora font-light text-lg text-warm-text tracking-[-0.01em]">
+                          {member.name}
+                        </h3>
+                        <p className="font-dm text-[0.8rem] text-warm-mittel">{member.role}</p>
+                      </div>
+                      <blockquote className="font-dm text-[0.85rem] text-warm-mittel italic leading-relaxed border-l-2 border-warm-stein pl-4">
+                        "{member.quote}"
+                      </blockquote>
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {member.expertise.map(skill => (
+                          <span key={skill} className="px-2.5 py-1 bg-warm-anthrazit/10 font-dm text-[0.72rem] text-warm-mittel">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Values */}
