@@ -77,7 +77,7 @@ function ImageCard({ image, index }) {
   return (
     <Reveal delay={index * 100}>
       <div className="group cursor-pointer">
-        <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-3">
+        <div className="relative aspect-[4/5] rounded-none overflow-hidden mb-3">
           <img
             src={image.src}
             alt={image.caption}
@@ -169,7 +169,7 @@ export default function Lookbook() {
             <Reveal key={section.id} delay={index * 100}>
               <button
                 onClick={() => setActiveSection(section.id)}
-                className={`group relative aspect-[16/9] rounded-xl overflow-hidden text-left ${
+                className={`group relative aspect-[16/9] rounded-none overflow-hidden text-left ${
                   activeSection === section.id ? 'ring-2 ring-warm-text' : ''
                 }`}
               >
@@ -196,7 +196,7 @@ export default function Lookbook() {
       {/* Download CTA */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-16">
         <Reveal>
-          <div className="bg-dark-bg rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="bg-dark-bg rounded-none p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h3 className="font-sora font-light text-xl text-inv-light tracking-[-0.01em] mb-2">
                 Vollständiges Lookbook als PDF

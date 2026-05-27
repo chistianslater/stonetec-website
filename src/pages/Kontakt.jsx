@@ -69,7 +69,7 @@ export default function Kontakt() {
           {/* Contact Info */}
           <div className="lg:col-span-2 space-y-8">
             <Reveal delay={100}>
-              <div className="bg-dark-bg rounded-xl p-6">
+              <div className="bg-dark-bg rounded-none p-6">
                 <h3 className="font-sora font-light text-lg text-inv-light tracking-[-0.01em] mb-4">
                   StoneTec GmbH
                 </h3>
@@ -91,7 +91,7 @@ export default function Kontakt() {
             </Reveal>
 
             <Reveal delay={200}>
-              <div className="bg-dark-bg rounded-xl p-6">
+              <div className="bg-dark-bg rounded-none p-6">
                 <h3 className="font-sora font-light text-lg text-inv-light tracking-[-0.01em] mb-4">
                   Öffnungszeiten
                 </h3>
@@ -106,7 +106,7 @@ export default function Kontakt() {
             </Reveal>
 
             <Reveal delay={300}>
-              <div className="bg-warm-anthrazit/5 rounded-xl p-6 border border-warm-anthrazit/10">
+              <div className="bg-warm-anthrazit/5 rounded-none p-6 border border-warm-anthrazit/10">
                 <h3 className="font-sora font-light text-lg text-warm-text tracking-[-0.01em] mb-3">
                   Direkt zum Showroom
                 </h3>
@@ -132,13 +132,13 @@ export default function Kontakt() {
           {/* Contact Form */}
           <div className="lg:col-span-3">
             <Reveal delay={150}>
-              <div className="bg-dark-bg rounded-xl p-6 md:p-8">
+              <div className="bg-dark-bg rounded-none p-6 md:p-8">
                 <h2 className="font-sora font-light text-xl text-inv-light tracking-[-0.01em] mb-6">
                   Termin anfragen
                 </h2>
 
                 {submitted ? (
-                  <div className="bg-warm-bg/10 rounded-lg p-6 text-center">
+                  <div className="bg-warm-bg/10 rounded-none p-6 text-center">
                     <svg className="w-12 h-12 text-inv-light mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
                     </svg>
@@ -163,7 +163,7 @@ export default function Kontakt() {
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
+                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-none font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
                           placeholder="Dein Name"
                         />
                       </div>
@@ -178,7 +178,7 @@ export default function Kontakt() {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
+                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-none font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
                           placeholder="deine@email.de"
                         />
                       </div>
@@ -195,7 +195,7 @@ export default function Kontakt() {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
+                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-none font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
                           placeholder="+49 ..."
                         />
                       </div>
@@ -208,7 +208,7 @@ export default function Kontakt() {
                           name="projectType"
                           value={formData.projectType}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light focus:outline-none focus:border-inv-light/40 transition-colors appearance-none cursor-pointer"
+                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-none font-dm text-[0.9rem] text-inv-light focus:outline-none focus:border-inv-light/40 transition-colors appearance-none cursor-pointer"
                         >
                           <option value="">Bitte wählen</option>
                           <option value="bad">Badezimmer</option>
@@ -230,7 +230,7 @@ export default function Kontakt() {
                         name="timeline"
                         value={formData.timeline}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light focus:outline-none focus:border-inv-light/40 transition-colors appearance-none cursor-pointer"
+                        className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-none font-dm text-[0.9rem] text-inv-light focus:outline-none focus:border-inv-light/40 transition-colors appearance-none cursor-pointer"
                       >
                         <option value="">Bitte wählen</option>
                         <option value="sofort">Sofort</option>
@@ -251,7 +251,7 @@ export default function Kontakt() {
                         rows={5}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors resize-none"
+                        className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-none font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors resize-none"
                         placeholder="Erzähl uns von deinem Projekt, deinen Vorstellungen und was dir wichtig ist..."
                       />
                     </div>
@@ -261,7 +261,7 @@ export default function Kontakt() {
                         type="checkbox"
                         id="privacy"
                         required
-                        className="mt-1 w-4 h-4 rounded border-inv-light/20 bg-inv-light/10 text-warm-text focus:ring-0"
+                        className="mt-1 w-4 h-4 rounded-none border-inv-light/20 bg-inv-light/10 text-warm-text focus:ring-0"
                       />
                       <label htmlFor="privacy" className="font-dm text-[0.8rem] text-inv-muted leading-relaxed">
                         Ich stimme der Verarbeitung meiner Daten gemäß der 
@@ -271,7 +271,7 @@ export default function Kontakt() {
 
                     <button
                       type="submit"
-                      className="w-full px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.85rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300"
+                      className="w-full px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.85rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 rounded-none"
                     >
                       Termin anfragen
                     </button>
@@ -286,7 +286,7 @@ export default function Kontakt() {
       {/* Map Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-16">
         <Reveal>
-          <div className="bg-dark-bg rounded-xl overflow-hidden aspect-[21/9]">
+          <div className="bg-dark-bg rounded-none overflow-hidden aspect-[21/9]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2468.6384717856164!2d6.5978!3d51.8399!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8b7c3b7b7b7b7%3A0x0!2zNTHCsDUwJzI0LjAiTiA2wrAzNSc1Mi4wIkU!5e0!3m2!1sde!2sde!4v1600000000000"
               width="100%"

@@ -317,7 +317,7 @@ function ServiceCard({ service, index }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to="/kontakt" className="group block relative overflow-hidden rounded-2xl aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer">
+      <Link to="/kontakt" className="group block relative overflow-hidden rounded-none aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer">
         <motion.div 
           className="absolute inset-0"
           animate={{ scale: isHovered ? 1.05 : 1 }}
@@ -463,7 +463,7 @@ function Markenversprechen() {
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
+            <div className="relative rounded-none overflow-hidden aspect-[4/5]">
               <img src="/images/beratung.jpg" alt="StoneTec Beratungsgespräch im Showroom Bocholt" className="w-full h-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06060640] to-transparent" />
             </div>
@@ -586,16 +586,6 @@ function Prozess() {
   return (
     <section ref={targetRef} className="relative h-[500vh] bg-warm-bg">
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        {/* Background Decorative Text */}
-        <motion.div 
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0.03, 0.03, 0]) }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        >
-          <span className="font-sora font-bold text-[25vw] text-warm-anthrazit uppercase leading-none mt-[-10vh]">
-            Process
-          </span>
-        </motion.div>
-
         <div className="relative flex flex-col w-full">
           {/* Header Area */}
           <div className="px-6 md:px-12 lg:px-20 mb-16">

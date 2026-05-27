@@ -130,7 +130,7 @@ export default function Portfolio() {
           {filteredItems.map((item, index) => (
             <Reveal key={item.id} delay={index * 100}>
               <article className="group cursor-pointer">
-                <div className="relative aspect-[4/5] rounded-xl overflow-hidden mb-4">
+                <div className="relative aspect-[4/5] rounded-none overflow-hidden mb-4">
                   <img
                     src={item.image}
                     alt={item.title}
@@ -164,7 +164,7 @@ export default function Portfolio() {
       {/* CTA */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-20">
         <Reveal>
-          <div className="bg-dark-bg rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="bg-dark-bg rounded-none p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h2 className="font-sora font-extralight text-2xl md:text-3xl text-inv-light tracking-[-0.01em] mb-2">
                 Dein Projekt als nächstes Highlight?

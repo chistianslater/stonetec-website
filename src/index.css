@@ -41,6 +41,12 @@ body {
   overflow-x: hidden;
 }
 
+@media (min-width: 1024px) {
+  body, a, button {
+    cursor: none !important;
+  }
+}
+
 ::selection {
   background: var(--color-warm-anthrazit);
   color: var(--color-inv-light);

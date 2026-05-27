@@ -95,7 +95,7 @@ function ArticleCard({ article, index, featured = false }) {
     return (
       <Reveal delay={index * 100}>
         <Link to={`/magazin/${article.id}`} className="group block">
-          <article className="grid md:grid-cols-2 gap-6 bg-dark-bg rounded-xl overflow-hidden">
+          <article className="grid md:grid-cols-2 gap-6 bg-dark-bg rounded-none overflow-hidden">
             <div className="aspect-[16/10] md:aspect-auto overflow-hidden">
               <img
                 src={article.image}
@@ -133,7 +133,7 @@ function ArticleCard({ article, index, featured = false }) {
     <Reveal delay={index * 100}>
       <Link to={`/magazin/${article.id}`} className="group block">
         <article className="h-full">
-          <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4">
+          <div className="relative aspect-[16/10] rounded-none overflow-hidden mb-4">
             <img
               src={article.image}
               alt={article.title}
@@ -229,7 +229,7 @@ export default function Magazin() {
       {/* Newsletter CTA */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-20">
         <Reveal>
-          <div className="bg-dark-bg rounded-2xl p-8 md:p-12">
+          <div className="bg-dark-bg rounded-none p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h2 className="font-sora font-extralight text-2xl md:text-3xl text-inv-light tracking-[-0.01em] mb-3">
@@ -244,11 +244,11 @@ export default function Magazin() {
                 <input
                   type="email"
                   placeholder="deine@email.de"
-                  className="flex-1 px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
+                  className="flex-1 px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-none font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-warm-bg text-warm-text font-dm text-[0.8rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 whitespace-nowrap"
+                  className="px-6 py-3 bg-warm-bg text-warm-text font-dm text-[0.8rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 whitespace-nowrap rounded-none"
                 >
                   Anmelden
                 </button>

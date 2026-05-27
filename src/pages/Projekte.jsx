@@ -92,7 +92,7 @@ function ProjectCard({ project, index }) {
 
   return (
     <Reveal delay={index * 150}>
-      <article className={`bg-dark-bg rounded-2xl overflow-hidden ${project.featured ? 'md:col-span-2' : ''}`}>
+      <article className={`bg-dark-bg rounded-none overflow-hidden ${project.featured ? 'md:col-span-2' : ''}`}>
         <div className={`grid ${project.featured ? 'md:grid-cols-2' : 'grid-cols-1'}`}>
           {/* Image */}
           <div className={`relative ${project.featured ? 'aspect-[4/3]' : 'aspect-[16/9]'} overflow-hidden`}>
@@ -173,7 +173,7 @@ function ProjectCard({ project, index }) {
             {isExpanded && (
               <div className="mt-6 pt-6 border-t border-inv-light/10 grid grid-cols-2 gap-4">
                 {project.images.slice(1).map((img, i) => (
-                  <div key={i} className="aspect-[4/3] rounded-lg overflow-hidden">
+                  <div key={i} className="aspect-[4/3] rounded-none overflow-hidden">
                     <img src={img} alt={`${project.title} Detail ${i + 2}`} className="w-full h-full object-cover" />
                   </div>
                 ))}
@@ -217,7 +217,7 @@ export default function Projekte() {
       {/* Stats */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-24">
         <Reveal>
-          <div className="bg-dark-bg rounded-2xl p-8 md:p-12">
+          <div className="bg-dark-bg rounded-none p-8 md:p-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
                 <p className="font-sora font-extralight text-4xl md:text-5xl text-inv-light mb-2">350+</p>

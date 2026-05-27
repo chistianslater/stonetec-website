@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
 import Lenis from 'lenis'
 
 /* ─── Smooth Scrolling Hook ──────────────────────────────────── */
@@ -29,6 +29,54 @@ function useSmoothScroll() {
   }, [])
 }
 
+/* ─── Custom Cursor Component ──────────────────────────────────── */
+function CustomCursor() {
+  const [cursorState, setCursorState] = useState('default')
+  const mouseX = useMotionValue(-100)
+  const mouseY = useMotionValue(-100)
+
+  const springConfig = { damping: 25, stiffness: 400, mass: 0.5 }
+  const x = useSpring(mouseX, springConfig)
+  const y = useSpring(mouseY, springConfig)
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+
+    const handleMouseOver = (e) => {
+      const target = e.target
+      const isInteractive = target.closest('button, a, .magnetic-area')
+      if (isInteractive) {
+        setCursorState('pointer')
+      } else {
+        setCursorState('default')
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseover', handleMouseOver)
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseover', handleMouseOver)
+    }
+  }, [mouseX, mouseY])
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 w-5 h-5 bg-warm-anthrazit rounded-full pointer-events-none z-[9999] mix-blend-difference hidden lg:block"
+      style={{ x, y, translateX: '-50%', translateY: '-50%' }}
+      animate={{
+        scale: cursorState === 'pointer' ? 3 : 1,
+        opacity: 1
+      }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    />
+  )
+}
+
 /* ─── Full Logo with Text ──────────────────────────────────── */
 function FullLogo({ variant = 'light', className = '', scale = 1 }) {
   const isLight = variant === 'light'
@@ -50,9 +98,9 @@ function FullLogo({ variant = 'light', className = '', scale = 1 }) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g transform="translate(200, 90)">
-        <g transform="translate(-50, -18) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="2" fill={c1}/></g>
-        <g transform="translate(50, -18) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="2" fill={c2}/></g>
-        <g transform="translate(0, 32) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="2" fill={c3}/></g>
+        <g transform="translate(-50, -18) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="0" fill={c1}/></g>
+        <g transform="translate(50, -18) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="0" fill={c2}/></g>
+        <g transform="translate(0, 32) rotate(45)"><rect x="-34" y="-34" width="68" height="68" rx="0" fill={c3}/></g>
       </g>
       <text x="200" y="240" textAnchor="middle" fontFamily="Sora, sans-serif" fontWeight="400" fontSize="48" fill={text} letterSpacing="2">stonetec</text>
     </svg>
@@ -80,7 +128,7 @@ function MagneticButton({ children, className, ...props }) {
   return (
     <motion.button
       ref={ref}
-      className={className}
+      className={`${className} magnetic-area`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
@@ -124,7 +172,7 @@ function MobileMenu({ isOpen, onClose }) {
           >
             <button
               onClick={onClose}
-              className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-warm-anthrazit/5 hover:bg-warm-anthrazit/10 transition-colors cursor-pointer"
+              className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-none bg-warm-anthrazit/5 hover:bg-warm-anthrazit/10 transition-colors cursor-pointer"
             >
               <svg className="w-6 h-6 text-warm-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -360,6 +408,7 @@ function PageTransition({ children }) {
 export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
+      <CustomCursor />
       <Header />
       <main className="flex-1">
         <PageTransition>
