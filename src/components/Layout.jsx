@@ -392,36 +392,17 @@ function Footer() {
   )
 }
 
-/* ─── Page Transition Wrapper ──────────────────────────────────── */
-function PageTransition({ children }) {
-  const location = useLocation()
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
-  )
-}
-
 /* ─── Layout Component ──────────────────────────────────── */
 export default function Layout() {
   useSmoothScroll()
+  const location = useLocation()
 
   return (
     <div className="min-h-screen flex flex-col relative">
       <CustomCursor />
       <Header />
       <main className="flex-1 relative">
-        <PageTransition>
-          <Outlet />
-        </PageTransition>
+        <Outlet />
       </main>
       <Footer />
     </div>

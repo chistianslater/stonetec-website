@@ -8,8 +8,7 @@ function Reveal({ children, className = '', delay = 0 }) {
   return (
     <motion.div
       initial={{ y: 40, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, margin: '-100px' }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
@@ -82,7 +81,7 @@ function ProjectSection({ project, index }) {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 1, 1, 0])
   const isEven = index % 2 === 0
 
   return (

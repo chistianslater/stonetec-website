@@ -18,9 +18,8 @@ function useReveal(threshold = 0.15) {
 }
 
 function Reveal({ children, className = '', delay = 0 }) {
-  const ref = useReveal()
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div className={`reveal visible ${className}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   )
