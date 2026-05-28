@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { articles } from './Magazin.jsx'
+import SEO from '../components/SEO.jsx'
 
 /* ─── Hover Preview Component ────────────────────────────────── */
 function HoverPreview({ image, isVisible }) {
@@ -64,6 +65,11 @@ export default function MagazinPost() {
 
   return (
     <article className="bg-warm-bg min-h-screen pt-48 pb-24">
+      <SEO 
+        title={article.title}
+        description={article.excerpt}
+        image={article.image}
+      />
       {/* Header */}
       <header className="max-w-4xl mx-auto px-6 md:px-12 mb-16">
         <Link to="/magazin" className="inline-flex items-center gap-2 font-dm text-[0.75rem] uppercase tracking-[2px] text-warm-mittel hover:text-warm-text transition-colors mb-12 group">
@@ -103,7 +109,7 @@ export default function MagazinPost() {
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 md:px-12">
         <div 
-          className="prose prose-lg prose-stone max-w-none font-dm text-warm-text/90 leading-relaxed
+          className="magazin-content prose prose-lg prose-stone max-w-none font-dm text-warm-text/90 leading-relaxed
             prose-headings:font-sora prose-headings:font-light prose-headings:tracking-tight prose-headings:text-warm-text
             prose-h2:text-3xl prose-h2:mt-20 prose-h2:mb-8 prose-h2:pb-4 prose-h2:border-b prose-h2:border-warm-anthrazit/5
             prose-h3:text-xl prose-h3:mt-12 prose-h3:mb-4 prose-h3:font-medium

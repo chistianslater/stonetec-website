@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO.jsx'
 
 /* ─── Magnetic Link Component ──────────────────────────────────── */
-function MagneticLink({ to, children, className }) {
+function MagneticLink({ to, children, className, onClick }) {
   const ref = useRef(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -20,18 +21,33 @@ function MagneticLink({ to, children, className }) {
     setPosition({ x: 0, y: 0 })
   }
 
-  return (
+  const content = (
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: 'spring', stiffness: 350, damping: 15, mass: 0.5 }}
+      className="flex items-center justify-center"
     >
-      <Link to={to} className={className}>
+      <div className={className}>
         {children}
-      </Link>
+      </div>
     </motion.div>
+  )
+
+  if (to.startsWith('#')) {
+    return (
+      <a href={to} onClick={onClick} className="cursor-pointer">
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <Link to={to}>
+      {content}
+    </Link>
   )
 }
 
@@ -151,6 +167,14 @@ function Hero() {
   const springY = useSpring(y, { stiffness: 100, damping: 30, restDelta: 0.001 })
   const springScale = useSpring(scale, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
+  const scrollToLeistungen = (e) => {
+    e.preventDefault()
+    const target = document.querySelector('#leistungen')
+    if (target && window.lenis) {
+      window.lenis.scrollTo(target, { offset: -100 })
+    }
+  }
+
   return (
     <section ref={containerRef} className="relative h-screen min-h-[700px] flex items-end overflow-hidden">
       {/* Parallax Background */}
@@ -231,6 +255,7 @@ function Hero() {
           
           <MagneticLink
             to="#leistungen"
+            onClick={scrollToLeistungen}
             className="group inline-flex items-center gap-3 px-8 py-4 border border-inv-light/40 text-inv-light font-dm text-[0.82rem] font-medium tracking-wider uppercase hover:bg-inv-light/10 hover:border-inv-light/70 transition-all duration-300"
           >
             <span>Leistungen ansehen</span>
@@ -265,12 +290,10 @@ function Hero() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   INTRO
-   ═══════════════════════════════════════════════════════════ */
+/* ─── INTRO ──────────────────────────────────── */
 function Intro() {
   const text1 = "Zwischen der Vision in deinem Kopf und der Realität in deinem Raum liegen Entscheidungen, die sich endgültig anfühlen. Materialien, die du nicht kennst. Formate, die Präzision verlangen. Und die Frage, wem du das anvertraust."
-  const text2 = "Dafür gibt es uns. Zwölf Meister, eigene Fertigung, ein klarer Prozess — und den Anspruch, dass jeder Raum genau so wird, wie du ihn dir vorstellst. Oder besser."
+  const text2 = "Dafür gibt es uns. Sieben Meister, eigene Fertigung, ein klarer Prozess — und den Anspruch, dass jeder Raum genau so wird, wie du ihn dir vorstellst. Oder besser."
 
   return (
     <section className="bg-warm-bg py-24 md:py-36 noise relative overflow-hidden">
@@ -292,82 +315,55 @@ function Intro() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   LEISTUNGEN — Bento Grid
-   ═══════════════════════════════════════════════════════════ */
+/* ─── LEISTUNGEN — Bento Grid ──────────────────────────────────── */
 const services = [
-  { img: '/images/website-extract/Verlegung-2.jpg', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Zwölf Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
+  { img: '/images/website-extract/Harmonie-im-Bad-1.jpg', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
   { img: '/images/website-extract/KERAMIKMANUFAKTUR.jpg', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
   { img: '/images/website-extract/StoneTec_Startseite_rechteckig.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheiden erst, wenn du siehst, wie es wird.' },
   { img: '/images/website-extract/StoneTec_Startseite_quadratisch.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
 ]
 
 function ServiceCard({ service, index }) {
-  const ref = useRef(null)
-  const [isHovered, setIsHovered] = useState(false)
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       className={service.large ? 'md:col-span-2' : ''}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to="/kontakt" className="group block relative overflow-hidden rounded-2xl aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer">
-        <motion.div 
-          className="absolute inset-0"
-          animate={{ scale: isHovered ? 1.05 : 1 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
+      <Link to="/kontakt" className="group block relative overflow-hidden rounded-2xl aspect-[16/9] md:aspect-auto md:h-[420px] cursor-pointer bg-[#1A1815]">
+        <div className="absolute inset-0 transition-all duration-700 ease-out scale-100 group-hover:scale-105 opacity-80 group-hover:opacity-60">
           <img
             src={service.img}
             alt={`${service.title} — StoneTec Bocholt`}
             className="w-full h-full object-cover"
             loading="lazy"
           />
-        </motion.div>
+        </div>
         
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1815ee] via-[#1A181540] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1815] via-[#1A181540] to-transparent opacity-90" />
         
-        <motion.div 
-          className="absolute bottom-0 left-0 right-0 p-6 md:p-10"
-          animate={{ y: isHovered ? -8 : 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <motion.p 
-            className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-stein mb-2"
-            animate={{ opacity: isHovered ? 0.7 : 1 }}
-          >
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 transition-transform duration-500 ease-out translate-y-0 group-hover:-translate-y-4">
+          <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-stein mb-2 opacity-100 group-hover:opacity-70 transition-opacity duration-500">
             {service.sub}
-          </motion.p>
+          </p>
           <h3 className="font-sora font-light text-[clamp(1.4rem,2.5vw,2rem)] text-white leading-tight tracking-[-0.01em] mb-3">
             {service.title}
           </h3>
-          <motion.p 
-            className="font-dm text-[0.88rem] text-[#b0aaa5] max-w-md leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {service.desc}
-          </motion.p>
-        </motion.div>
+          <div className="overflow-hidden">
+            <p className="font-dm text-[0.88rem] text-white/70 max-w-md leading-relaxed max-h-0 group-hover:max-h-40 transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100">
+              {service.desc}
+            </p>
+          </div>
+        </div>
 
         {/* Hover Arrow */}
-        <motion.div 
-          className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500">
           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
           </svg>
-        </motion.div>
+        </div>
       </Link>
     </motion.div>
   )
@@ -375,7 +371,7 @@ function ServiceCard({ service, index }) {
 
 function Leistungen() {
   return (
-    <section id="leistungen" className="bg-dark-bg py-24 md:py-36 noise">
+    <section id="leistungen" className="bg-dark-bg py-24 md:py-36">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <div className="overflow-hidden mb-4">
           <motion.p 
@@ -411,12 +407,10 @@ function Leistungen() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MARKENVERSPRECHEN
-   ═══════════════════════════════════════════════════════════ */
+/* ─── MARKENVERSPRECHEN ──────────────────────────────────── */
 function Markenversprechen() {
   const facts = [
-    '12 Fliesenlegermeister unter einem Dach',
+    '7 Fliesenlegermeister unter einem Dach',
     'Eigene Keramikmanufaktur für Unikate',
     '3D-Visualisierung vor Baubeginn',
     'Pauschalpreise — keine Nachträge',
@@ -474,9 +468,7 @@ function Markenversprechen() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   GROßFORMATE — Horizontal Scroll Gallery
-   ═══════════════════════════════════════════════════════════ */
+/* ─── GROßFORMATE — Horizontal Scroll Gallery ──────────────────────────────────── */
 function Grossformate() {
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -541,33 +533,121 @@ function Grossformate() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PROZESS — Horizontal Scroll Reveal
-   ═══════════════════════════════════════════════════════════ */
+/* ─── Hover Image Component ──────────────────────────────────── */
+function HoverImage({ src, isVisible }) {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const springConfig = { damping: 25, stiffness: 250 }
+  const x = useSpring(mouseX, springConfig)
+  const y = useSpring(mouseY, springConfig)
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [mouseX, mouseY])
+
+  return (
+    <motion.div
+      style={{
+        x,
+        y,
+        translateX: '-50%',
+        translateY: '-120%',
+        pointerEvents: 'none',
+      }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ 
+        opacity: isVisible ? 1 : 0, 
+        scale: isVisible ? 1 : 0.8 
+      }}
+      className="fixed top-0 left-0 z-[100] w-64 aspect-[16/10] rounded-xl overflow-hidden shadow-2xl border-4 border-white/20"
+    >
+      <img src={src} alt="Process Step" className="w-full h-full object-cover" />
+    </motion.div>
+  )
+}
+
+/* ─── Process Card Component ──────────────────────────────────── */
+function ProcessCard({ step, i }) {
+  return (
+    <div className="relative flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw]">
+      <div className="group bg-white border border-warm-anthrazit/5 p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-between overflow-hidden cursor-pointer shadow-sm relative transition-all duration-500">
+        {/* Hover Image Reveal - Pure CSS for maximum stability */}
+        <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">
+          <img 
+            src={step.img} 
+            alt={step.title}
+            className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-out"
+          />
+          <div className="absolute inset-0 bg-warm-anthrazit/70" />
+        </div>
+
+        <div className="relative z-10">
+          <div className="flex items-baseline gap-4 mb-8">
+            <span className="font-sora font-extralight text-6xl lg:text-8xl text-warm-stein/20 group-hover:text-white/20 transition-colors duration-700">
+              {step.num}
+            </span>
+            <h3 className="font-sora font-light text-3xl lg:text-4xl tracking-tight text-warm-text group-hover:text-white transition-colors duration-500">
+              {step.title}
+            </h3>
+          </div>
+          <p className="font-dm text-lg lg:text-xl leading-relaxed mb-6 text-warm-text/80 group-hover:text-white/90 transition-colors duration-500">
+            {step.desc}
+          </p>
+        </div>
+        
+        <div className="relative z-10 pt-8 border-t border-warm-anthrazit/10 group-hover:border-white/20 transition-colors duration-500">
+          <p className="font-dm text-sm uppercase tracking-widest mb-2 text-warm-mittel group-hover:text-white/60 transition-colors duration-500">Details</p>
+          <p className="font-dm text-base leading-relaxed text-warm-mittel group-hover:text-white/80 transition-colors duration-500">
+            {step.detail}
+          </p>
+        </div>
+
+        {/* Decorative element */}
+        <div className="absolute top-12 right-12 opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-110 transition-all duration-500">
+          <svg className="w-12 h-12 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ─── PROZESS — Horizontal Scroll Reveal ──────────────────────────────────── */
 const steps = [
   { 
     num: '01', 
     title: 'Gespräch', 
     desc: 'Du erzählst. Wir hören zu, stellen die richtigen Fragen und geben dir eine erste Einschätzung — ehrlich, unverbindlich, auf den Punkt.',
-    detail: 'Kein Verkaufsgespräch, sondern eine fachliche Einordnung deiner Vision.'
+    detail: 'Kein Verkaufsgespräch, sondern eine fachliche Einordnung deiner Vision.',
+    img: '/images/website-extract/Beratung.jpg'
   },
   { 
     num: '02', 
     title: 'Visualisierung', 
     desc: 'Du siehst deinen Raum in 3D, mit echten Materialien. Dazu ein transparenter Pauschalpreis. Keine Überraschungen, keine Nachträge.',
-    detail: 'Wir machen deine Vision greifbar, bevor der erste Stein liegt.'
+    detail: 'Wir machen deine Vision greifbar, bevor der erste Stein liegt.',
+    img: '/images/website-extract/StoneTec_Startseite_rechteckig.jpg'
   },
   { 
     num: '03', 
     title: 'Umsetzung', 
     desc: 'Unsere Meister arbeiten bei dir — saubere Baustelle, klare Zeitpläne, eigene Leute. Jeden Tag.',
-    detail: 'Handwerkliche Präzision ohne Kompromisse und ohne Subunternehmer.'
+    detail: 'Handwerkliche Präzision ohne Kompromisse und ohne Subunternehmer.',
+    img: '/images/Sonstiges/Matthias @Work-web.webp'
   },
   { 
     num: '04', 
     title: 'Ergebnis', 
     desc: 'Ein Raum, der genau so aussieht wie die Visualisierung. Oder besser.',
-    detail: 'Die Qualität, die man nicht nur sieht, sondern jeden Tag spürt.'
+    detail: 'Die Qualität, die man nicht nur sieht, sondern jeden Tag spürt.',
+    img: '/images/website-extract/Design-Statement-2.jpg'
   },
 ]
 
@@ -578,17 +658,14 @@ function Prozess() {
     offset: ["start start", "end end"]
   })
 
-  // We have 4 steps + 1 CTA card. 
-  // To scroll through all of them, we need a larger negative X value.
-  // -80% is usually a good starting point for 5 large cards.
-  const x = useTransform(scrollYProgress, [0, 0.95], ['0%', '-82%'])
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-85%'])
 
   return (
-    <section ref={targetRef} className="relative h-[500vh] bg-warm-bg">
+    <section ref={targetRef} className="relative h-[600vh] bg-warm-bg noise">
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         <div className="relative flex flex-col w-full">
           {/* Header Area */}
-          <div className="px-6 md:px-12 lg:px-20 mb-16">
+          <div className="px-6 md:px-12 lg:px-20 mb-12 md:mb-16">
             <TextReveal>
               <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">Der Weg</p>
             </TextReveal>
@@ -599,66 +676,19 @@ function Prozess() {
             </TextReveal>
           </div>
 
-          {/* Horizontal Track - Added more bottom padding to avoid overlap */}
-          <div className="pb-24">
-            <motion.div style={{ x }} className="flex gap-8 px-6 md:px-12 lg:px-20">
+          {/* Horizontal Track */}
+          <div className="pb-24 relative">
+            <motion.div 
+              style={{ x }} 
+              className="flex gap-8 px-6 md:px-12 lg:px-20"
+            >
               {steps.map((step, i) => (
-                <div key={step.num} className="relative flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw]">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.3 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="bg-white/40 backdrop-blur-sm border border-warm-anthrazit/5 p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-between group hover:bg-white/60 transition-colors duration-700"
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                      <div className="flex items-baseline gap-4 mb-8">
-                        <span className="font-sora font-extralight text-6xl lg:text-8xl text-warm-stein/20 group-hover:text-warm-stein/40 transition-colors duration-700">
-                          {step.num}
-                        </span>
-                        <h3 className="font-sora font-light text-3xl lg:text-4xl text-warm-text tracking-tight">
-                          {step.title}
-                        </h3>
-                      </div>
-                      <p className="font-dm text-lg lg:text-xl text-warm-text/80 leading-relaxed mb-6">
-                        {step.desc}
-                      </p>
-                    </motion.div>
-                    
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ duration: 0.8, delay: 0.4 }}
-                      className="pt-8 border-t border-warm-anthrazit/10"
-                    >
-                      <p className="font-dm text-sm text-warm-mittel uppercase tracking-widest mb-2">Details</p>
-                      <p className="font-dm text-base text-warm-mittel leading-relaxed">
-                        {step.detail}
-                      </p>
-                    </motion.div>
-
-                    {/* Decorative element */}
-                    <div className="absolute top-12 right-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                      <svg className="w-12 h-12 text-warm-stein/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </div>
-                  </motion.div>
-                </div>
+                <ProcessCard key={step.num} step={step} i={i} />
               ))}
               
               {/* Final CTA Card */}
-              <div className="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] pr-20">
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8 }}
-                  className="bg-dark-bg p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-center items-center text-center"
-                >
+              <div className="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] pr-[80vw]">
+                <div className="bg-dark-bg p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-center items-center text-center shadow-2xl">
                   <h3 className="font-sora font-extralight text-3xl lg:text-5xl text-inv-light mb-8 leading-tight">
                     Bereit für deinen<br />neuen Raum?
                   </h3>
@@ -668,12 +698,12 @@ function Prozess() {
                   >
                     Projekt starten
                   </MagneticLink>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           </div>
 
-          {/* Progress Bar - Positioned clearly below the cards */}
+          {/* Progress Bar */}
           <div className="absolute bottom-8 left-6 md:left-12 lg:left-20 right-6 md:right-12 lg:right-20 h-[2px] bg-warm-anthrazit/5">
             <motion.div 
               className="h-full bg-warm-stein origin-left"
@@ -686,9 +716,7 @@ function Prozess() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SHOWROOM CTA
-   ═══════════════════════════════════════════════════════════ */
+/* ─── SHOWROOM CTA ──────────────────────────────────── */
 function Showroom() {
   return (
     <section id="showroom" className="relative min-h-[70vh] flex items-center overflow-hidden">
@@ -750,9 +778,7 @@ function Showroom() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   FAQ Accordion
-   ═══════════════════════════════════════════════════════════ */
+/* ─── FAQ Accordion ──────────────────────────────────── */
 const faqs = [
   {
     q: 'Warum ist eine Terminvereinbarung vorab notwendig?',
@@ -791,7 +817,7 @@ function FAQ() {
             Was du wissen solltest.
           </h2>
         </TextReveal>
-
+        
         <motion.div 
           className="space-y-0 border-t border-[#ffffff08]"
           initial="hidden"
@@ -856,12 +882,14 @@ function FAQ() {
   )
 }
 
-/* ═══════════════════════════════════════════════════════════
-   HOME PAGE
-   ═══════════════════════════════════════════════════════════ */
+/* ─── HOME PAGE ──────────────────────────────────── */
 export default function Home() {
   return (
     <>
+      <SEO 
+        title="StoneTec — Räume, die man spürt."
+        description="Meisterhafte Fliesenverlegung, eigene Keramikmanufaktur und 3D-Visualisierung in Bocholt. 7 Meister, Pauschalpreise, null Subunternehmer."
+      />
       <Hero />
       <Intro />
       <Leistungen />

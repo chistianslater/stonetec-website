@@ -69,13 +69,13 @@ function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-5 h-5 bg-warm-anthrazit rounded-full pointer-events-none z-[9999] mix-blend-difference hidden lg:block"
+      className="fixed top-0 left-0 w-5 h-5 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference hidden lg:block"
       style={{ x, y, translateX: '-50%', translateY: '-50%' }}
       animate={{
-        scale: cursorState === 'pointer' ? 3 : 1,
+        scale: cursorState === 'pointer' ? 4 : 1,
         opacity: 1
       }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      transition={{ type: 'spring', stiffness: 250, damping: 25, mass: 0.5 }}
     />
   )
 }
@@ -111,7 +111,7 @@ function FullLogo({ variant = 'light', className = '', scale = 1 }) {
 }
 
 /* ─── Magnetic Button Component ──────────────────────────────────── */
-function MagneticButton({ children, className, ...props }) {
+function MagneticButton({ children, className, to, ...props }) {
   const ref = useRef(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -128,10 +128,10 @@ function MagneticButton({ children, className, ...props }) {
     setPosition({ x: 0, y: 0 })
   }
 
-  return (
-    <motion.button
+  const content = (
+    <motion.div
       ref={ref}
-      className={`${className} magnetic-area`}
+      className={`${className} magnetic-area flex items-center justify-center`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
@@ -139,8 +139,14 @@ function MagneticButton({ children, className, ...props }) {
       {...props}
     >
       {children}
-    </motion.button>
+    </motion.div>
   )
+
+  if (to) {
+    return <Link to={to}>{content}</Link>
+  }
+
+  return content
 }
 
 /* ─── Mobile Menu Overlay ──────────────────────────────────── */
@@ -229,8 +235,6 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [animateLogo, setAnimateLogo] = useState(false)
 
-  useSmoothScroll()
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
@@ -292,7 +296,6 @@ function Header() {
             ))}
             
             <MagneticButton
-              as={Link}
               to="/kontakt"
               className={`px-6 py-3 font-dm text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-all duration-300 ${
                 scrolled 
@@ -396,10 +399,10 @@ function PageTransition({ children }) {
     <AnimatePresence mode="wait">
       <motion.div
         key={location.pathname}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4 }}
       >
         {children}
       </motion.div>
@@ -409,11 +412,13 @@ function PageTransition({ children }) {
 
 /* ─── Layout Component ──────────────────────────────────── */
 export default function Layout() {
+  useSmoothScroll()
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       <CustomCursor />
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 relative">
         <PageTransition>
           <Outlet />
         </PageTransition>

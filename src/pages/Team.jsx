@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import SEO from '../components/SEO.jsx'
 
 function useReveal(threshold = 0.15) {
   const ref = useRef(null)
@@ -237,6 +238,10 @@ const values = [
 export default function Team() {
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
+      <SEO 
+        title="Das Team — Sieben Meister für Ihr Projekt"
+        description="Lernen Sie das Team hinter StoneTec Bocholt kennen. Sieben Fliesenlegermeister, Interior Designer und Spezialisten für Ihr Bauvorhaben."
+      />
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
         <Reveal>
@@ -247,7 +252,7 @@ export default function Team() {
             Auf jeder Baustelle steht ein Meister.
           </h1>
           <p className="font-dm text-[0.95rem] text-warm-mittel max-w-2xl leading-relaxed">
-            Zwölf Fliesenlegermeister. Ein Unternehmen. Null Subunternehmer. 
+            Sieben Fliesenlegermeister. Ein Unternehmen. Null Subunternehmer. 
             Jeder von uns hat seine Spezialität, alle teilen denselben Anspruch.
           </p>
         </Reveal>
@@ -258,7 +263,7 @@ export default function Team() {
         <Reveal delay={100}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-warm-anthrazit/10">
             <div>
-              <p className="font-sora font-extralight text-4xl text-warm-text mb-1">12</p>
+              <p className="font-sora font-extralight text-4xl text-warm-text mb-1">7</p>
               <p className="font-dm text-[0.82rem] text-warm-mittel">Fliesenlegermeister</p>
             </div>
             <div>
@@ -288,7 +293,7 @@ export default function Team() {
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {group.members.map((member, index) => (
-                <Reveal key={member.id} delay={index * 100}>
+                <Reveal key={member.id} delay={index * 0.1}>
                   <div className="group">
                     <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-4 bg-dark-bg">
                       <img
@@ -296,7 +301,14 @@ export default function Team() {
                         alt={member.name}
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#06060680] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#060606cc] via-[#06060640] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      {/* Quote Overlay */}
+                      <div className="absolute inset-0 flex flex-col justify-end p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+                        <blockquote className="font-dm text-[0.95rem] text-white italic leading-relaxed border-l-2 border-warm-stein pl-4">
+                          "{member.quote}"
+                        </blockquote>
+                      </div>
                     </div>
                     <div className="space-y-3">
                       <div>
@@ -305,9 +317,6 @@ export default function Team() {
                         </h3>
                         <p className="font-dm text-[0.8rem] text-warm-mittel">{member.role}</p>
                       </div>
-                      <blockquote className="font-dm text-[0.85rem] text-warm-mittel italic leading-relaxed border-l-2 border-warm-stein pl-4">
-                        "{member.quote}"
-                      </blockquote>
                       <div className="flex flex-wrap gap-2 pt-2">
                         {member.expertise.map(skill => (
                           <span key={skill} className="px-2.5 py-1 bg-warm-anthrazit/10 font-dm text-[0.72rem] text-warm-mittel">
@@ -334,7 +343,7 @@ export default function Team() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {values.map((value, index) => (
-            <Reveal key={value.title} delay={index * 100}>
+            <Reveal key={value.title} delay={index * 0.1}>
               <div className="bg-dark-bg rounded-xl p-6 h-full">
                 <h3 className="font-sora font-light text-lg text-inv-light tracking-[-0.01em] mb-3">
                   {value.title}

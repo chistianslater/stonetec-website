@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO.jsx'
 
 /* ─── Reveal Component ───────────────────────────────────────── */
 function Reveal({ children, className = '', delay = 0 }) {
@@ -187,6 +188,10 @@ function ProjectSection({ project, index }) {
 export default function Projekte() {
   return (
     <div className="bg-warm-bg min-h-screen pt-48">
+      <SEO 
+        title="Projekte — Referenzen & Inspiration"
+        description="Entdecken Sie unsere abgeschlossenen Projekte in Bocholt und Umgebung. Von luxuriösen Badezimmern bis hin zu repräsentativen Gewerbeobjekten."
+      />
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
         <Reveal>
@@ -230,7 +235,7 @@ export default function Projekte() {
                   <p className="font-dm text-[0.75rem] text-inv-muted uppercase tracking-[2px]">Projekte</p>
                 </div>
                 <div className="space-y-2">
-                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">12</p>
+                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">7</p>
                   <p className="font-dm text-[0.75rem] text-inv-muted uppercase tracking-[2px]">Meister</p>
                 </div>
                 <div className="space-y-2">

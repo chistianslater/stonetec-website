@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import SEO from '../components/SEO.jsx'
 
 /* ─── Reveal Component ───────────────────────────────────────── */
 function Reveal({ children, className = '', delay = 0 }) {
@@ -103,6 +105,10 @@ export default function Lookbook() {
 
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
+      <SEO 
+        title="Lookbook — Inspiration für Ihr Zuhause"
+        description="Lassen Sie sich von unseren Referenzen inspirieren. Badezimmer, Wohnräume und maßgefertigte Keramik-Unikate in höchster Qualität."
+      />
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
         <Reveal>
@@ -186,12 +192,12 @@ export default function Lookbook() {
                 Kein Bildschirm kann die Haptik und Wirkung echter Keramik ersetzen. Besuchen Sie unseren Showroom in Bocholt und finden Sie Ihr Material.
               </p>
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="/kontakt"
+                <Link
+                  to="/kontakt"
                   className="px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-all duration-500 rounded-none"
                 >
                   Termin vereinbaren
-                </a>
+                </Link>
               </div>
             </div>
             

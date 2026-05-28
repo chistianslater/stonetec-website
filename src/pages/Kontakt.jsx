@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import SEO from '../components/SEO.jsx'
 
 function useReveal(threshold = 0.15) {
   const ref = useRef(null)
@@ -48,6 +50,10 @@ export default function Kontakt() {
 
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
+      <SEO 
+        title="Kontakt — Ihr Termin im Showroom Bocholt"
+        description="Planen Sie Ihr Projekt mit uns. Vereinbaren Sie einen persönlichen Beratungstermin in unserem Showroom in Bocholt. Wir freuen uns auf Ihren Raum."
+      />
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-12">
         <Reveal>
@@ -265,7 +271,7 @@ export default function Kontakt() {
                       />
                       <label htmlFor="privacy" className="font-dm text-[0.8rem] text-inv-muted leading-relaxed">
                         Ich stimme der Verarbeitung meiner Daten gemäß der 
-                        <a href="/datenschutz" className="text-inv-light hover:underline"> Datenschutzerklärung</a> zu.
+                        <Link to="/datenschutz" className="text-inv-light hover:underline"> Datenschutzerklärung</Link> zu.
                       </label>
                     </div>
 

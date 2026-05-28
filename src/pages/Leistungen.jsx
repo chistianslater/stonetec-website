@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO.jsx'
 
 /* ─── Reveal Component ───────────────────────────────────────── */
 function Reveal({ children, className = '', delay = 0 }) {
@@ -146,6 +147,10 @@ function ServiceSection({ service, index }) {
 export default function Leistungen() {
   return (
     <div className="bg-warm-bg min-h-screen pt-48">
+      <SEO 
+        title="Leistungen — Fliesenverlegung & Keramikmanufaktur"
+        description="Von der 3D-Planung über die meisterhafte Fliesenverlegung bis hin zur eigenen Keramikmanufaktur. Entdecken Sie unsere Leistungen in Bocholt."
+      />
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
         <Reveal>
