@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import SEO from '../components/SEO.jsx'
+import SEO from '../components/SEO'
 
-/* ─── Reveal Component ───────────────────────────────────────── */
-function Reveal({ children, className = '', delay = 0 }) {
+/* ─── Reveal Component ─────────────────────────────────────────── */
+function Reveal({ children, delay = 0 }) {
   return (
     <motion.div
-      initial={{ y: 30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
     >
       {children}
     </motion.div>
@@ -20,56 +19,273 @@ function Reveal({ children, className = '', delay = 0 }) {
 /* ─── Lookbook Data ──────────────────────────────────────────── */
 const lookbookSections = [
   {
-    id: 'badezimmer',
-    title: 'Badezimmer',
-    subtitle: 'Räume der Ruhe',
-    description: 'Von der fugenlosen Dusche bis zum monolithischen Waschtisch. Wir verwandeln Badezimmer in private Wellness-Oasen.',
-    images: [
-      { src: '/images/Sonstiges/IMG_0655-web.webp', caption: 'Großformatige Wandverkleidung', specs: '160×320 cm · Marmoroptik' },
-      { src: '/images/Sonstiges/IMG_0657-web.webp', caption: 'Fugenlose Duschgestaltung', specs: 'Präzisionsverlegung' },
-      { src: '/images/Sonstiges/IMG_0659-web.webp', caption: 'Modernes Badkonzept', specs: 'Minimalistisches Design' },
-      { src: '/images/Sonstiges/IMG_0714-web.webp', caption: 'Detailverliebte Planung', specs: 'Harmonische Materialwahl' },
-      { src: '/images/Sonstiges/IMG_0715-web.webp', caption: 'Licht & Keramik', specs: 'Indirekte Beleuchtung' },
-      { src: '/images/Sonstiges/IMG_0485-web.webp', caption: 'Edle Oberflächen', specs: 'Haptik die begeistert' }
+    "id": "badezimmer",
+    "title": "Badezimmer",
+    "subtitle": "Räume der Ruhe",
+    "description": "Von der fugenlosen Dusche bis zum monolithischen Waschtisch. Wir verwandeln Badezimmer in private Wellness-Oasen.",
+    "dir": "badezimmer",
+    "images": [
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-1.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-2.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-3.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-4.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-5.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-6.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-7.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-8.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-9.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-10.jpg",
+        "caption": "Badezimmer Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      }
     ]
   },
   {
-    id: 'wohnraum',
-    title: 'Wohnraum & Boden',
-    subtitle: 'Weite und Beständigkeit',
-    description: 'Großformatige Bodenbeläge schaffen eine durchgängige Optik und ein großzügiges Raumgefühl in jedem Wohnbereich.',
-    images: [
-      { src: '/images/Sonstiges/IMG_0450-2-web.webp', caption: 'Großzügiger Wohnbereich', specs: 'Durchgängige Verlegung' },
-      { src: '/images/Sonstiges/IMG_0581-web.webp', caption: 'Naturstein-Optik', specs: 'Zeitlose Eleganz' },
-      { src: '/images/Sonstiges/IMG_0594-web.webp', caption: 'Fließende Übergänge', specs: 'Minimale Fugen' },
-      { src: '/images/Sonstiges/IMG_0605-web.webp', caption: 'Moderne Architektur', specs: 'Beton-Look' },
-      { src: '/images/Sonstiges/IMG_0816-web.webp', caption: 'Wärme & Struktur', specs: 'Feinsteinzeug' }
+    "id": "wohnraum",
+    "title": "Wohnraum & Boden",
+    "subtitle": "Weite und Beständigkeit",
+    "description": "Großformatige Bodenbeläge schaffen eine durchgängige Optik und ein großzügiges Raumgefühl in jedem Wohnbereich.",
+    "dir": "wohnraum",
+    "images": [
+      {
+        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-1.jpg",
+        "caption": "Wohnraum & Boden Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-2.jpg",
+        "caption": "Wohnraum & Boden Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-3.jpg",
+        "caption": "Wohnraum & Boden Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-4.jpg",
+        "caption": "Wohnraum & Boden Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-5.jpg",
+        "caption": "Wohnraum & Boden Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-6.jpg",
+        "caption": "Wohnraum & Boden Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-7.jpg",
+        "caption": "Wohnraum & Boden Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      }
     ]
   },
   {
-    id: 'manufaktur',
-    title: 'Keramikmanufaktur',
-    subtitle: 'Unikate aus Meisterhand',
-    description: 'In unserer eigenen Manufaktur fertigen wir Waschtische, Treppenstufen und Sonderlösungen aus Keramik — passgenau für Ihr Projekt.',
-    images: [
-      { src: '/images/Keramik-Manufaktur/IMG_5118-web.webp', caption: 'Maßgefertigter Waschtisch', specs: 'SLAB-Verarbeitung' },
-      { src: '/images/Keramik-Manufaktur/IMG_5120-web.webp', caption: 'Präziser Gehrungsschnitt', specs: 'Handwerkliche Perfektion' },
-      { src: '/images/Keramik-Manufaktur/IMG_5125-web.webp', caption: 'Sonderanfertigung', specs: 'Individuelle Lösung' },
-      { src: '/images/Keramik-Manufaktur/IMG_5130-web.webp', caption: 'Materialprüfung', specs: 'Qualitätssicherung' },
-      { src: '/images/Keramik-Manufaktur/IMG_5145-web.webp', caption: 'Fertigungsprozess', specs: 'Eigene Werkstatt' }
+    "id": "terrasse",
+    "title": "Terrasse & Pool",
+    "subtitle": "Sommerliche Eleganz",
+    "description": "Keramik im Außenbereich verbindet Ästhetik mit extremer Beständigkeit gegen Witterung und Frost.",
+    "dir": "terrasse",
+    "images": [
+      {
+        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-1.jpg",
+        "caption": "Terrasse & Pool Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-2.jpg",
+        "caption": "Terrasse & Pool Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-3.jpg",
+        "caption": "Terrasse & Pool Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-4.jpg",
+        "caption": "Terrasse & Pool Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-5.jpg",
+        "caption": "Terrasse & Pool Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-6.jpg",
+        "caption": "Terrasse & Pool Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-7.jpg",
+        "caption": "Terrasse & Pool Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      }
     ]
   },
   {
-    id: 'details',
-    title: 'Details & Handwerk',
-    subtitle: 'Präzision im Fokus',
-    description: 'Wahre Meisterschaft zeigt sich im Detail. Wir legen Wert auf perfekte Kanten, saubere Fugen und eine durchdachte Planung.',
-    images: [
-      { src: '/images/Sonstiges/Matthias @Work-web.webp', caption: 'Meister am Werk', specs: 'Präzisionsverlegung' },
-      { src: '/images/Sonstiges/IMG_0948-web.webp', caption: '3D-Planung', specs: 'Digitale Präzision' },
-      { src: '/images/Sonstiges/Beratung und Konzeptentwicklung-web.webp', caption: 'Materialcollage', specs: 'Konzeptentwicklung' },
-      { src: '/images/Sonstiges/IMG_0782-web.webp', caption: 'Perfekte Kanten', specs: 'Gehrungstechnik' },
-      { src: '/images/Sonstiges/IMG_0824-web.webp', caption: 'Fugenbild', specs: 'Symmetrie & Ruhe' }
+    "id": "manufaktur",
+    "title": "Keramikmanufaktur",
+    "subtitle": "Unikate aus Meisterhand",
+    "description": "In unserer eigenen Manufaktur fertigen wir Waschtische, Treppenstufen und Sonderlösungen aus Keramik — passgenau für Ihr Projekt.",
+    "dir": "manufaktur",
+    "images": [
+      {
+        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-1.jpg",
+        "caption": "Keramikmanufaktur Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-2.jpg",
+        "caption": "Keramikmanufaktur Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-3.jpg",
+        "caption": "Keramikmanufaktur Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-4.jpg",
+        "caption": "Keramikmanufaktur Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-5.jpg",
+        "caption": "Keramikmanufaktur Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-6.jpg",
+        "caption": "Keramikmanufaktur Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-7.jpg",
+        "caption": "Keramikmanufaktur Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      }
+    ]
+  },
+  {
+    "id": "details",
+    "title": "Details & Handwerk",
+    "subtitle": "Präzision im Fokus",
+    "description": "Wahre Meisterschaft zeigt sich im Detail. Wir legen Wert auf perfekte Kanten, saubere Fugen und eine durchdachte Planung.",
+    "dir": "details",
+    "images": [
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-1.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-2.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-3.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-4.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-5.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-6.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-7.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-8.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-9.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-10.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-11.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-12.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-13.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      },
+      {
+        "src": "/images/lookbook/details/stonetec-lookbook-details-14.jpg",
+        "caption": "Details & Handwerk Inspiration",
+        "specs": "Meisterhafte Verlegung"
+      }
     ]
   }
 ]
@@ -118,7 +334,7 @@ export default function Lookbook() {
             Unser Lookbook.
           </h1>
           <p className="font-dm text-[1.1rem] text-warm-mittel max-w-2xl leading-relaxed">
-            Materialien, Ideen, Details. Entdecken Sie die Möglichkeiten moderner Keramik und lassen Sie sich von unseren Realisierungen inspirieren.
+            Materialien, Ideen, Details. Entdecke die Möglichkeiten moderner Keramik und lass dich von unseren Realisierungen inspirieren.
           </p>
         </Reveal>
       </div>
@@ -159,52 +375,40 @@ export default function Lookbook() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="mb-16 max-w-2xl">
-              <h2 className="font-sora font-light text-2xl md:text-3xl text-warm-text tracking-tight mb-4">
-                {currentSection.subtitle}
-              </h2>
-              <p className="font-dm text-[1rem] text-warm-mittel leading-relaxed">
-                {currentSection.description}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-              {currentSection.images.map((image, index) => (
-                <ImageCard key={image.src} image={image} index={index} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="col-span-1 md:col-span-2 lg:col-span-1 mb-8 lg:mb-0">
+                <h2 className="font-sora font-extralight text-4xl text-warm-text mb-4">{currentSection.subtitle}</h2>
+                <p className="font-dm text-warm-mittel leading-relaxed max-w-md">
+                  {currentSection.description}
+                </p>
+              </div>
+              {currentSection.images.map((img, i) => (
+                <ImageCard key={img.src} image={img} index={i} />
               ))}
             </div>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Experience CTA */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-32">
-        <Reveal>
-          <div className="bg-dark-bg rounded-[2rem] p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-            
-            <div className="relative z-10 max-w-xl">
-              <h3 className="font-sora font-extralight text-3xl md:text-4xl text-inv-light tracking-tight mb-6">
-                Vom Lookbook zur Realität.
-              </h3>
-              <p className="font-dm text-[1rem] text-inv-muted leading-relaxed mb-8">
-                Lassen Sie uns Ihre Inspiration in ein konkretes Raumkonzept verwandeln. In unserem Showroom in Bocholt planen wir gemeinsam die Details Ihrer meisterhaften Umsetzung.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  to="/kontakt"
-                  className="px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-all duration-500 rounded-none"
-                >
-                  Termin vereinbaren
-                </Link>
-              </div>
-            </div>
-            
-            <div className="relative z-10 w-full lg:w-1/3 aspect-square rounded-2xl overflow-hidden shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700">
-              <img src="/images/website-extract/Showroom.jpg" alt="StoneTec Showroom" className="w-full h-full object-cover" />
-            </div>
-          </div>
-        </Reveal>
+      {/* CTA Section */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-32 mt-24">
+        <div className="bg-dark-bg rounded-3xl p-12 md:p-24 text-center noise relative overflow-hidden">
+          <Reveal>
+            <h2 className="font-sora font-extralight text-[clamp(2rem,5vw,3.5rem)] text-inv-light leading-tight tracking-[-0.02em] mb-12 relative z-10">
+              Vom Lookbook zur Realität.<br />Lass uns planen.
+            </h2>
+            <Link 
+              to="/kontakt"
+              className="inline-block bg-inv-light text-dark-bg font-dm text-[0.7rem] uppercase tracking-[3px] px-12 py-6 rounded-full hover:bg-warm-mittel hover:text-inv-light transition-all duration-500 relative z-10"
+            >
+              Beratungstermin vereinbaren
+            </Link>
+          </Reveal>
+          
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-warm-stein/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-warm-mittel/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+        </div>
       </div>
     </div>
   )

@@ -25,7 +25,7 @@ const services = [
     subtitle: 'Der Anfang jeder Vision',
     description: 'Wir nehmen uns Zeit, deine Wünsche und Anforderungen genau zu verstehen. In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint.',
     details: 'Dank modernster 3D-Visualisierungen und Virtual-Reality-Technologien kannst du dein Projekt bereits vor der Umsetzung realitätsnah erleben.',
-    image: '/images/website-extract/StoneTec_Highlights_rechteckig-5.jpg',
+    image: '/images/lookbook/details/stonetec-lookbook-details-2.jpg',
     features: ['Individuelle Bedarfsanalyse', 'Materialcollagen & Haptik', '3D-Visualisierung', 'VR-Erlebnis']
   },
   {
@@ -34,7 +34,7 @@ const services = [
     subtitle: 'Präzision in jeder Fuge',
     description: 'Unsere erfahrenen Fliesenlegermeister setzen dein Projekt mit höchster Präzision und Sorgfalt um. Wir verwenden ausschließlich hochwertige Materialien und moderne Techniken.',
     details: 'Ob großformatige Keramik, filigrane Mosaike oder klassische Natursteinarbeiten — wir garantieren langlebige und ästhetisch ansprechende Ergebnisse auf Meister-Niveau.',
-    image: '/images/website-extract/StoneTec_Highlights_rechteckig-6.jpg',
+    image: '/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-1.jpg',
     features: ['Großformat-Spezialisten', 'Meistergeführte Teams', 'Staubfreie Sanierung', 'Termintreue']
   },
   {
@@ -42,8 +42,8 @@ const services = [
     title: 'Keramikmanufaktur',
     subtitle: 'Unikate jenseits des Standards',
     description: 'In unserer hauseigenen Manufaktur entstehen individuelle Sonderanfertigungen aus Keramik — von maßgeschneiderten Waschtischen über Arbeitsplatten bis hin zu kunstvoll gestalteten Wandpaneelen.',
-    details: 'Wir setzen Ihrer Kreativität keine Grenzen. Jedes Stück ist ein handgefertigtes Unikat, das exakt auf Ihre Räumlichkeiten und Bedürfnisse zugeschnitten ist.',
-    image: '/images/Keramik-Manufaktur/IMG_5118-web.webp',
+    details: 'Wir setzen deiner Kreativität keine Grenzen. Jedes Stück ist ein handgefertigtes Unikat, das exakt auf deine Räumlichkeiten und Bedürfnisse zugeschnitten ist.',
+    image: '/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-1.jpg',
     features: ['Maßgefertigte Waschtische', 'Treppenstufen aus Keramik', 'Küchenarbeitsplatten', 'Nischenlösungen']
   },
   {
@@ -52,7 +52,7 @@ const services = [
     subtitle: 'Alles aus einer Hand',
     description: 'Wir bieten dir alles aus einer Hand — von der ersten Idee bis zur finalen Umsetzung. Unser ganzheitlicher Ansatz ermöglicht es, deine Räumlichkeiten vollständig zu transformieren.',
     details: 'Wir koordinieren alle Gewerke und sorgen für einen reibungslosen Ablauf. So entsteht ein harmonisches Gesamtbild ohne Stress für dich.',
-    image: '/images/website-extract/Komplettloesungen.jpg',
+    image: '/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-1.jpg',
     features: ['Gewerkeübergreifend', 'Projektleitung', 'Pauschalpreisgarantie', 'Sorgenfrei-Paket']
   }
 ]
@@ -147,52 +147,47 @@ export default function Leistungen() {
   return (
     <div className="bg-warm-bg min-h-screen pt-48">
       <SEO 
-        title="Leistungen — Fliesenverlegung & Keramikmanufaktur"
-        description="Von der 3D-Planung über die meisterhafte Fliesenverlegung bis hin zur eigenen Keramikmanufaktur. Entdecke unsere Leistungen in Bocholt."
+        title="Leistungen — Von der Planung bis zur Meister-Verlegung"
+        description="Entdecke unsere Leistungen: Beratung, 3D-Planung, Fliesenverlegung und individuelle Keramik-Manufaktur in Bocholt."
       />
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
+      
+      {/* Header */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-32">
         <Reveal>
           <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
-            Was wir tun
+            Unsere Expertise
           </p>
-          <h1 className="font-sora font-extralight text-[clamp(3rem,8vw,6rem)] text-warm-text leading-[0.95] tracking-[-0.04em] max-w-4xl mb-8">
-            Leistungen mit Substanz.<br />Räume mit Wirkung.
+          <h1 className="font-sora font-extralight text-[clamp(3rem,7vw,5.5rem)] text-warm-text leading-[1] tracking-[-0.03em] max-w-4xl">
+            Meisterhandwerk.<br />Neu definiert.
           </h1>
-          <div className="w-24 h-[1px] bg-warm-stein/30 mb-8" />
-          <p className="font-dm text-[1.1rem] text-warm-mittel max-w-2xl leading-relaxed">
-            Wir verbinden Beratung, Planung und Ausführung zu ganzheitlichen Lösungen aus einem Guss. Jedes Projekt beginnt mit einer Idee — und endet mit einem Ergebnis, das über das Erwartbare hinausgeht.
+          <p className="font-dm text-[1.1rem] text-warm-mittel max-w-2xl mt-8 leading-relaxed">
+            Wir kombinieren traditionelles Handwerk mit modernster Technologie und einem Auge für zeitloses Design.
           </p>
         </Reveal>
       </div>
 
       {/* Services List */}
-      <div className="space-y-0">
+      <div className="pb-24">
         {services.map((service, index) => (
           <ServiceSection key={service.id} service={service} index={index} />
         ))}
       </div>
 
-      {/* Process CTA */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-32">
-        <Reveal>
-          <div className="bg-dark-bg rounded-[2rem] p-12 md:p-20 text-center relative overflow-hidden">
-            <div className="relative z-10">
-              <h2 className="font-sora font-extralight text-3xl md:text-5xl text-inv-light mb-8 tracking-tight">
-                Bereit für deinen neuen Raum?
-              </h2>
-              <p className="font-dm text-[1.1rem] text-inv-muted max-w-2xl mx-auto mb-12 leading-relaxed">
-                Lass uns gemeinsam herausfinden, wie wir deine Vision in die Realität umsetzen können. Ehrlich, kompetent und auf den Punkt.
-              </p>
-              <Link 
-                to="/kontakt" 
-                className="inline-flex items-center gap-4 px-10 py-5 bg-warm-bg text-warm-text font-dm text-sm font-semibold tracking-widest uppercase hover:bg-white transition-all duration-500 rounded-none"
-              >
-                Termin vereinbaren
-              </Link>
-            </div>
-          </div>
-        </Reveal>
+      {/* CTA Section */}
+      <div className="bg-dark-bg py-32 noise">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 text-center">
+          <Reveal>
+            <h2 className="font-sora font-extralight text-[clamp(2.5rem,5vw,4rem)] text-inv-light leading-tight tracking-[-0.02em] mb-12">
+              Lass uns gemeinsam<br />etwas Besonderes schaffen.
+            </h2>
+            <Link 
+              to="/kontakt"
+              className="inline-block bg-inv-light text-dark-bg font-dm text-[0.7rem] uppercase tracking-[3px] px-12 py-6 rounded-full hover:bg-warm-mittel hover:text-inv-light transition-all duration-500"
+            >
+              Kostenlose Erstberatung
+            </Link>
+          </Reveal>
+        </div>
       </div>
     </div>
   )
