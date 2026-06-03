@@ -634,7 +634,7 @@ function ProjectSection({ project, index }) {
         <div className={`lg:col-span-7 relative ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
           <motion.div 
             style={{ y }}
-            className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/5] max-h-[75vh] rounded-2xl overflow-hidden shadow-2xl bg-dark-bg"
+            className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-dark-bg max-h-[80vh]"
           >
             <AnimatePresence initial={false}>
               <motion.img 
