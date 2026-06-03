@@ -208,8 +208,8 @@ function Hero() {
                 src={heroImages[currentIndex].src}
                 alt={heroImages[currentIndex].alt}
                 className="w-full h-full object-cover"
-                initial={{ scale: 1.1, x: '-2%', y: '-2%' }}
-                animate={{ scale: 1.25, x: '2%', y: '2%' }}
+                initial={{ scale: 1.1, x: '-1%', y: '-1%' }}
+                animate={{ scale: 1.2, x: '1%', y: '1%' }}
                 transition={{ 
                   duration: 10, 
                   ease: "linear",
