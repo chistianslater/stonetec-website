@@ -154,9 +154,12 @@ function StaggerItem({ children, className = '' }) {
 const heroImages = [
   { src: '/images/hero-2.jpg', alt: 'Luxuriöses Badezimmer mit großformatigen Fliesen von StoneTec Bocholt' },
   { src: '/images/projekte/Albrecht/stonetec-projekt-albrecht-1.jpg', alt: 'Exklusives Baddesign in Marmoroptik' },
+  { src: '/images/projekte/Han/stonetec-projekt-han-1.jpg', alt: 'Großformatige Keramik im monolithischen Wohndesign' },
   { src: '/images/projekte/Esterabadeyan/stonetec-projekt-esterabadeyan-1.jpg', alt: 'Wellness-Oase mit exklusivem Glasmosaik' },
-  { src: '/images/projekte/Krasemann/stonetec-projekt-krasemann-1.jpg', alt: 'Großformatige Keramik im Wohnbereich' },
+  { src: '/images/projekte/Krasemann/stonetec-projekt-krasemann-1.jpg', alt: 'Großformatige Keramikplatten im Wohnbereich' },
+  { src: '/images/projekte/Spöler/stonetec-projekt-spöler-1.jpg', alt: 'Modernes Wohndesign in Natursteinoptik' },
   { src: '/images/projekte/Voshövel/stonetec-projekt-voshövel-1.jpg', alt: 'Repräsentative Hotelgestaltung mit Terrazzo' },
+  { src: '/images/projekte/Weidemann_Pool/stonetec-projekt-weidemann_pool-1.jpg', alt: 'Poolgestaltung in Natursteinoptik' },
 ]
 
 function Hero() {
