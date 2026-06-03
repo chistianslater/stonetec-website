@@ -317,10 +317,10 @@ function Intro() {
 
 /* ─── LEISTUNGEN — Bento Grid ──────────────────────────────────── */
 const services = [
-  { img: '/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-1.jpg', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
-  { img: '/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-1.jpg', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
-  { img: '/images/lookbook/details/stonetec-lookbook-details-2.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheidest erst, wenn du siehst, wie es wird.' },
-  { img: '/images/lookbook/details/stonetec-lookbook-details-3.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
+  { img: '/images/website-extract/Harmonie-im-Bad-1.jpg', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
+  { img: '/images/website-extract/KERAMIKMANUFAKTUR.jpg', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
+  { img: '/images/website-extract/StoneTec_Startseite_rechteckig.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheidest erst, wenn du siehst, wie es wird.' },
+  { img: '/images/website-extract/StoneTec_Startseite_quadratisch.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
 ]
 
 function ServiceCard({ service, index }) {
@@ -624,28 +624,28 @@ const steps = [
     title: 'Gespräch', 
     desc: 'Du erzählst. Wir hören zu, stellen die richtigen Fragen und geben dir eine erste Einschätzung — ehrlich, unverbindlich, auf den Punkt.',
     detail: 'Kein Verkaufsgespräch, sondern eine fachliche Einordnung deiner Vision.',
-    img: '/images/lookbook/details/stonetec-lookbook-details-3.jpg'
+    img: '/images/website-extract/Beratung.jpg'
   },
   { 
     num: '02', 
     title: 'Visualisierung', 
     desc: 'Du siehst deinen Raum in 3D, mit echten Materialien. Dazu ein transparenter Pauschalpreis. Keine Überraschungen, keine Nachträge.',
     detail: 'Wir machen deine Vision greifbar, bevor der erste Stein liegt.',
-    img: '/images/lookbook/details/stonetec-lookbook-details-2.jpg'
+    img: '/images/website-extract/StoneTec_Startseite_rechteckig.jpg'
   },
   { 
     num: '03', 
     title: 'Umsetzung', 
     desc: 'Unsere Meister arbeiten bei dir — saubere Baustelle, klare Zeitpläne, eigene Leute. Jeden Tag.',
     detail: 'Handwerkliche Präzision ohne Kompromisse und ohne Subunternehmer.',
-    img: '/images/lookbook/details/stonetec-lookbook-details-1.jpg'
+    img: '/images/Sonstiges/Matthias @Work-web.webp'
   },
   { 
     num: '04', 
     title: 'Ergebnis', 
     desc: 'Ein Raum, der genau so aussieht wie die Visualisierung. Oder besser.',
     detail: 'Die Qualität, die man nicht nur sieht, sondern jeden Tag spürt.',
-    img: '/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-1.jpg'
+    img: '/images/website-extract/Design-Statement-2.jpg'
   },
 ]
 
