@@ -23,8 +23,8 @@ const services = [
     id: 'beratung',
     title: 'Beratung & Konzeptentwicklung',
     subtitle: 'Der Anfang jeder Vision',
-    description: 'Wir nehmen uns Zeit, Ihre Wünsche und Anforderungen genau zu verstehen. In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint.',
-    details: 'Dank modernster 3D-Visualisierungen und Virtual-Reality-Technologien können Sie Ihr Projekt bereits vor der Umsetzung realitätsnah erleben.',
+    description: 'Wir nehmen uns Zeit, deine Wünsche und Anforderungen genau zu verstehen. In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint.',
+    details: 'Dank modernster 3D-Visualisierungen und Virtual-Reality-Technologien kannst du dein Projekt bereits vor der Umsetzung realitätsnah erleben.',
     image: '/images/website-extract/StoneTec_Highlights_rechteckig-5.jpg',
     features: ['Individuelle Bedarfsanalyse', 'Materialcollagen & Haptik', '3D-Visualisierung', 'VR-Erlebnis']
   },
@@ -32,7 +32,7 @@ const services = [
     id: 'verlegung',
     title: 'Fliesenverlegung aus Meisterhand',
     subtitle: 'Präzision in jeder Fuge',
-    description: 'Unsere erfahrenen Fliesenlegermeister setzen Ihr Projekt mit höchster Präzision und Sorgfalt um. Wir verwenden ausschließlich hochwertige Materialien und moderne Techniken.',
+    description: 'Unsere erfahrenen Fliesenlegermeister setzen dein Projekt mit höchster Präzision und Sorgfalt um. Wir verwenden ausschließlich hochwertige Materialien und moderne Techniken.',
     details: 'Ob großformatige Keramik, filigrane Mosaike oder klassische Natursteinarbeiten — wir garantieren langlebige und ästhetisch ansprechende Ergebnisse auf Meister-Niveau.',
     image: '/images/website-extract/StoneTec_Highlights_rechteckig-6.jpg',
     features: ['Großformat-Spezialisten', 'Meistergeführte Teams', 'Staubfreie Sanierung', 'Termintreue']
@@ -43,15 +43,15 @@ const services = [
     subtitle: 'Unikate jenseits des Standards',
     description: 'In unserer hauseigenen Manufaktur entstehen individuelle Sonderanfertigungen aus Keramik — von maßgeschneiderten Waschtischen über Arbeitsplatten bis hin zu kunstvoll gestalteten Wandpaneelen.',
     details: 'Wir setzen Ihrer Kreativität keine Grenzen. Jedes Stück ist ein handgefertigtes Unikat, das exakt auf Ihre Räumlichkeiten und Bedürfnisse zugeschnitten ist.',
-    image: '/images/website-extract/KERAMIK.jpg',
+    image: '/images/Keramik-Manufaktur/IMG_5118-web.webp',
     features: ['Maßgefertigte Waschtische', 'Treppenstufen aus Keramik', 'Küchenarbeitsplatten', 'Nischenlösungen']
   },
   {
     id: 'komplettloesungen',
     title: 'Komplettlösungen',
     subtitle: 'Alles aus einer Hand',
-    description: 'Wir bieten Ihnen alles aus einer Hand — von der ersten Idee bis zur finalen Umsetzung. Unser ganzheitlicher Ansatz ermöglicht es, Ihre Räumlichkeiten vollständig zu transformieren.',
-    details: 'Wir koordinieren alle Gewerke und sorgen für einen reibungslosen Ablauf. So entsteht ein harmonisches Gesamtbild ohne Stress für Sie.',
+    description: 'Wir bieten dir alles aus einer Hand — von der ersten Idee bis zur finalen Umsetzung. Unser ganzheitlicher Ansatz ermöglicht es, deine Räumlichkeiten vollständig zu transformieren.',
+    details: 'Wir koordinieren alle Gewerke und sorgen für einen reibungslosen Ablauf. So entsteht ein harmonisches Gesamtbild ohne Stress für dich.',
     image: '/images/website-extract/Komplettloesungen.jpg',
     features: ['Gewerkeübergreifend', 'Projektleitung', 'Pauschalpreisgarantie', 'Sorgenfrei-Paket']
   }
@@ -148,7 +148,7 @@ export default function Leistungen() {
     <div className="bg-warm-bg min-h-screen pt-48">
       <SEO 
         title="Leistungen — Fliesenverlegung & Keramikmanufaktur"
-        description="Von der 3D-Planung über die meisterhafte Fliesenverlegung bis hin zur eigenen Keramikmanufaktur. Entdecken Sie unsere Leistungen in Bocholt."
+        description="Von der 3D-Planung über die meisterhafte Fliesenverlegung bis hin zur eigenen Keramikmanufaktur. Entdecke unsere Leistungen in Bocholt."
       />
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
@@ -179,10 +179,10 @@ export default function Leistungen() {
           <div className="bg-dark-bg rounded-[2rem] p-12 md:p-20 text-center relative overflow-hidden">
             <div className="relative z-10">
               <h2 className="font-sora font-extralight text-3xl md:text-5xl text-inv-light mb-8 tracking-tight">
-                Bereit für Ihren neuen Raum?
+                Bereit für deinen neuen Raum?
               </h2>
               <p className="font-dm text-[1.1rem] text-inv-muted max-w-2xl mx-auto mb-12 leading-relaxed">
-                Lassen Sie uns gemeinsam herausfinden, wie wir Ihre Vision in die Realität umsetzen können. Ehrlich, kompetent und auf den Punkt.
+                Lass uns gemeinsam herausfinden, wie wir deine Vision in die Realität umsetzen können. Ehrlich, kompetent und auf den Punkt.
               </p>
               <Link 
                 to="/kontakt" 

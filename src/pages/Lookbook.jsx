@@ -185,10 +185,10 @@ export default function Lookbook() {
             
             <div className="relative z-10 max-w-xl">
               <h3 className="font-sora font-extralight text-3xl md:text-4xl text-inv-light tracking-tight mb-6">
-                Materialien hautnah erleben.
+                Vom Lookbook zur Realität.
               </h3>
               <p className="font-dm text-[1rem] text-inv-muted leading-relaxed mb-8">
-                Kein Bildschirm kann die Haptik und Wirkung echter Keramik ersetzen. Besuchen Sie unseren Showroom in Bocholt und finden Sie Ihr Material.
+                Lassen Sie uns Ihre Inspiration in ein konkretes Raumkonzept verwandeln. In unserem Showroom in Bocholt planen wir gemeinsam die Details Ihrer meisterhaften Umsetzung.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link

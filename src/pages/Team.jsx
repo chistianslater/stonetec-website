@@ -34,7 +34,7 @@ const teamGroups = [
         role: 'Geschäftsführer | Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Qualität ist keine Zufälligkeit. Sie ist das Ergebnis bewusster Entscheidungen.',
         image: '/images/website-extract/Tim-Dunkerbeck.jpg',
-        expertise: ['Strategie', 'Manufaktur', 'Großformate']
+        expertise: ['Strategie', 'Technik', 'Innovation']
       },
       {
         id: 14,
@@ -58,7 +58,7 @@ const teamGroups = [
         role: 'Beratung & Design',
         quote: 'Inspiration findet man dort, wo Ästhetik auf Fachwissen trifft.',
         image: '/images/website-extract/Simone-Lueg.jpg',
-        expertise: ['Materialberatung', 'Ausstellung', 'Design']
+        expertise: ['Kundenbetreuung', 'Ausstellung', 'Design']
       },
       {
         id: 16,
@@ -85,17 +85,17 @@ const teamGroups = [
         id: 2,
         name: 'Frank Brendjes',
         role: 'Fliesen-, Platten- und Mosaiklegermeister',
-        quote: 'Der Gehrungsschnitt zeigt, wer wirklich Meister ist.',
+        quote: 'Präzision ist keine Fähigkeit. Sie ist eine Haltung.',
         image: '/images/website-extract/Frank-Brendjes.jpg',
-        expertise: ['Großformate', 'Sanierung', 'Spezialanfertigungen']
+        expertise: ['Keramik', 'Naturstein', 'Details']
       },
       {
         id: 4,
         name: 'Mario Weidemann',
         role: 'Fliesen-, Platten- und Mosaiklegermeister',
-        quote: 'Präzision ist keine Fähigkeit. Sie ist eine Haltung.',
+        quote: 'Der Gehrungsschnitt zeigt, wer wirklich Meister ist.',
         image: '/images/website-extract/Mario-Weidemann.jpg',
-        expertise: ['Keramik', 'Naturstein', 'Details']
+        expertise: ['Großformate', 'Sanierung', 'Spezialanfertigungen']
       },
       {
         id: 5,
@@ -103,7 +103,7 @@ const teamGroups = [
         role: 'Fliesen-, Platten- und Mosaiklegermeister | Staatl. gepr. Hochbau Techniker',
         quote: 'Das Material verdient Respekt. Wir geben ihm den richtigen Rahmen.',
         image: '/images/website-extract/Thorsten-Ueffing.jpg',
-        expertise: ['Großformate', 'Technik', 'Schulung']
+        expertise: ['QS', 'Technik', 'Schulung']
       },
       {
         id: 9,
@@ -140,7 +140,7 @@ const teamGroups = [
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Jede Fuge erzählt eine Geschichte über die Person, die sie gesetzt hat.',
         image: '/images/website-extract/Matthias-Krabbe.jpg',
-        expertise: ['Bäder', 'Bodenbeläge', 'Wandgestaltung']
+        expertise: ['Großformate', 'Präzision', 'Handwerk']
       },
       {
         id: 11,
@@ -148,7 +148,7 @@ const teamGroups = [
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Handwerk ist Leidenschaft, die man in jedem Detail sieht.',
         image: '/images/website-extract/Marcel-Demming.jpg',
-        expertise: ['Großformate', 'Projektleitung', 'Qualitätssicherung']
+        expertise: ['Bäder', 'Bodenbeläge', 'Wandbeläge']
       },
       {
         id: 20,
@@ -164,7 +164,7 @@ const teamGroups = [
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Ein guter Raum fühlt sich an wie nach Hause kommen.',
         image: '/images/website-extract/Lars-Brodzinski.jpg',
-        expertise: ['Visualisierung', 'Kundenberatung', 'Planung']
+        expertise: ['Bäder', 'Wand- und Bodenbeläge']
       },
       {
         id: 7,
@@ -172,7 +172,7 @@ const teamGroups = [
         role: 'Allrounder Verlegung',
         quote: 'Handwerk lebt von der Überzeugung, dass es anders nicht geht.',
         image: '/images/website-extract/Mujo-Pobric.jpg',
-        expertise: ['Manufaktur', 'Sonderlösungen', 'Innovation']
+        expertise: ['Balkone', 'Terrassen', 'Handwerk']
       },
       {
         id: 8,
@@ -180,7 +180,7 @@ const teamGroups = [
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Echte Qualität entsteht dort, wo man nicht mehr weglassen kann.',
         image: '/images/website-extract/Fabian-Schmidt.jpg',
-        expertise: ['Badplanung', 'Großformate', 'Design']
+        expertise: ['Handwerk', 'Großformate', 'Details']
       },
       {
         id: 10,
@@ -188,7 +188,7 @@ const teamGroups = [
         role: 'Fliesen-, Platten- und Mosaiklegergeselle',
         quote: 'Perfektion ist das Ziel, Exzellenz der Standard.',
         image: '/images/website-extract/Tim-Lintfert.jpg',
-        expertise: ['Sanierung', 'Naturstein', 'Großformate']
+        expertise: ['Sanierung', 'Keramik', 'Großformate']
       }
     ]
   },
@@ -209,7 +209,7 @@ const teamGroups = [
         role: 'Universalgenie',
         quote: 'Ein Meisterstück ist die Summe aus Erfahrung und Hingabe.',
         image: '/images/website-extract/Samuel-Nordmann-1.jpg',
-        expertise: ['Sonderanfertigungen', 'Baddesign', 'Keramik']
+        expertise: ['Allrounder', 'Technik', 'Lösungen']
       }
     ]
   }
@@ -218,7 +218,7 @@ const teamGroups = [
 const values = [
   {
     title: 'Meisterhand',
-    description: 'Kein Subunternehmer. Nur eigene Meister. Zwölf Fliesenlegermeister unter einem Dach.'
+    description: 'Kein Subunternehmer. Nur eigene Meister. Sieben Fliesenlegermeister unter einem Dach.'
   },
   {
     title: 'Präzision',
@@ -368,7 +368,7 @@ export default function Team() {
               und jeden Tag beweisen, warum sie Meister sind.
             </p>
             <a
-              href="mailto:info@stonetec-bocholt.de?subject=Bewerbung Fliesenlegermeister"
+              href="mailto:fliesen@stonetec-bocholt.de?subject=Bewerbung Fliesenlegermeister"
               className="inline-flex items-center gap-3 px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 rounded-none"
             >
               Bewirb dich bei uns

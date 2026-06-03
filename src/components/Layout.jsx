@@ -351,7 +351,7 @@ function Footer() {
                 <a href="tel:+4928719912480" className="hover:text-inv-light transition-colors">+49 (0) 2871 99 12 480</a>
               </p>
               <p>
-                <a href="mailto:info@stonetec-bocholt.de" className="hover:text-inv-light transition-colors">info@stonetec-bocholt.de</a>
+                <a href="mailto:fliesen@stonetec-bocholt.de" className="hover:text-inv-light transition-colors">fliesen@stonetec-bocholt.de</a>
               </p>
             </address>
           </div>

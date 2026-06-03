@@ -20,60 +20,254 @@ function Reveal({ children, className = '', delay = 0 }) {
 /* ─── Project Data ───────────────────────────────────────────── */
 const projects = [
   {
-    id: 1,
-    title: 'Design Statement',
-    category: 'Badezimmer',
-    location: 'Borken',
-    year: '2024',
-    description: 'Maximale Fugenreduktion trifft auf skulpturale Formgebung. Ein Bad, das Ruhe ausstrahlt und handwerkliche Perfektion in jedem Detail feiert.',
-    mainImage: '/images/website-extract/Design-Statement-2.jpg',
-    gallery: [
-      '/images/website-extract/Design-Statement-1.jpg',
-      '/images/website-extract/Design-Statement-3.jpg',
-      '/images/website-extract/Design-Statement-4.jpg',
-      '/images/website-extract/Design-Statement-5.jpg',
-      '/images/website-extract/Design-Statement-6.jpg'
-    ],
-    stats: { area: '145 m²', duration: '8 Wochen', materials: 'Keramik SLAB 160×320' }
-  },
-  {
-    id: 2,
-    title: 'praemium GmbH',
-    category: 'Gewerbe | Interior Design',
+    id: 'albrecht',
+    title: 'Albrecht',
+    category: 'Badezimmer | Wohnraum',
     location: 'Bocholt',
     year: '2024',
-    description: 'Repräsentativer Empfangsbereich mit monolithischem Charakter. Großformatige Keramik schafft eine nahtlose Verbindung zwischen Architektur und Design.',
-    mainImage: '/images/website-extract/Interior-Design-1.jpg',
+    description: 'Zeitlose Eleganz durch die Kombination von Marmor- und Betonoptik. Ein harmonisches Gesamtkonzept für modernes Wohnen.',
+    mainImage: '/images/hero-1.jpg',
     gallery: [],
-    stats: { area: '280 m²', duration: '12 Wochen', materials: 'SLAB-Keramik Tresen' }
+    stats: { area: '40 m²', duration: '5 Wochen', materials: 'Feinsteinzeug · Marmoroptik · Betonoptik' }
   },
   {
-    id: 3,
-    title: 'Perfekte Linien',
+    id: 'derksen',
+    title: 'Derksen',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Natürlichkeit im Fokus. Hochwertige Natursteinoptik schafft eine warme und einladende Atmosphäre im Badbereich.',
+    mainImage: '/images/hero-2.jpg',
+    gallery: [],
+    stats: { area: '40 m²', duration: '4 Wochen', materials: 'Feinsteinzeug · Natursteinoptik' }
+  },
+  {
+    id: 'esterabadeyan',
+    title: 'Esterabadeyan',
     category: 'Wellness | Spa',
-    location: 'Ahaus',
-    year: '2023',
-    description: 'Präzision bis in die letzte Fuge. Ein privater Wellnessbereich, der durch klare Linienführung und hochwertige Materialität besticht.',
-    mainImage: '/images/website-extract/Perfekte-Linien_11.jpg',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Ein großzügiges Wellness-Projekt mit exklusivem Glasmosaik. Luxus und Entspannung auf höchstem handwerklichem Niveau.',
+    mainImage: '/images/hero-3.jpg',
     gallery: [],
-    stats: { area: '95 m²', duration: '16 Wochen', materials: 'Rutschhemmende Keramik' }
+    stats: { area: '300 m²', duration: '4 Monate', materials: 'Feinsteinzeug · Glasmosaik' }
   },
   {
-    id: 4,
-    title: 'Natural Beauty',
-    category: 'Wohnraum',
-    location: 'Isselburg',
-    year: '2023',
-    description: 'Die Wärme von Naturstein vereint mit der Beständigkeit von Feinsteinzeug. Ein Wohnkonzept, das Natürlichkeit und Moderne harmonisch verbindet.',
-    mainImage: '/images/website-extract/Natural-Beauty-5.jpg',
+    id: 'goerz',
+    title: 'Görz',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Die perfekte Symbiose aus Naturstein- und Marmoroptik. Ein Statement für hochwertiges Baddesign.',
+    mainImage: '/images/hero-4.jpg',
     gallery: [],
-    stats: { area: '120 m²', duration: '6 Wochen', materials: 'Natursteinoptik Feinsteinzeug' }
+    stats: { area: '50 m²', duration: '6 Wochen', materials: 'Feinsteinzeug · Natursteinoptik · Marmoroptik' }
+  },
+  {
+    id: 'heis-bruns',
+    title: 'Heis Bruns',
+    category: 'Individuelles Wohnen',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Kreative Wandgestaltung mit Metrofliesen und Dekor-Elementen. Einzigartiger Charakter durch Liebe zum Detail.',
+    mainImage: '/images/hero-1.jpg',
+    gallery: [],
+    stats: { area: '60 m²', duration: '4 Wochen', materials: 'Feinsteinzeug · Marmoroptik · Metrofliesen · Dekor-Fliesen' }
+  },
+  {
+    id: 'han',
+    title: 'Han',
+    category: 'Großprojekt Wohnen',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Großformatige Keramik auf 300 Quadratmetern. Ein monolithisches Raumerlebnis durch präzise Fugenführung.',
+    mainImage: '/images/hero-2.jpg',
+    gallery: [],
+    stats: { area: '300 m²', duration: '3 Monate', materials: 'Feinsteinzeug · Natursteinoptik · Marmoroptik' }
+  },
+  {
+    id: 'kempkes-storm',
+    title: 'Kempkes & Storm',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Moderner Retro-Look durch Terrazzooptik und Metrofliesen. Handwerkliche Präzision trifft auf zeitloses Design.',
+    mainImage: '/images/hero-3.jpg',
+    gallery: [],
+    stats: { area: '40 m²', duration: '3 Wochen', materials: 'Feinsteinzeug · Terrazzooptik · Metrofliesen' }
+  },
+  {
+    id: 'klump',
+    title: 'Klump',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Stilvolle Kombination aus Terrazzo und Metrofliesen. Ein Badkonzept mit Charakter und Qualität.',
+    mainImage: '/images/hero-4.jpg',
+    gallery: [],
+    stats: { area: '50 m²', duration: '4 Wochen', materials: 'Feinsteinzeug · Terrazzooptik · Metrofliesen' }
+  },
+  {
+    id: 'lamers',
+    title: 'Lamers',
+    category: 'Wohnraum',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Klassisches Fischgrät-Muster in moderner Betonoptik. Ein Bodenbelag, der Tradition und Moderne verbindet.',
+    mainImage: '/images/hero-1.jpg',
+    gallery: [],
+    stats: { area: '40 m²', duration: '5 Wochen', materials: 'Feinsteinzeug · Betonoptik · Fischgrät' }
+  },
+  {
+    id: 'krasemann',
+    title: 'Krasemann',
+    category: 'Exklusives Wohnen',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Meisterhafte Verlegung auf 500 Quadratmetern. Naturstein- und Marmoroptik in ihrer edelsten Form.',
+    mainImage: '/images/hero-2.jpg',
+    gallery: [],
+    stats: { area: '500 m²', duration: '5 Monate', materials: 'Feinsteinzeug · Natursteinoptik · Marmoroptik' }
+  },
+  {
+    id: 'moritz',
+    title: 'Moritz',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Harmonisches Zusammenspiel von Naturstein und Marmor. Ein Ort der Ruhe und Entspannung.',
+    mainImage: '/images/hero-3.jpg',
+    gallery: [],
+    stats: { area: '50 m²', duration: '5 Wochen', materials: 'Feinsteinzeug · Natursteinoptik · Marmoroptik' }
+  },
+  {
+    id: 'mpalaskas',
+    title: 'Mpalaskas',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Präzise Handwerkskunst trifft auf edle Optik. Ein Bad, das durch Materialität und Ausführung überzeugt.',
+    mainImage: '/images/hero-4.jpg',
+    gallery: [],
+    stats: { area: '50 m²', duration: '4 Wochen', materials: 'Feinsteinzeug · Natursteinoptik · Marmoroptik' }
+  },
+  {
+    id: 'onori',
+    title: 'Onori',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Reduziertes Design in Marmoroptik. Klarheit und Struktur für ein modernes Badezimmer.',
+    mainImage: '/images/hero-1.jpg',
+    gallery: [],
+    stats: { area: '40 m²', duration: '4 Wochen', materials: 'Feinsteinzeug · Marmoroptik' }
+  },
+  {
+    id: 'pehr',
+    title: 'Pehr',
+    category: 'Wohnraum',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Moderne Betonoptik für ein urbanes Lebensgefühl. Robust, pflegeleicht und ästhetisch ansprechend.',
+    mainImage: '/images/hero-2.jpg',
+    gallery: [],
+    stats: { area: '60 m²', duration: '6 Wochen', materials: 'Feinsteinzeug · Betonoptik' }
+  },
+  {
+    id: 'praemium',
+    title: 'Praemium',
+    category: 'Gewerbe',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Repräsentative Gewerbeflächen in Natursteinoptik. Langlebigkeit und Exklusivität für den professionellen Einsatz.',
+    mainImage: '/images/hero-3.jpg',
+    gallery: [],
+    stats: { area: '150 m²', duration: '2 Monate', materials: 'Feinsteinzeug · Natursteinoptik' }
+  },
+  {
+    id: 'schwiening',
+    title: 'Schwiening',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Individuelle Badgestaltung mit hochwertigen Keramik-Oberflächen. Ein Unikat aus Meisterhand.',
+    mainImage: '/images/hero-4.jpg',
+    gallery: [],
+    stats: { area: '70 m²', duration: '6 Wochen', materials: 'Feinsteinzeug · Natursteinoptik · Marmoroptik' }
+  },
+  {
+    id: 'spoeler',
+    title: 'Spöler',
+    category: 'Wohnraum | Bad',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Großflächige Verlegung in Naturstein- und Betonoptik. Ein durchgängiges Gestaltungskonzept.',
+    mainImage: '/images/hero-1.jpg',
+    gallery: [],
+    stats: { area: '150 m²', duration: '10 Wochen', materials: 'Feinsteinzeug · Natursteinoptik · Betonoptik' }
+  },
+  {
+    id: 'van-gessel',
+    title: 'Van Gessel',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Kompaktes Design mit großer Wirkung. Natursteinoptik für ein zeitloses Badezimmer.',
+    mainImage: '/images/hero-2.jpg',
+    gallery: [],
+    stats: { area: '30 m²', duration: '3 Wochen', materials: 'Feinsteinzeug · Natursteinoptik' }
+  },
+  {
+    id: 'landhotel-voshoevel',
+    title: 'Landhotel Voshövel',
+    category: 'Gewerbe | Hotel',
+    location: 'Schermbeck',
+    year: '2024',
+    description: 'Exklusive Hotelgestaltung mit Terrazzooptik und Metrofliesen. Ein Ort der Gastfreundschaft und des Designs.',
+    mainImage: '/images/hero-3.jpg',
+    gallery: [],
+    stats: { area: '200 m²', duration: '2 Monate', materials: 'Feinsteinzeug · Terrazzooptik · Metrofliesen' }
+  },
+  {
+    id: 'weidemann',
+    title: 'Weidemann',
+    category: 'Badezimmer',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Moderne Kombination aus Beton- und Marmoroptik. Hochwertige Materialien für ein exklusives Bad.',
+    mainImage: '/images/hero-4.jpg',
+    gallery: [],
+    stats: { area: '40 m²', duration: '4 Wochen', materials: 'Feinsteinzeug · Betonoptik · Marmoroptik' }
+  },
+  {
+    id: 'weidemann-pool',
+    title: 'Weidemann Pool',
+    category: 'Pool | Wellness',
+    location: 'Bocholt',
+    year: '2024',
+    description: 'Poolgestaltung in Natursteinoptik. Beständigkeit und Ästhetik für den Außenbereich.',
+    mainImage: '/images/hero-1.jpg',
+    gallery: [],
+    stats: { area: '30 m²', duration: '3 Wochen', materials: 'Feinsteinzeug · Natursteinoptik' }
   }
 ]
 
 /* ─── Project Section Component ──────────────────────────────── */
 function ProjectSection({ project, index }) {
   const containerRef = useRef(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const images = [project.mainImage, ...(project.gallery || [])]
+  
+  useEffect(() => {
+    if (images.length <= 1) return
+    
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % images.length)
+    }, 4000)
+    
+    return () => clearInterval(interval)
+  }, [images.length])
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -143,14 +337,33 @@ function ProjectSection({ project, index }) {
         <div className={`lg:col-span-7 relative ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
           <motion.div 
             style={{ y }}
-            className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+            className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-dark-bg"
           >
-            <img 
-              src={project.mainImage} 
-              alt={project.title} 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06060630] to-transparent" />
+            <AnimatePresence mode="wait">
+              <motion.img 
+                key={currentImageIndex}
+                src={images[currentImageIndex]} 
+                alt={project.title} 
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full h-full object-cover"
+              />
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#06060630] to-transparent pointer-events-none" />
+            
+            {/* Image Indicators */}
+            {images.length > 1 && (
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                {images.map((_, i) => (
+                  <div 
+                    key={i}
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${i === currentImageIndex ? 'bg-white w-4' : 'bg-white/40'}`}
+                  />
+                ))}
+              </div>
+            )}
           </motion.div>
           
           {/* Decorative Stats Card */}
@@ -158,7 +371,7 @@ function ProjectSection({ project, index }) {
             initial={{ x: isEven ? 40 : -40, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className={`absolute -bottom-10 bg-white/80 backdrop-blur-xl p-8 rounded-2xl shadow-xl hidden md:block max-w-[280px] ${isEven ? '-left-10 md:-left-20' : '-right-10 md:-right-20'}`}
+            className={`absolute -bottom-10 bg-white/80 backdrop-blur-xl p-8 rounded-2xl shadow-xl hidden md:block max-w-[280px] z-30 ${isEven ? '-left-10 md:-left-20' : '-right-10 md:-right-20'}`}
           >
             <div className="space-y-6">
               <div>
@@ -189,7 +402,7 @@ export default function Projekte() {
     <div className="bg-warm-bg min-h-screen pt-48">
       <SEO 
         title="Projekte — Referenzen & Inspiration"
-        description="Entdecken Sie unsere abgeschlossenen Projekte in Bocholt und Umgebung. Von luxuriösen Badezimmern bis hin zu repräsentativen Gewerbeobjekten."
+        description="Entdecke unsere abgeschlossenen Projekte in Bocholt und Umgebung. Von luxuriösen Badezimmern bis hin zu repräsentativen Gewerbeobjekten."
       />
       {/* Hero Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-24">
@@ -230,7 +443,7 @@ export default function Projekte() {
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
                 <div className="space-y-2">
-                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">350+</p>
+                  <p className="font-sora font-extralight text-5xl md:text-6xl text-inv-light">500+</p>
                   <p className="font-dm text-[0.75rem] text-inv-muted uppercase tracking-[2px]">Projekte</p>
                 </div>
                 <div className="space-y-2">

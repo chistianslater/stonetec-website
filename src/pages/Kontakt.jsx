@@ -50,8 +50,8 @@ export default function Kontakt() {
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
       <SEO 
-        title="Kontakt — Ihr Termin im Showroom Bocholt"
-        description="Planen Sie Ihr Projekt mit uns. Vereinbaren Sie einen persönlichen Beratungstermin in unserem Showroom in Bocholt. Wir freuen uns auf Ihren Raum."
+        title="Kontakt — Dein Termin im Showroom Bocholt"
+        description="Plane dein Projekt mit uns. Vereinbare einen persönlichen Beratungstermin in unserem Showroom in Bocholt. Wir freuen uns auf deinen Raum."
       />
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-12">
@@ -87,8 +87,8 @@ export default function Kontakt() {
                     </a>
                   </p>
                   <p>
-                    <a href="mailto:info@stonetec-bocholt.de" className="hover:text-inv-light transition-colors">
-                      info@stonetec-bocholt.de
+                    <a href="mailto:fliesen@stonetec-bocholt.de" className="hover:text-inv-light transition-colors">
+                      fliesen@stonetec-bocholt.de
                     </a>
                   </p>
                 </address>
@@ -104,7 +104,7 @@ export default function Kontakt() {
                   Beratung nach Terminvereinbarung
                 </p>
                 <p className="font-dm text-[0.85rem] text-inv-mid leading-relaxed">
-                  Ihr individuelles Konzept verdient Zeit — und die schenken wir Ihnen. 
+                  Dein individuelles Konzept verdient Zeit — und die schenken wir dir. 
                   So garantieren wir volle Aufmerksamkeit und Raum für echte Entscheidungen.
                 </p>
               </div>
