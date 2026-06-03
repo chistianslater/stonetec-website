@@ -668,7 +668,7 @@ function ProjectSection({ project, index }) {
             initial={{ x: isEven ? 40 : -40, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className={`absolute -bottom-10 bg-white/80 backdrop-blur-xl p-8 rounded-2xl shadow-xl hidden md:block max-w-[280px] z-30 ${isEven ? '-left-10 md:-left-20' : '-right-10 md:-right-20'}`}
+            className={`absolute bottom-10 bg-white/90 backdrop-blur-xl p-8 rounded-2xl shadow-2xl hidden md:block max-w-[280px] z-30 ${isEven ? '-left-16' : '-right-16'}`}
           >
             <div className="space-y-6">
               <div>
