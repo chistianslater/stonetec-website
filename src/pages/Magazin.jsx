@@ -31,8 +31,8 @@ export const articles = [
     content: `
       <div className="space-y-12">
         <section>
-          <p className="text-xl leading-relaxed mb-8">Sie möchten Großformatfliesen verlegen in Bocholt lassen und legen Wert auf ein modernes, nahezu fugenloses Design? Dann ist die Wahl des richtigen Fachbetriebs entscheidend. Denn während Großformatfliesen optisch für Eleganz und Großzügigkeit stehen, gehören sie technisch zu den anspruchsvollsten Disziplinen im Fliesenhandwerk.</p>
-          <p>Das Großformatfliesen verlegen in Bocholt erfordert präzise Planung, absolut ebene Untergründe, spezielles Werkzeug und fundiertes Fachwissen. In diesem Beitrag erfahren Sie, worauf es wirklich ankommt, welche Herausforderungen auftreten können und warum professionelle Meisterarbeit hier unverzichtbar ist.</p>
+          <p className="text-xl leading-relaxed mb-8">Du möchtest Großformatfliesen verlegen in Bocholt lassen und legst Wert auf ein modernes, nahezu fugenloses Design? Dann ist die Wahl des richtigen Fachbetriebs entscheidend. Denn während Großformatfliesen optisch für Eleganz und Großzügigkeit stehen, gehören sie technisch zu den anspruchsvollsten Disziplinen im Fliesenhandwerk.</p>
+          <p>Das Großformatfliesen verlegen in Bocholt erfordert präzise Planung, absolut ebene Untergründe, spezielles Werkzeug und fundiertes Fachwissen. In diesem Beitrag erfährst du, worauf es wirklich ankommt, welche Herausforderungen auftreten können und warum professionelle Meisterarbeit hier unverzichtbar ist.</p>
         </section>
 
         <section>
@@ -70,7 +70,7 @@ export const articles = [
   {
     id: 'hochwertiger-fliesenleger',
     title: 'Hochwertiger Fliesenleger – Was macht ihn wirklich aus?',
-    excerpt: 'Qualität im Handwerk ist messbar. Erfahren Sie, worauf Sie bei der Wahl Ihres Fliesenlegers achten sollten.',
+    excerpt: 'Qualität im Handwerk ist messbar. Erfahre, worauf du bei der Wahl deines Fliesenlegers achten solltest.',
     category: 'Unternehmen',
     readTime: '8 Min.',
     date: 'Januar 2026',
@@ -90,9 +90,9 @@ export const articles = [
           <h3 className="text-xl font-medium mt-8 mb-4">Wichtige Kriterien bei der Wahl:</h3>
           <ul className="list-disc pl-6 space-y-4">
             <li><strong>Transparente Angebotserstellung:</strong> Ein seriöser Betrieb arbeitet mit Pauschalpreisen und detaillierten Leistungsbeschreibungen. Keine versteckten Kosten, keine bösen Überraschungen am Ende.</li>
-            <li><strong>Eigene Meister im Team:</strong> Achten Sie darauf, dass der Betrieb eigene Fliesenlegermeister beschäftigt und nicht nur auf Subunternehmer setzt. Nur so kann eine gleichbleibend hohe Qualität garantiert werden.</li>
+            <li><strong>Eigene Meister im Team:</strong> Achte darauf, dass der Betrieb eigene Fliesenlegermeister beschäftigt und nicht nur auf Subunternehmer setzt. Nur so kann eine gleichbleibend hohe Qualität garantiert werden.</li>
             <li><strong>Moderne Werkzeuge:</strong> Die Verarbeitung von modernen Materialien wie XXL-Keramik erfordert Spezialwerkzeug (Vakuumheber, Schneidetische, Nivelliersysteme).</li>
-            <li><strong>Umfassende Beratung:</strong> Ein guter Fliesenleger nimmt sich Zeit für Ihre Vision und berät Sie auch zu Themen wie Abdichtung, Gefälle und Materialeigenschaften.</li>
+            <li><strong>Umfassende Beratung:</strong> Ein guter Fliesenleger nimmt sich Zeit für deine Vision und berät dich auch zu Themen wie Abdichtung, Gefälle und Materialeigenschaften.</li>
           </ul>
         </section>
 
@@ -110,7 +110,7 @@ export const articles = [
   {
     id: 'fliesenberatung',
     title: 'Individuelle Fliesenberatung: Von der Idee zum Konzept',
-    excerpt: 'Wie wir gemeinsam mit Ihnen Räume planen, die Ihre Persönlichkeit widerspiegeln.',
+    excerpt: 'Wie wir gemeinsam mit dir Räume planen, die deine Persönlichkeit widerspiegeln.',
     category: 'Beratung',
     readTime: '5 Min.',
     date: 'Juni 2025',
@@ -119,20 +119,20 @@ export const articles = [
     content: `
       <div className="space-y-12">
         <section>
-          <p className="text-xl leading-relaxed mb-8">Jedes Projekt beginnt mit einem Gespräch. In unserer Ausstellung in Bocholt nehmen wir uns Zeit für Ihre Vision. Denn eine Fliese ist nicht einfach nur ein Belag — sie definiert die Atmosphäre Ihres Zuhauses.</p>
+          <p className="text-xl leading-relaxed mb-8">Jedes Projekt beginnt mit einem Gespräch. In unserer Ausstellung in Bocholt nehmen wir uns Zeit für deine Vision. Denn eine Fliese ist nicht einfach nur ein Belag — sie definiert die Atmosphäre deines Zuhauses.</p>
           <p>Oft kommen Kunden mit einer vagen Vorstellung zu uns. Unsere Aufgabe ist es, diese Idee in ein stimmiges Gesamtkonzept zu verwandeln.</p>
         </section>
         
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Materialien erleben</h2>
-          <p>Haptik kann man nicht digital vermitteln. Deshalb setzen wir auf echte Materialcollagen und Bemusterungen vor Ort. In unserem Showroom können Sie Oberflächen fühlen, Farben bei unterschiedlichem Licht vergleichen und Kombinationen ausprobieren.</p>
+          <p>Haptik kann man nicht digital vermitteln. Deshalb setzen wir auf echte Materialcollagen und Bemusterungen vor Ort. In unserem Showroom kannst du Oberflächen fühlen, Farben bei unterschiedlichem Licht vergleichen und Kombinationen ausprobieren.</p>
           <p>In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint. Dabei berücksichtigen wir nicht nur die Optik, sondern auch die Beanspruchung und Pflegeeigenschaften der Materialien.</p>
         </section>
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Digitale Planung & 3D-Visualisierung</h2>
-          <p>Dank modernster 3D-Visualisierungen können Sie Ihr Projekt bereits vor der Umsetzung realitätsnah erleben. Wir erstellen fotorealistische Renderings Ihres neuen Badezimmers oder Wohnraums.</p>
-          <p>Das gibt Ihnen die Sicherheit, die richtigen Entscheidungen zu treffen. Sie sehen genau, wie das gewählte Format im Raum wirkt und wie die Fugenbilder verlaufen.</p>
+          <p>Dank modernster 3D-Visualisierungen kannst du dein Projekt bereits vor der Umsetzung realitätsnah erleben. Wir erstellen fotorealistische Renderings deines neuen Badezimmers oder Wohnraums.</p>
+          <p>Das gibt dir die Sicherheit, die richtigen Entscheidungen zu treffen. Du siehst genau, wie das gewählte Format im Raum wirkt und wie die Fugenbilder verlaufen.</p>
         </section>
 
         <blockquote className="text-2xl font-light italic border-l-4 border-warm-stein pl-8 py-4 my-12 text-warm-mittel">
@@ -144,7 +144,7 @@ export const articles = [
   {
     id: 'fugenloses-bad',
     title: 'Fugenloses Bad: Maximale Ruhe durch XXL-Keramik',
-    excerpt: 'Fugenlose Flächen liegen im Trend. Erfahren Sie, wie wir mit großformatiger Keramik fugenlose Träume wahr machen.',
+    excerpt: 'Fugenlose Flächen liegen im Trend. Erfahre, wie wir mit großformatiger Keramik fugenlose Träume wahr machen.',
     category: 'Bad',
     readTime: '7 Min.',
     date: 'Mai 2025',
@@ -182,7 +182,7 @@ export const articles = [
   {
     id: 'keramikmanufaktur-unikate',
     title: 'Die Keramikmanufaktur: Wenn Standard nicht ausreicht',
-    excerpt: 'Waschtische, Nischen und Sonderbauten aus Keramik. Erfahren Sie, was in unserer eigenen Fertigung möglich ist.',
+    excerpt: 'Waschtische, Nischen und Sonderbauten aus Keramik. Erfahre, was in unserer eigenen Fertigung möglich ist.',
     category: 'Handwerk',
     readTime: '6 Min.',
     date: 'März 2026',
@@ -198,7 +198,7 @@ export const articles = [
           <h2 className="text-3xl font-light tracking-tight mb-6">Maßarbeit aus Meisterhand</h2>
           <p>Die Verarbeitung von großformatiger Keramik (SLABS) zu dreidimensionalen Objekten ist die Königsdisziplin unseres Handwerks. Wir fertigen:</p>
           <ul className="list-disc pl-6 space-y-4 mt-6">
-            <li><strong>Individuelle Waschtische:</strong> Aus demselben Material wie Ihre Wandfliesen, für einen perfekten Monolith-Look.</li>
+            <li><strong>Individuelle Waschtische:</strong> Aus demselben Material wie deine Wandfliesen, für einen perfekten Monolith-Look.</li>
             <li><strong>Nischenlösungen:</strong> Passgenaue Ablagen für die Dusche, ohne unschöne Kunststoffprofile.</li>
             <li><strong>Küchenarbeitsplatten:</strong> Extrem robust, hitzebeständig und in exklusiven Designs.</li>
             <li><strong>Sonderbauten:</strong> Sitzbänke, Treppenstufen oder Kaminverkleidungen.</li>
@@ -258,7 +258,7 @@ export const articles = [
   {
     id: 'keramische-wandverkleidung',
     title: 'Keramische Wandverkleidung – Ästhetik trifft Funktion',
-    excerpt: 'Großformatige Keramik an der Wand ist ein Statement. Erfahren Sie mehr über die Gestaltungsmöglichkeiten.',
+    excerpt: 'Großformatige Keramik an der Wand ist ein Statement. Erfahre mehr über die Gestaltungsmöglichkeiten.',
     category: 'Trends',
     readTime: '5 Min.',
     date: 'Juni 2025',
@@ -288,7 +288,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Präzision in der Ausführung</h2>
-          <p>Die Montage von großformatiger Wandkeramik erfordert höchste Präzision. Jede Bohrung für Armaturen, jeder Ausschnitt für Schalter muss perfekt sitzen. Als Meisterbetrieb garantieren wir eine millimetergenaue Verarbeitung und ein makelloses Finish, das Ihre Räume zum Strahlen bringt.</p>
+          <p>Die Montage von großformatiger Wandkeramik erfordert höchste Präzision. Jede Bohrung für Armaturen, jeder Ausschnitt für Schalter muss perfekt sitzen. Als Meisterbetrieb garantieren wir eine millimetergenaue Verarbeitung und ein makelloses Finish, das deine Räume zum Strahlen bringt.</p>
         </section>
       </div>
     `
@@ -296,7 +296,7 @@ export const articles = [
   {
     id: 'wellnessbereich-planen',
     title: 'Wellnessbereich planen – Luxus für Zuhause',
-    excerpt: 'Wie Sie Ihr eigenes Home-Spa mit den richtigen Materialien und einer durchdachten Planung realisieren.',
+    excerpt: 'Wie du dein eigenes Home-Spa mit den richtigen Materialien und einer durchdachten Planung realisierst.',
     category: 'Planung',
     readTime: '8 Min.',
     date: 'Juni 2025',
@@ -311,7 +311,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Die Säulen eines perfekten Home-Spas</h2>
-          <p>Damit Ihr Wellnessbereich langfristig Freude bereitet, achten wir bei StoneTec auf eine ganzheitliche Planung.</p>
+          <p>Damit dein Wellnessbereich langfristig Freude bereitet, achten wir bei StoneTec auf eine ganzheitliche Planung.</p>
           <h3 className="text-xl font-medium mt-8 mb-4">Wichtige Planungsaspekte:</h3>
           <ul className="list-disc pl-6 space-y-4">
             <li><strong>Materialwahl:</strong> Rutschhemmende Oberflächen sind in Nassbereichen Pflicht, ohne dabei die Ästhetik zu vernachlässigen.</li>
@@ -327,7 +327,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Maßgeschneiderte Lösungen</h2>
-          <p>In unserer Keramikmanufaktur fertigen wir passend zu Ihrem Wellnessbereich individuelle Sitzbänke, beheizte Liegen oder maßgeschneiderte Waschtische. So entsteht ein harmonisches Gesamtbild, das Professionalität und Luxus ausstrahlt.</p>
+          <p>In unserer Keramikmanufaktur fertigen wir passend zu deinem Wellnessbereich individuelle Sitzbänke, beheizte Liegen oder maßgeschneiderte Waschtische. So entsteht ein harmonisches Gesamtbild, das Professionalität und Luxus ausstrahlt.</p>
         </section>
       </div>
     `
@@ -335,7 +335,7 @@ export const articles = [
   {
     id: 'virtuelle-badplanung',
     title: 'Virtuelle Badplanung – Sicherheit bei jeder Entscheidung',
-    excerpt: 'Erleben Sie Ihr neues Bad in 3D, bevor der erste Stein liegt. Warum digitale Planung heute Standard ist.',
+    excerpt: 'Erlebe dein neues Bad in 3D, bevor der erste Stein liegt. Warum digitale Planung heute Standard ist.',
     category: 'Bad',
     readTime: '7 Min.',
     date: 'Juni 2025',
@@ -344,15 +344,15 @@ export const articles = [
     content: `
       <div className="space-y-12">
         <section>
-          <p className="text-xl leading-relaxed mb-8">Keine bösen Überraschungen: Mit unserer virtuellen Badplanung sehen Sie exakt, wie Formate, Farben und Licht in Ihrem neuen Bad wirken, bevor der erste Handgriff erfolgt.</p>
-          <p>Die Vorstellungskraft stößt bei komplexen Projekten oft an ihre Grenzen. Wie wirkt die XXL-Platte in einem kleinen Raum? Passt die Armatur zum gewählten Keramik-Design? Die virtuelle Planung gibt Ihnen die nötige Sicherheit.</p>
+          <p className="text-xl leading-relaxed mb-8">Keine bösen Überraschungen: Mit unserer virtuellen Badplanung siehst du exakt, wie Formate, Farben und Licht in deinem neuen Bad wirken, bevor der erste Handgriff erfolgt.</p>
+          <p>Die Vorstellungskraft stößt bei komplexen Projekten oft an ihre Grenzen. Wie wirkt die XXL-Platte in einem kleinen Raum? Passt die Armatur zum gewählten Keramik-Design? Die virtuelle Planung gibt dir die nötige Sicherheit.</p>
         </section>
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Vorteile der digitalen Vorplanung</h2>
-          <p>Wir nutzen modernste Software, um Ihr Projekt fotorealistisch abzubilden. Das spart Zeit, vermeidet Fehlentscheidungen und optimiert den gesamten Bauprozess.</p>
+          <p>Wir nutzen modernste Software, um dein Projekt fotorealistisch abzubilden. Das spart Zeit, vermeidet Fehlentscheidungen und optimiert den gesamten Bauprozess.</p>
           <ul className="list-disc pl-6 space-y-4 mt-6">
-            <li><strong>Realistische Visualisierung:</strong> Erleben Sie Lichtverhältnisse und Oberflächenstrukturen fast wie in der Realität.</li>
+            <li><strong>Realistische Visualisierung:</strong> Erlebe Lichtverhältnisse und Oberflächenstrukturen fast wie in der Realität.</li>
             <li><strong>Präzise Mengenermittlung:</strong> Weniger Verschnitt durch exakte digitale Kalkulation.</li>
             <li><strong>Fugenbild-Optimierung:</strong> Wir planen den Verlauf der Fugen so, dass ein harmonisches Gesamtbild entsteht.</li>
             <li><strong>Flexibilität:</strong> Verschiedene Materialkombinationen lassen sich per Mausklick vergleichen.</li>
@@ -365,7 +365,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Vom Entwurf zur Realität</h2>
-          <p>Die virtuelle Planung dient unseren Meistern vor Ort als exakte Vorlage. So stellen wir sicher, dass das Ergebnis am Ende genau dem entspricht, was wir gemeinsam mit Ihnen entworfen haben. Das ist unser Anspruch an moderne Handwerksleistung.</p>
+          <p>Die virtuelle Planung dient unseren Meistern vor Ort als exakte Vorlage. So stellen wir sicher, dass das Ergebnis am Ende genau dem entspricht, was wir gemeinsam mit dir entworfen haben. Das ist unser Anspruch an moderne Handwerksleistung.</p>
         </section>
       </div>
     `
@@ -373,7 +373,7 @@ export const articles = [
   {
     id: '3d-badplanung',
     title: '3D Badplanung – Detailverliebt bis zur letzten Fuge',
-    excerpt: 'Warum wir jedes Projekt in 3D planen und wie Sie davon profitieren.',
+    excerpt: 'Warum wir jedes Projekt in 3D planen und wie du davon profitierst.',
     category: 'Bad',
     readTime: '6 Min.',
     date: 'Juni 2025',
@@ -389,7 +389,7 @@ export const articles = [
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Warum 3D für uns Standard ist</h2>
           <p>Ein Bad ist ein komplexes Gefüge aus Installationen, Abdichtungen und Oberflächen. Die 3D-Planung erlaubt es uns, potenzielle Konflikte bereits im Vorfeld zu erkennen und zu lösen.</p>
-          <h3 className="text-xl font-medium mt-8 mb-4">Was wir in 3D für Sie planen:</h3>
+          <h3 className="text-xl font-medium mt-8 mb-4">Was wir in 3D für dich planen:</h3>
           <ul className="list-disc pl-6 space-y-4">
             <li><strong>Exakter Fliesenplan:</strong> Wir legen fest, wo die erste Fliese beginnt, um unschöne schmale Streifen an den Rändern zu vermeiden.</li>
             <li><strong>Nischen & Einbauten:</strong> Ablagen in der Dusche werden millimetergenau in das Fliesenraster integriert.</li>
@@ -403,8 +403,8 @@ export const articles = [
         </blockquote>
 
         <section>
-          <h2 className="text-3xl font-light tracking-tight mb-6">Ihr Vorteil als Kunde</h2>
-          <p>Sie erhalten ein klares Bild Ihres zukünftigen Badezimmers. Das gibt Ihnen nicht nur Sicherheit bei der Auswahl der Materialien, sondern auch die Gewissheit, dass die technische Umsetzung reibungslos verlaufen wird.</p>
+          <h2 className="text-3xl font-light tracking-tight mb-6">Dein Vorteil als Kunde</h2>
+          <p>Du erhältst ein klares Bild deines zukünftigen Badezimmers. Das gibt dir nicht nur Sicherheit bei der Auswahl der Materialien, sondern auch die Gewissheit, dass die technische Umsetzung reibungslos verlaufen wird.</p>
         </section>
       </div>
     `
@@ -416,13 +416,13 @@ export const articles = [
     category: 'Handwerk',
     readTime: '9 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/DSC_0137.jpg',
+    image: '/images/website-extract/DSC_0137.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
         <section>
           <p className="text-xl leading-relaxed mb-8">Qualität ist kein Zufall, sondern das Ergebnis von Erfahrung, Sorgfalt und den richtigen Werten. Hochwertige Fliesenverlegung bedeutet für uns: Handwerk auf Meister-Niveau ohne Kompromisse.</p>
-          <p>In einer Zeit, in der Schnelligkeit oft vor Sorgfalt geht, setzen wir bewusst auf Beständigkeit. Wir verlegen nicht einfach nur Fliesen – wir schaffen bleibende Werte für Ihr Zuhause.</p>
+          <p>In einer Zeit, in der Schnelligkeit oft vor Sorgfalt geht, setzen wir bewusst auf Beständigkeit. Wir verlegen nicht einfach nur Fliesen – wir schaffen bleibende Werte für dein Zuhause.</p>
         </section>
 
         <section>
@@ -442,7 +442,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Transparenz und Vertrauen</h2>
-          <p>Wir kommunizieren ehrlich, was machbar ist und was nicht. Unsere Angebote sind detailliert und fair. Denn wir möchten, dass Sie auch nach zehn Jahren noch mit Stolz auf Ihre Fliesen blicken.</p>
+          <p>Wir kommunizieren ehrlich, was machbar ist und was nicht. Unsere Angebote sind detailliert und fair. Denn wir möchten, dass du auch nach zehn Jahren noch mit Stolz auf deine Fliesen blickst.</p>
         </section>
       </div>
     `
@@ -479,7 +479,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Vorteile im Alltag</h2>
-          <p>Fliesen mit diesen Veredelungen bleiben länger sauber, reduzieren unangenehme Gerüche und verbessern die Lufthygiene. Besonders für Allergiker und Familien mit Kindern bieten sie einen echten Mehrwert. Wir beraten Sie gerne, welche Hersteller diese Innovationen auf Meister-Niveau umsetzen.</p>
+          <p>Fliesen mit diesen Veredelungen bleiben länger sauber, reduzieren unangenehme Gerüche und verbessern die Lufthygiene. Besonders für Allergiker und Familien mit Kindern bieten sie einen echten Mehrwert. Wir beraten dich gerne, welche Hersteller diese Innovationen auf Meister-Niveau umsetzen.</p>
         </section>
       </div>
     `
@@ -487,7 +487,7 @@ export const articles = [
   {
     id: 'waschtisch-aus-keramik',
     title: 'Waschtisch aus Keramik – Das Highlight im Bad',
-    excerpt: 'Individuell gefertigte Waschtische aus großformatiger Keramik. Ein Unikat für Ihr Badezimmer.',
+    excerpt: 'Individuell gefertigte Waschtische aus großformatiger Keramik. Ein Unikat für dein Badezimmer.',
     category: 'Waschtisch',
     readTime: '6 Min.',
     date: 'Juni 2025',
@@ -496,8 +496,8 @@ export const articles = [
     content: `
       <div className="space-y-12">
         <section>
-          <p className="text-xl leading-relaxed mb-8">Ein Waschtisch, der mit der Wand verschmilzt: Waschtische aus großformatiger Keramik sind das Highlight moderner Badarchitektur. Aus einem Guss, robust und in jedem Design realisierbar.</p>
-          <p>In unserer Keramikmanufaktur fertigen wir diese Unikate individuell nach Ihren Wünschen. Vergessen Sie Standardmaße – wir bauen, was in Ihr Bad passt.</p>
+          <p className="text-xl leading-relaxed mb-8">Ein Waschtisch, der mit der Wand verschmilzt: Waschtische aus großformatiger Keramik sind das highlight moderner Badarchitektur. Aus einem Guss, robust und in jedem Design realisierbar.</p>
+          <p>In unserer Keramikmanufaktur fertigen wir diese Unikate individuell nach deinen Wünschen. Vergiss Standardmaße – wir bauen, was in dein Bad passt.</p>
         </section>
 
         <section>
@@ -507,7 +507,7 @@ export const articles = [
             <li><strong>Absolute Porenfreiheit:</strong> Keine Flecken durch Kosmetika, Nagellackentferner oder Haarfärbemittel.</li>
             <li><strong>Kratzfestigkeit:</strong> Die Oberfläche ist extrem hart und widerstandsfähig.</li>
             <li><strong>Hitzebeständigkeit:</strong> Das Ablegen eines heißen Glätteisens ist völlig unproblematisch.</li>
-            <li><strong>Design-Kontinuität:</strong> Nutzen Sie dasselbe Material für Boden, Wand und Waschtisch für einen monolithischen Look.</li>
+            <li><strong>Design-Kontinuität:</strong> Nutze dasselbe Material für Boden, Wand und Waschtisch für einen monolithischen Look.</li>
           </ul>
         </section>
 
@@ -540,7 +540,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Die Top-Trends für 2025</h2>
-          <p>Wir haben die internationalen Messen analysiert und die wichtigsten Strömungen für Sie zusammengefasst.</p>
+          <p>Wir haben die internationalen Messen analysiert und die wichtigsten Strömungen für dich zusammengefasst.</p>
           <ul className="list-disc pl-6 space-y-4 mt-6">
             <li><strong>Warme Minimalistik:</strong> Statt kühlem Grau dominieren warme Beigetöne, Sandfarben und erdige Nuancen ("Greige" wird sanfter).</li>
             <li><strong>Taktile Oberflächen:</strong> Fliesen, die man berühren möchte. Strukturierte Oberflächen, die Naturstein oder handgeschöpftem Putz nachempfunden sind.</li>
@@ -555,7 +555,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Individuelle Umsetzung</h2>
-          <p>Bei aller Begeisterung für Trends: Wichtig ist, dass das Konzept zu Ihnen und Ihrer Immobilie passt. In unserer Beratung helfen wir Ihnen, die aktuellen Ideen so zu interpretieren, dass sie auch in vielen Jahren noch modern wirken.</p>
+          <p>Bei aller Begeisterung für Trends: Wichtig ist, dass das Konzept zu dir und deiner Immobilie passt. In unserer Beratung helfen wir dir, die aktuellen Ideen so zu interpretieren, dass sie auch in vielen Jahren noch modern wirken.</p>
         </section>
       </div>
     `
@@ -563,7 +563,7 @@ export const articles = [
   {
     id: 'nachhaltige-fliesen',
     title: 'Nachhaltige Fliesen – Ökologisch bauen mit Keramik',
-    excerpt: 'Warum Keramik einer der nachhaltigsten Baustoffe ist und worauf Sie beim Kauf achten sollten.',
+    excerpt: 'Warum Keramik einer der nachhaltigsten Baustoffe ist und worauf du beim Kauf achten solltest.',
     category: 'Unternehmen',
     readTime: '6 Min.',
     date: 'Juni 2025',
@@ -593,7 +593,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Verantwortung beim Kauf</h2>
-          <p>Wir achten bei der Auswahl unserer Lieferanten auf kurze Transportwege und zertifizierte Umweltstandards in der Produktion. So stellen wir sicher, dass Ihre Entscheidung für Fliesen auch eine Entscheidung für die Umwelt ist.</p>
+          <p>Wir achten bei der Auswahl unserer Lieferanten auf kurze Transportwege und zertifizierte Umweltstandards in der Produktion. So stellen wir sicher, dass deine Entscheidung für Fliesen auch eine Entscheidung für die Umwelt ist.</p>
         </section>
       </div>
     `
@@ -837,16 +837,16 @@ export default function Magazin() {
             <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="font-sora font-extralight text-3xl md:text-4xl text-inv-light tracking-tight mb-4">
-                  Bleiben Sie informiert.
+                  Bleib informiert.
                 </h2>
                 <p className="font-dm text-[1rem] text-inv-muted leading-relaxed">
-                  Einmal im Monat: Fachwissen, Projekt-Einblicke und Inspiration direkt in Ihr Postfach. Kein Spam, nur Relevanz.
+                  Einmal im Monat: Fachwissen, Projekt-Einblicke und Inspiration direkt in dein Postfach. Kein Spam, nur Relevanz.
                 </p>
               </div>
               <form className="flex flex-col sm:flex-row gap-4" onSubmit={(e) => e.preventDefault()}>
                 <input
                   type="email"
-                  placeholder="Ihre E-Mail-Adresse"
+                  placeholder="Deine E-Mail-Adresse"
                   className="flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-none font-dm text-[0.95rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-white/30 transition-colors"
                 />
                 <button

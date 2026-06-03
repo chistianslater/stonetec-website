@@ -162,9 +162,9 @@ export default function MagazinPost() {
           <div className="bg-dark-bg rounded-[3rem] p-10 md:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
             <div className="relative z-10">
-              <h3 className="font-sora font-extralight text-3xl md:text-4xl text-inv-light mb-8 tracking-tight">Haben Sie Fragen zu diesem Thema?</h3>
+              <h3 className="font-sora font-extralight text-3xl md:text-4xl text-inv-light mb-8 tracking-tight">Hast du Fragen zu diesem Thema?</h3>
               <p className="font-dm text-[1.1rem] text-inv-muted mb-12 max-w-xl mx-auto leading-relaxed">
-                Unsere Experten beraten Sie gerne persönlich zu Ihrem individuellen Projekt. Ehrlich, kompetent und auf den Punkt.
+                Unsere Experten beraten dich gerne persönlich zu deinem individuellen Projekt. Ehrlich, kompetent und auf den Punkt.
               </p>
               <Link 
                 to="/kontakt" 

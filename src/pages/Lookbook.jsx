@@ -169,7 +169,7 @@ const lookbookSections = [
     "id": "manufaktur",
     "title": "Keramikmanufaktur",
     "subtitle": "Unikate aus Meisterhand",
-    "description": "In unserer eigenen Manufaktur fertigen wir Waschtische, Treppenstufen und Sonderlösungen aus Keramik — passgenau für Ihr Projekt.",
+    "description": "In unserer eigenen Manufaktur fertigen wir Waschtische, Treppenstufen und Sonderlösungen aus Keramik — passgenau für dein Projekt.",
     "dir": "manufaktur",
     "images": [
       {
@@ -321,8 +321,8 @@ export default function Lookbook() {
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
       <SEO 
-        title="Lookbook — Inspiration für Ihr Zuhause"
-        description="Lassen Sie sich von unseren Referenzen inspirieren. Badezimmer, Wohnräume und maßgefertigte Keramik-Unikate in höchster Qualität."
+        title="Lookbook — Inspiration für dein Zuhause"
+        description="Lass dich von unseren Referenzen inspirieren. Badezimmer, Wohnräume und maßgefertigte Keramik-Unikate in höchster Qualität."
       />
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
