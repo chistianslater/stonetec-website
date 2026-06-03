@@ -634,18 +634,18 @@ function ProjectSection({ project, index }) {
         <div className={`lg:col-span-7 relative ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
           <motion.div 
             style={{ y }}
-            className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-dark-bg"
+            className="relative aspect-[4/5] md:aspect-[16/10] lg:aspect-[4/5] max-h-[75vh] rounded-2xl overflow-hidden shadow-2xl bg-dark-bg"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence initial={false}>
               <motion.img 
                 key={currentImageIndex}
                 src={images[currentImageIndex]} 
                 alt={project.title} 
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full h-full object-cover"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </AnimatePresence>
             <div className="absolute inset-0 bg-gradient-to-t from-[#06060630] to-transparent pointer-events-none" />

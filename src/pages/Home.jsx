@@ -151,10 +151,25 @@ function StaggerItem({ children, className = '' }) {
 /* ═══════════════════════════════════════════════════════════
    HERO
    ═══════════════════════════════════════════════════════════ */
+const heroImages = [
+  { src: '/images/hero-2.jpg', alt: 'Luxuriöses Badezimmer mit großformatigen Fliesen von StoneTec Bocholt' },
+  { src: '/images/projekte/Albrecht/stonetec-projekt-albrecht-1.jpg', alt: 'Exklusives Baddesign in Marmoroptik' },
+  { src: '/images/projekte/Esterabadeyan/stonetec-projekt-esterabadeyan-1.jpg', alt: 'Wellness-Oase mit exklusivem Glasmosaik' },
+  { src: '/images/projekte/Krasemann/stonetec-projekt-krasemann-1.jpg', alt: 'Großformatige Keramik im Wohnbereich' },
+  { src: '/images/projekte/Voshövel/stonetec-projekt-voshövel-1.jpg', alt: 'Repräsentative Hotelgestaltung mit Terrazzo' },
+]
+
 function Hero() {
-  const [imgLoaded, setImgLoaded] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
   const containerRef = useRef(null)
   
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % heroImages.length)
+    }, 8000)
+    return () => clearInterval(timer)
+  }, [])
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start']
@@ -162,10 +177,7 @@ function Hero() {
   
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
-  
   const springY = useSpring(y, { stiffness: 100, damping: 30, restDelta: 0.001 })
-  const springScale = useSpring(scale, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
   const scrollToLeistungen = (e) => {
     e.preventDefault()
@@ -176,22 +188,43 @@ function Hero() {
   }
 
   return (
-    <section ref={containerRef} className="relative h-screen min-h-[700px] flex items-end overflow-hidden">
-      {/* Parallax Background */}
-      <motion.div className="absolute inset-0" style={{ y: springY, scale: springScale }}>
-        <motion.img
-          src="/images/hero-2.jpg"
-          alt="Luxuriöses Badezimmer mit großformatigen Fliesen von StoneTec Bocholt"
-          className="w-full h-full object-cover"
-          initial={{ scale: 1.2, opacity: 0 }}
-          animate={imgLoaded ? { scale: 1, opacity: 1 } : {}}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          onLoad={() => setImgLoaded(true)}
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-[#06060680] to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#060606cc] via-transparent to-transparent" />
-      </motion.div>
+    <section ref={containerRef} className="relative h-screen min-h-[700px] flex items-end overflow-hidden bg-black">
+      {/* Background Slider with Ken Burns & Crossfade */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentIndex}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+          >
+            <motion.div 
+              className="absolute inset-0"
+              style={{ y: springY }}
+            >
+              <motion.img
+                src={heroImages[currentIndex].src}
+                alt={heroImages[currentIndex].alt}
+                className="w-full h-full object-cover"
+                initial={{ scale: 1.1, x: '-2%', y: '-2%' }}
+                animate={{ scale: 1.25, x: '2%', y: '2%' }}
+                transition={{ 
+                  duration: 10, 
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+        
+        {/* Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-[#06060660] to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#060606aa] via-transparent to-transparent z-10" />
+      </div>
 
       {/* Hero Content */}
       <motion.div 

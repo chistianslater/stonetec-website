@@ -25,16 +25,16 @@ const services = [
     subtitle: 'Der Anfang jeder Vision',
     description: 'Wir nehmen uns Zeit, deine Wünsche und Anforderungen genau zu verstehen. In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint.',
     details: 'Dank modernster 3D-Visualisierungen und Virtual-Reality-Technologien kannst du dein Projekt bereits vor der Umsetzung realitätsnah erleben.',
-    image: '/images/lookbook/details/stonetec-lookbook-details-2.jpg',
+    image: '/images/website-extract/StoneTec_Highlights_rechteckig-5.jpg',
     features: ['Individuelle Bedarfsanalyse', 'Materialcollagen & Haptik', '3D-Visualisierung', 'VR-Erlebnis']
   },
   {
     id: 'verlegung',
     title: 'Fliesenverlegung aus Meisterhand',
     subtitle: 'Präzision in jeder Fuge',
-    description: 'Unsere erfahrenen Fliesenlegermeister setzen dein Projekt mit höchster Präzision und Sorgfalt um. Wir verwenden ausschließlich hochwertige Materialien und moderne Techniken.',
-    details: 'Ob großformatige Keramik, filigrane Mosaike oder klassische Natursteinarbeiten — wir garantieren langlebige und ästhetisch ansprechende Ergebnisse auf Meister-Niveau.',
-    image: '/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-1.jpg',
+    description: 'Unsere erfahrenen Fliesenlegermeister setzen dein Projekt mit höchster Präzision and Sorgfalt um. Wir verwenden ausschließlich hochwertige Materialien and moderne Techniken.',
+    details: 'Ob großformatige Keramik, filigrane Mosaike oder klassische Natursteinarbeiten — wir garantieren langlebige and ästhetisch ansprechende Ergebnisse auf Meister-Niveau.',
+    image: '/images/website-extract/StoneTec_Highlights_rechteckig-6.jpg',
     features: ['Großformat-Spezialisten', 'Meistergeführte Teams', 'Staubfreie Sanierung', 'Termintreue']
   },
   {
@@ -42,8 +42,8 @@ const services = [
     title: 'Keramikmanufaktur',
     subtitle: 'Unikate jenseits des Standards',
     description: 'In unserer hauseigenen Manufaktur entstehen individuelle Sonderanfertigungen aus Keramik — von maßgeschneiderten Waschtischen über Arbeitsplatten bis hin zu kunstvoll gestalteten Wandpaneelen.',
-    details: 'Wir setzen deiner Kreativität keine Grenzen. Jedes Stück ist ein handgefertigtes Unikat, das exakt auf deine Räumlichkeiten und Bedürfnisse zugeschnitten ist.',
-    image: '/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-1.jpg',
+    details: 'Wir setzen deiner Kreativität keine Grenzen. Jedes Stück ist ein handgefertigtes Unikat, das exakt auf deine Räumlichkeiten and Bedürfnisse zugeschnitten ist.',
+    image: '/images/Keramik-Manufaktur/IMG_5118-web.webp',
     features: ['Maßgefertigte Waschtische', 'Treppenstufen aus Keramik', 'Küchenarbeitsplatten', 'Nischenlösungen']
   },
   {
@@ -51,8 +51,8 @@ const services = [
     title: 'Komplettlösungen',
     subtitle: 'Alles aus einer Hand',
     description: 'Wir bieten dir alles aus einer Hand — von der ersten Idee bis zur finalen Umsetzung. Unser ganzheitlicher Ansatz ermöglicht es, deine Räumlichkeiten vollständig zu transformieren.',
-    details: 'Wir koordinieren alle Gewerke und sorgen für einen reibungslosen Ablauf. So entsteht ein harmonisches Gesamtbild ohne Stress für dich.',
-    image: '/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-1.jpg',
+    details: 'Wir koordinieren alle Gewerke and sorgen für einen reibungslosen Ablauf. So entsteht ein harmonisches Gesamtbild ohne Stress für dich.',
+    image: '/images/website-extract/Komplettloesungen.jpg',
     features: ['Gewerkeübergreifend', 'Projektleitung', 'Pauschalpreisgarantie', 'Sorgenfrei-Paket']
   }
 ]
