@@ -310,14 +310,14 @@ function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.6 }}
       >
-        <span className="font-dm text-[0.7rem] text-inv-muted uppercase tracking-widest">Scroll</span>
+        <span className="font-dm text-[0.6rem] md:text-[0.7rem] text-inv-muted uppercase tracking-widest">Scroll</span>
         <motion.div 
-          className="w-px h-8 bg-inv-muted/50"
+          className="w-px h-6 md:h-8 bg-inv-muted/50"
           animate={{ scaleY: [1, 0.5, 1] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -423,13 +423,13 @@ function Leistungen() {
         
         <div className="overflow-hidden mb-16">
           <motion.h2 
-            className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-inv-light leading-tight tracking-[-0.02em] max-w-3xl"
+            className="font-sora font-extralight text-[clamp(1.8rem,4vw,3.2rem)] text-inv-light leading-tight tracking-[-0.02em] max-w-3xl"
             initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            Fliesenverlegung, Keramikmanufaktur<br />und 3D-Raumplanung aus Bocholt.
+            Meisterhandwerk<br />neu definiert.
           </motion.h2>
         </div>
 
@@ -512,7 +512,7 @@ function Grossformate() {
     offset: ['start end', 'end start']
   })
   
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-20%'])
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-30%'])
 
   const images = [
     { src: '/images/slider-grossformate/stonetec-grossformat-1.jpg', alt: 'Großformatige Fliesen im Badezimmer — stonetec Bocholt' },
@@ -540,8 +540,27 @@ function Grossformate() {
         </TextReveal>
       </div>
       
+      {/* Mobile: Scrollable Container | Desktop: Framer Motion Scroll */}
+      <div className="md:hidden overflow-x-auto pb-8 hide-scrollbar">
+        <div className="flex gap-4 px-6">
+          {images.map((img) => (
+            <div 
+              key={img.src}
+              className="flex-shrink-0 w-[85vw] aspect-[3/2] rounded-2xl overflow-hidden"
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
       <motion.div 
-        className="flex gap-5 px-6 md:px-12 lg:px-20"
+        className="hidden md:flex gap-5 px-6 md:px-12 lg:px-20"
         style={{ x }}
       >
         {images.map((img, i) => (
@@ -695,33 +714,33 @@ function Prozess() {
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-85%'])
 
   return (
-    <section ref={targetRef} className="relative h-[600vh] bg-warm-bg noise">
+    <section ref={targetRef} className="relative h-[400vh] md:h-[600vh] bg-warm-bg noise">
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         <div className="relative flex flex-col w-full">
           {/* Header Area */}
-          <div className="px-6 md:px-12 lg:px-20 mb-12 md:mb-16">
+          <div className="px-6 md:px-12 lg:px-20 mb-8 md:mb-16">
             <TextReveal>
               <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">Der Weg</p>
             </TextReveal>
             <TextReveal delay={0.1}>
-              <h2 className="font-sora font-extralight text-[clamp(2rem,4vw,3.2rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-2xl">
+              <h2 className="font-sora font-extralight text-[clamp(1.8rem,4vw,3.2rem)] text-warm-text leading-tight tracking-[-0.02em] max-w-2xl">
                 Vier Schritte.<br />Kein Rätselraten.
               </h2>
             </TextReveal>
           </div>
 
           {/* Horizontal Track */}
-          <div className="pb-24 relative">
+          <div className="pb-12 md:pb-24 relative">
             <motion.div 
               style={{ x }} 
-              className="flex gap-8 px-6 md:px-12 lg:px-20"
+              className="flex gap-6 md:gap-8 px-6 md:px-12 lg:px-20"
             >
               {steps.map((step, i) => (
                 <ProcessCard key={step.num} step={step} i={i} />
               ))}
               
               {/* Final CTA Card */}
-              <div className="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] pr-[80vw]">
+              <div className="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] pr-[40vw] md:pr-[80vw]">
                 <div className="bg-dark-bg p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-center items-center text-center shadow-2xl">
                   <h3 className="font-sora font-extralight text-3xl lg:text-5xl text-inv-light mb-8 leading-tight">
                     Bereit für deinen<br />neuen Raum?
@@ -737,12 +756,21 @@ function Prozess() {
             </motion.div>
           </div>
 
-          {/* Progress Bar */}
-          <div className="absolute bottom-8 left-6 md:left-12 lg:left-20 right-6 md:right-12 lg:right-20 h-[2px] bg-warm-anthrazit/5">
+          {/* Progress Bar & Scroll Indicator */}
+          <div className="absolute bottom-8 left-6 md:left-12 lg:left-20 right-6 md:right-12 lg:right-20 flex flex-col items-center gap-4">
+            <div className="w-full h-[2px] bg-warm-anthrazit/5">
+              <motion.div 
+                className="h-full bg-warm-stein origin-left"
+                style={{ scaleX: scrollYProgress }}
+              />
+            </div>
             <motion.div 
-              className="h-full bg-warm-stein origin-left"
-              style={{ scaleX: scrollYProgress }}
-            />
+              className="flex flex-col items-center gap-2"
+              style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
+            >
+              <span className="font-dm text-[0.6rem] text-warm-mittel uppercase tracking-widest">Scroll</span>
+              <div className="w-px h-6 bg-warm-mittel/30" />
+            </motion.div>
           </div>
         </div>
       </div>

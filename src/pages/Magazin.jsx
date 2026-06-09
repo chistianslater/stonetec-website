@@ -416,7 +416,7 @@ export const articles = [
     category: 'Handwerk',
     readTime: '9 Min.',
     date: 'Juni 2025',
-    image: '/images/website-extract/DSC_0137.jpg',
+    image: '/images/website-extract/StoneTec_Highlights_rechteckig-6.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
