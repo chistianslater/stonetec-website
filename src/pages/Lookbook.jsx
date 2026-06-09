@@ -291,10 +291,10 @@ const lookbookSections = [
 ]
 
 /* ─── Image Card Component ───────────────────────────────────── */
-function ImageCard({ image, index }) {
+function ImageCard({ image, index, onClick }) {
   return (
     <Reveal delay={index * 0.05}>
-      <div className="group cursor-pointer">
+      <div className="group cursor-pointer" onClick={onClick}>
         <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 shadow-sm">
           <img
             src={image.src}
@@ -313,10 +313,81 @@ function ImageCard({ image, index }) {
   )
 }
 
+/* ─── Lightbox Component ─────────────────────────────────────── */
+function Lightbox({ image, onClose, onNext, onPrev }) {
+  if (!image) return null
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 md:p-12"
+      onClick={onClose}
+    >
+      <button 
+        onClick={onClose}
+        className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-[110]"
+      >
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <button 
+        onClick={(e) => { e.stopPropagation(); onPrev(); }}
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors z-[110] p-4"
+      >
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button 
+        onClick={(e) => { e.stopPropagation(); onNext(); }}
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors z-[110] p-4"
+      >
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        className="relative max-w-7xl w-full h-full flex flex-col items-center justify-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img 
+          src={image.src} 
+          alt={image.caption}
+          className="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-lg"
+        />
+        <div className="mt-8 text-center">
+          <p className="font-dm text-[0.7rem] text-white/40 uppercase tracking-[3px] mb-2">{image.specs}</p>
+          <h3 className="font-sora font-extralight text-xl md:text-2xl text-white">{image.caption}</h3>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
 /* ─── Main Component ─────────────────────────────────────────── */
 export default function Lookbook() {
   const [activeSection, setActiveSection] = useState('badezimmer')
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null)
+  
   const currentSection = lookbookSections.find(s => s.id === activeSection)
+
+  const handleNext = () => {
+    setSelectedImageIndex((prev) => (prev + 1) % currentSection.images.length)
+  }
+
+  const handlePrev = () => {
+    setSelectedImageIndex((prev) => (prev - 1 + currentSection.images.length) % currentSection.images.length)
+  }
 
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
@@ -324,6 +395,17 @@ export default function Lookbook() {
         title="Lookbook — Inspiration für dein Zuhause"
         description="Lass dich von unseren Referenzen inspirieren. Badezimmer, Wohnräume und maßgefertigte Keramik-Unikate in höchster Qualität."
       />
+
+      <AnimatePresence>
+        {selectedImageIndex !== null && (
+          <Lightbox 
+            image={currentSection.images[selectedImageIndex]} 
+            onClose={() => setSelectedImageIndex(null)}
+            onNext={handleNext}
+            onPrev={handlePrev}
+          />
+        )}
+      </AnimatePresence>
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
         <Reveal>
@@ -383,7 +465,12 @@ export default function Lookbook() {
                 </p>
               </div>
               {currentSection.images.map((img, i) => (
-                <ImageCard key={img.src} image={img} index={i} />
+                <ImageCard 
+                  key={img.src} 
+                  image={img} 
+                  index={i} 
+                  onClick={() => setSelectedImageIndex(i)}
+                />
               ))}
             </div>
           </motion.div>
