@@ -344,7 +344,7 @@ function Footer() {
           <div>
             <h4 className="font-sora font-light text-sm text-inv-light mb-4 tracking-wide">Kontakt</h4>
             <address className="not-italic space-y-2 font-dm text-[0.82rem] text-inv-muted">
-              <p>StoneTec GmbH</p>
+              <p>stonetec GmbH</p>
               <p>Hamalandstraße 2</p>
               <p>46399 Bocholt</p>
               <p className="mt-3">
@@ -381,7 +381,7 @@ function Footer() {
 
         <div className="mt-16 pt-8 border-t border-dark-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="font-dm text-[0.72rem] text-inv-tagline">
-            &copy; {new Date().getFullYear()} StoneTec GmbH &middot; Sitz Bocholt &middot; HRB 14999
+            &copy; {new Date().getFullYear()} stonetec GmbH &middot; Sitz Bocholt &middot; HRB 14999
           </p>
           <p className="font-dm text-[0.68rem] text-dark-border">
             Geschäftsleitung: Tim Dunkerbeck

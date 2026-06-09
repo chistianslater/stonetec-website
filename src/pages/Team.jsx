@@ -56,7 +56,7 @@ const teamGroups = [
         id: 15,
         name: 'Simone Lueg',
         role: 'Beratung & Design',
-        quote: 'Inspiration findet man dort, wo Ästhetik auf Fachwissen trifft.',
+        quote: 'Wo Beratung und Design zusammentreffen.',
         image: '/images/website-extract/Simone-Lueg.jpg',
         expertise: ['Kundenbetreuung', 'Ausstellung', 'Design']
       },
@@ -239,7 +239,7 @@ export default function Team() {
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
       <SEO 
         title="Das Team — Sieben Meister für dein Projekt"
-        description="Lerne das Team hinter StoneTec Bocholt kennen. Sieben Fliesenlegermeister, Interior Designer und Spezialisten für dein Bauvorhaben."
+        description="Lerne das Team hinter stonetec Bocholt kennen. Sieben Fliesenlegermeister, Interior Designer und Spezialisten für dein Bauvorhaben."
       />
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">

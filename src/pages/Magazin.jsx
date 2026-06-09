@@ -311,7 +311,7 @@ export const articles = [
 
         <section>
           <h2 className="text-3xl font-light tracking-tight mb-6">Die Säulen eines perfekten Home-Spas</h2>
-          <p>Damit dein Wellnessbereich langfristig Freude bereitet, achten wir bei StoneTec auf eine ganzheitliche Planung.</p>
+          <p>Damit dein Wellnessbereich langfristig Freude bereitet, achten wir bei stonetec auf eine ganzheitliche Planung.</p>
           <h3 className="text-xl font-medium mt-8 mb-4">Wichtige Planungsaspekte:</h3>
           <ul className="list-disc pl-6 space-y-4">
             <li><strong>Materialwahl:</strong> Rutschhemmende Oberflächen sind in Nassbereichen Pflicht, ohne dabei die Ästhetik zu vernachlässigen.</li>
@@ -383,7 +383,7 @@ export const articles = [
       <div className="space-y-12">
         <section>
           <p className="text-xl leading-relaxed mb-8">Präzision beginnt am Bildschirm. Unsere 3D-Badplanung ermöglicht ein exaktes Fugenbild und eine perfekte Anordnung aller Elemente – bis ins kleinste Detail.</p>
-          <p>Bei StoneTec verstehen wir die 3D-Planung nicht nur als Verkaufsargument, sondern als essentielles Werkzeug für die handwerkliche Umsetzung auf Meister-Niveau.</p>
+          <p>Bei stonetec verstehen wir die 3D-Planung nicht nur als Verkaufsargument, sondern als essentielles Werkzeug für die handwerkliche Umsetzung auf Meister-Niveau.</p>
         </section>
 
         <section>
@@ -698,7 +698,6 @@ function ArticleCard({ article, index, featured = false }) {
                 <span className="px-4 py-1.5 bg-inv-light/10 font-dm text-[0.7rem] text-inv-mid uppercase tracking-[2px]">
                   {article.category}
                 </span>
-                <span className="font-dm text-[0.75rem] text-inv-tagline uppercase tracking-widest">{article.readTime} Lesezeit</span>
               </div>
               <h2 className="font-sora font-extralight text-2xl md:text-4xl text-inv-light tracking-tight mb-6 leading-tight">
                 {article.title}
@@ -740,8 +739,6 @@ function ArticleCard({ article, index, featured = false }) {
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-warm-mittel">
               <span className="font-dm text-[0.7rem] uppercase tracking-widest">{article.date}</span>
-              <span className="w-1 h-1 rounded-full bg-warm-stein/30" />
-              <span className="font-dm text-[0.7rem] uppercase tracking-widest">{article.readTime}</span>
             </div>
             <h3 className="font-sora font-light text-xl text-warm-text tracking-tight leading-snug group-hover:text-warm-anthrazit transition-colors">
               {article.title}

@@ -76,7 +76,7 @@ export default function Kontakt() {
             <Reveal delay={100}>
               <div className="bg-dark-bg rounded-xl p-6">
                 <h3 className="font-sora font-light text-lg text-inv-light tracking-[-0.01em] mb-4">
-                  StoneTec GmbH
+                  stonetec GmbH
                 </h3>
                 <address className="not-italic space-y-3 font-dm text-[0.9rem] text-inv-mid leading-relaxed">
                   <p>Hamalandstraße 2</p>
@@ -300,7 +300,7 @@ export default function Kontakt() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="StoneTec Showroom Bocholt"
+              title="stonetec Showroom Bocholt"
             />
           </div>
         </Reveal>

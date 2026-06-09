@@ -9,6 +9,7 @@ import Team from './pages/Team.jsx'
 import Kontakt from './pages/Kontakt.jsx'
 import Magazin from './pages/Magazin.jsx'
 import MagazinPost from './pages/MagazinPost.jsx'
+import LandingPage from './pages/LandingPage.jsx'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="kontakt" element={<Kontakt />} />
           <Route path="magazin" element={<Magazin />} />
           <Route path="magazin/:id" element={<MagazinPost />} />
+          <Route path=":slug" element={<LandingPage />} />
         </Route>
       </Routes>
     </>

@@ -20,8 +20,167 @@ function Reveal({ children, className = '', delay = 0 }) {
 /* ─── Project Data ───────────────────────────────────────────── */
 const projects = [
   {
+    "id": "krasemann",
+    "title": "Exklusives Wohndesign",
+    "category": "Exklusives Wohnen",
+    "location": "Bocholt",
+    "year": "2024",
+    "description": "Meisterhafte Verlegung auf 500 Quadratmetern. Naturstein- und Marmoroptik in ihrer edelsten Form.",
+    "mainImage": "/images/projekte/Krasemann/stonetec-projekt-krasemann-1.jpg",
+    "gallery": [
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-2.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-3.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-4.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-5.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-6.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-7.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-8.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-9.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-10.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-11.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-12.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-13.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-14.jpg",
+      "/images/projekte/Krasemann/stonetec-projekt-krasemann-15.jpg"
+    ],
+    "stats": {
+      "area": "500 m²",
+      "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
+    }
+  },
+  {
+    "id": "han",
+    "title": "Modernes Loft",
+    "category": "Großprojekt Wohnen",
+    "location": "Bocholt",
+    "year": "2024",
+    "description": "Großformatige Keramik auf 300 Quadratmetern. Ein monolithisches Raumerlebnis durch präzise Fugenführung.",
+    "mainImage": "/images/projekte/Han/stonetec-projekt-han-1.jpg",
+    "gallery": [
+      "/images/projekte/Han/stonetec-projekt-han-2.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-3.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-4.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-5.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-6.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-7.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-8.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-9.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-10.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-11.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-12.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-13.jpg",
+      "/images/projekte/Han/stonetec-projekt-han-14.jpg"
+    ],
+    "stats": {
+      "area": "300 m²",
+      "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
+    }
+  },
+  {
+    "id": "landhotel-voshoevel",
+    "title": "Hotel & Wellness",
+    "category": "Gewerbe | Hotel",
+    "location": "Schermbeck",
+    "year": "2024",
+    "description": "Exklusive Hotelgestaltung mit Terrazzooptik und Metrofliesen. Ein Ort der Gastfreundschaft und des Designs.",
+    "mainImage": "/images/projekte/Voshövel/stonetec-projekt-voshövel-1.jpg",
+    "gallery": [
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-2.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-3.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-4.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-5.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-6.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-7.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-8.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-9.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-10.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-11.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-12.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-13.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-14.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-15.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-16.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-17.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-18.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-19.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-20.jpg",
+      "/images/projekte/Voshövel/stonetec-projekt-voshövel-21.jpg"
+    ],
+    "stats": {
+      "area": "200 m²",
+      "materials": "Feinsteinzeug · Terrazzooptik · Metrofliesen"
+    }
+  },
+  {
+    "id": "van-gessel",
+    "title": "Privates Bad",
+    "category": "Badezimmer",
+    "location": "Bocholt",
+    "year": "2024",
+    "description": "Kompaktes Design mit großer Wirkung. Natursteinoptik für ein zeitloses Badezimmer.",
+    "mainImage": "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-1.jpg",
+    "gallery": [
+      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-2.jpg",
+      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-3.jpg",
+      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-4.jpg",
+      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-5.jpg"
+    ],
+    "stats": {
+      "area": "30 m²",
+      "materials": "Feinsteinzeug · Natursteinoptik"
+    }
+  },
+  {
+    "id": "goerz",
+    "title": "Zeitlose Eleganz",
+    "category": "Badezimmer",
+    "location": "Bocholt",
+    "year": "2024",
+    "description": "Die perfekte Symbiose aus Naturstein- und Marmoroptik. Ein Statement für hochwertiges Baddesign.",
+    "mainImage": "/images/projekte/Görz/stonetec-projekt-görz-1.jpg",
+    "gallery": [
+      "/images/projekte/Görz/stonetec-projekt-görz-2.jpg",
+      "/images/projekte/Görz/stonetec-projekt-görz-3.jpg",
+      "/images/projekte/Görz/stonetec-projekt-görz-4.jpg",
+      "/images/projekte/Görz/stonetec-projekt-görz-5.jpg",
+      "/images/projekte/Görz/stonetec-projekt-görz-6.jpg",
+      "/images/projekte/Görz/stonetec-projekt-görz-7.jpg",
+      "/images/projekte/Görz/stonetec-projekt-görz-8.jpg"
+    ],
+    "stats": {
+      "area": "50 m²",
+      "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
+    }
+  },
+  {
+    "id": "spoeler",
+    "title": "Minimalistisches Wohnen",
+    "category": "Wohnraum | Bad",
+    "location": "Bocholt",
+    "year": "2024",
+    "description": "Großflächige Verlegung in Naturstein- und Betonoptik. Ein durchgängiges Gestaltungskonzept.",
+    "mainImage": "/images/projekte/Spöler/stonetec-projekt-spöler-1.jpg",
+    "gallery": [
+      "/images/projekte/Spöler/stonetec-projekt-spöler-2.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-3.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-4.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-5.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-6.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-7.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-8.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-9.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-10.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-11.jpg",
+      "/images/projekte/Spöler/stonetec-projekt-spöler-12.jpg"
+    ],
+    "stats": {
+      "area": "150 m²",
+      "materials": "Feinsteinzeug · Natursteinoptik · Betonoptik"
+    }
+  },
+  {
     "id": "albrecht",
-    "title": "Albrecht",
+    "title": "Modernes Wohnkonzept",
     "category": "Badezimmer | Wohnraum",
     "location": "Bocholt",
     "year": "2024",
@@ -37,13 +196,12 @@ const projects = [
     ],
     "stats": {
       "area": "40 m²",
-      "duration": "5 Wochen",
       "materials": "Feinsteinzeug · Marmoroptik · Betonoptik"
     }
   },
   {
     "id": "derksen",
-    "title": "Derksen",
+    "title": "Natürliches Bad",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
@@ -61,13 +219,12 @@ const projects = [
     ],
     "stats": {
       "area": "40 m²",
-      "duration": "4 Wochen",
       "materials": "Feinsteinzeug · Natursteinoptik"
     }
   },
   {
     "id": "esterabadeyan",
-    "title": "Esterabadeyan",
+    "title": "Wellness-Oase",
     "category": "Wellness | Spa",
     "location": "Bocholt",
     "year": "2024",
@@ -99,65 +256,12 @@ const projects = [
     ],
     "stats": {
       "area": "300 m²",
-      "duration": "4 Monate",
       "materials": "Feinsteinzeug · Glasmosaik"
     }
   },
   {
-    "id": "goerz",
-    "title": "Görz",
-    "category": "Badezimmer",
-    "location": "Bocholt",
-    "year": "2024",
-    "description": "Die perfekte Symbiose aus Naturstein- und Marmoroptik. Ein Statement für hochwertiges Baddesign.",
-    "mainImage": "/images/projekte/Görz/stonetec-projekt-görz-1.jpg",
-    "gallery": [
-      "/images/projekte/Görz/stonetec-projekt-görz-2.jpg",
-      "/images/projekte/Görz/stonetec-projekt-görz-3.jpg",
-      "/images/projekte/Görz/stonetec-projekt-görz-4.jpg",
-      "/images/projekte/Görz/stonetec-projekt-görz-5.jpg",
-      "/images/projekte/Görz/stonetec-projekt-görz-6.jpg",
-      "/images/projekte/Görz/stonetec-projekt-görz-7.jpg",
-      "/images/projekte/Görz/stonetec-projekt-görz-8.jpg"
-    ],
-    "stats": {
-      "area": "50 m²",
-      "duration": "6 Wochen",
-      "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
-    }
-  },
-  {
-    "id": "han",
-    "title": "Han",
-    "category": "Großprojekt Wohnen",
-    "location": "Bocholt",
-    "year": "2024",
-    "description": "Großformatige Keramik auf 300 Quadratmetern. Ein monolithisches Raumerlebnis durch präzise Fugenführung.",
-    "mainImage": "/images/projekte/Han/stonetec-projekt-han-1.jpg",
-    "gallery": [
-      "/images/projekte/Han/stonetec-projekt-han-2.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-3.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-4.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-5.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-6.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-7.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-8.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-9.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-10.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-11.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-12.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-13.jpg",
-      "/images/projekte/Han/stonetec-projekt-han-14.jpg"
-    ],
-    "stats": {
-      "area": "300 m²",
-      "duration": "3 Monate",
-      "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
-    }
-  },
-  {
     "id": "heis-bruns",
-    "title": "Heis Bruns",
+    "title": "Kreative Akzente",
     "category": "Individuelles Wohnen",
     "location": "Bocholt",
     "year": "2024",
@@ -179,17 +283,16 @@ const projects = [
     ],
     "stats": {
       "area": "60 m²",
-      "duration": "4 Wochen",
       "materials": "Feinsteinzeug · Marmoroptik · Metrofliesen · Dekor-Fliesen"
     }
   },
   {
     "id": "kempkes-storm",
-    "title": "Kempkes & Storm",
+    "title": "Modernes Retro-Bad",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Moderner Retro-Look durch Terrazzooptik and Metrofliesen. Handwerkliche Präzision trifft auf zeitloses Design.",
+    "description": "Moderner Retro-Look durch Terrazzooptik und Metrofliesen. Handwerkliche Präzision trifft auf zeitloses Design.",
     "mainImage": "/images/projekte/Kempkes_&_Storm/stonetec-projekt-kempkes__storm-1.jpg",
     "gallery": [
       "/images/projekte/Kempkes_&_Storm/stonetec-projekt-kempkes__storm-2.jpg",
@@ -202,17 +305,16 @@ const projects = [
     ],
     "stats": {
       "area": "40 m²",
-      "duration": "3 Wochen",
       "materials": "Feinsteinzeug · Terrazzooptik · Metrofliesen"
     }
   },
   {
     "id": "klump",
-    "title": "Klump",
+    "title": "Stilvolles Badkonzept",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Stilvolle Kombination aus Terrazzo und Metrofliesen. Ein Badkonzept mit Charakter and Qualität.",
+    "description": "Stilvolle Kombination aus Terrazzo und Metrofliesen. Ein Badkonzept mit Charakter und Qualität.",
     "mainImage": "/images/projekte/Klump/stonetec-projekt-klump-1.jpg",
     "gallery": [
       "/images/projekte/Klump/stonetec-projekt-klump-2.jpg",
@@ -225,17 +327,16 @@ const projects = [
     ],
     "stats": {
       "area": "50 m²",
-      "duration": "4 Wochen",
       "materials": "Feinsteinzeug · Terrazzooptik · Metrofliesen"
     }
   },
   {
     "id": "lamers",
-    "title": "Lamers",
+    "title": "Klassisches Muster",
     "category": "Wohnraum",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Klassisches Fischgrät-Muster in moderner Betonoptik. Ein Bodenbelag, der Tradition and Moderne verbindet.",
+    "description": "Klassisches Fischgrät-Muster in moderner Betonoptik. Ein Bodenbelag, der Tradition und Moderne verbindet.",
     "mainImage": "/images/projekte/Lamers/stonetec-projekt-lamers-1.jpg",
     "gallery": [
       "/images/projekte/Lamers/stonetec-projekt-lamers-2.jpg",
@@ -253,47 +354,16 @@ const projects = [
     ],
     "stats": {
       "area": "40 m²",
-      "duration": "5 Wochen",
       "materials": "Feinsteinzeug · Betonoptik · Fischgrät"
     }
   },
   {
-    "id": "krasemann",
-    "title": "Krasemann",
-    "category": "Exklusives Wohnen",
-    "location": "Bocholt",
-    "year": "2024",
-    "description": "Meisterhafte Verlegung auf 500 Quadratmetern. Naturstein- and Marmoroptik in ihrer edelsten Form.",
-    "mainImage": "/images/projekte/Krasemann/stonetec-projekt-krasemann-1.jpg",
-    "gallery": [
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-2.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-3.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-4.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-5.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-6.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-7.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-8.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-9.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-10.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-11.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-12.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-13.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-14.jpg",
-      "/images/projekte/Krasemann/stonetec-projekt-krasemann-15.jpg"
-    ],
-    "stats": {
-      "area": "500 m²",
-      "duration": "5 Monate",
-      "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
-    }
-  },
-  {
     "id": "moritz",
-    "title": "Moritz",
+    "title": "Harmonisches Bad",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Harmonisches Zusammenspiel von Naturstein and Marmor. Ein Ort der Ruhe and Entspannung.",
+    "description": "Harmonisches Zusammenspiel von Naturstein und Marmor. Ein Ort der Ruhe und Entspannung.",
     "mainImage": "/images/projekte/Moritz/stonetec-projekt-moritz-1.jpg",
     "gallery": [
       "/images/projekte/Moritz/stonetec-projekt-moritz-2.jpg",
@@ -305,17 +375,16 @@ const projects = [
     ],
     "stats": {
       "area": "50 m²",
-      "duration": "5 Wochen",
       "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
     }
   },
   {
     "id": "mpalaskas",
-    "title": "Mpalaskas",
+    "title": "Edle Materialität",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Präzise Handwerkskunst trifft auf edle Optik. Ein Bad, das durch Materialität and Ausführung überzeugt.",
+    "description": "Präzise Handwerkskunst trifft auf edle Optik. Ein Bad, das durch Materialität und Ausführung überzeugt.",
     "mainImage": "/images/projekte/Mpalaskas/stonetec-projekt-mpalaskas-1.jpg",
     "gallery": [
       "/images/projekte/Mpalaskas/stonetec-projekt-mpalaskas-2.jpg",
@@ -326,17 +395,16 @@ const projects = [
     ],
     "stats": {
       "area": "50 m²",
-      "duration": "4 Wochen",
       "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
     }
   },
   {
     "id": "onori",
-    "title": "Onori",
+    "title": "Reduziertes Design",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Reduziertes Design in Marmoroptik. Klarheit and Struktur für ein modernes Badezimmer.",
+    "description": "Reduziertes Design in Marmoroptik. Klarheit und Struktur für ein modernes Badezimmer.",
     "mainImage": "/images/projekte/Onori/stonetec-projekt-onori-1.jpg",
     "gallery": [
       "/images/projekte/Onori/stonetec-projekt-onori-2.jpg",
@@ -346,17 +414,16 @@ const projects = [
     ],
     "stats": {
       "area": "40 m²",
-      "duration": "4 Wochen",
       "materials": "Feinsteinzeug · Marmoroptik"
     }
   },
   {
     "id": "pehr",
-    "title": "Pehr",
+    "title": "Urbanes Lebensgefühl",
     "category": "Wohnraum",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Moderne Betonoptik für ein urbanes Lebensgefühl. Robust, pflegeleicht and ästhetisch ansprechend.",
+    "description": "Moderne Betonoptik für ein urbanes Lebensgefühl. Robust, pflegeleicht und ästhetisch ansprechend.",
     "mainImage": "/images/projekte/Pehr/stonetec-projekt-pehr-1.jpg",
     "gallery": [
       "/images/projekte/Pehr/stonetec-projekt-pehr-2.jpg",
@@ -367,17 +434,16 @@ const projects = [
     ],
     "stats": {
       "area": "60 m²",
-      "duration": "6 Wochen",
       "materials": "Feinsteinzeug · Betonoptik"
     }
   },
   {
     "id": "praemium",
-    "title": "Praemium",
+    "title": "Repräsentatives Gewerbe",
     "category": "Gewerbe",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Repräsentative Gewerbeflächen in Natursteinoptik. Langlebigkeit and Exklusivität für den professionellen Einsatz.",
+    "description": "Repräsentative Gewerbeflächen in Natursteinoptik. Langlebigkeit und Exklusivität für den professionellen Einsatz.",
     "mainImage": "/images/projekte/Praemium/stonetec-projekt-praemium-1.jpg",
     "gallery": [
       "/images/projekte/Praemium/stonetec-projekt-praemium-2.jpg",
@@ -390,13 +456,12 @@ const projects = [
     ],
     "stats": {
       "area": "150 m²",
-      "duration": "2 Monate",
       "materials": "Feinsteinzeug · Natursteinoptik"
     }
   },
   {
     "id": "schwiening",
-    "title": "Schwiening",
+    "title": "Individuelles Unikat",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
@@ -414,100 +479,16 @@ const projects = [
     ],
     "stats": {
       "area": "70 m²",
-      "duration": "6 Wochen",
       "materials": "Feinsteinzeug · Natursteinoptik · Marmoroptik"
     }
   },
   {
-    "id": "spoeler",
-    "title": "Spöler",
-    "category": "Wohnraum | Bad",
-    "location": "Bocholt",
-    "year": "2024",
-    "description": "Großflächige Verlegung in Naturstein- and Betonoptik. Ein durchgängiges Gestaltungskonzept.",
-    "mainImage": "/images/projekte/Spöler/stonetec-projekt-spöler-1.jpg",
-    "gallery": [
-      "/images/projekte/Spöler/stonetec-projekt-spöler-2.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-3.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-4.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-5.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-6.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-7.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-8.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-9.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-10.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-11.jpg",
-      "/images/projekte/Spöler/stonetec-projekt-spöler-12.jpg"
-    ],
-    "stats": {
-      "area": "150 m²",
-      "duration": "10 Wochen",
-      "materials": "Feinsteinzeug · Natursteinoptik · Betonoptik"
-    }
-  },
-  {
-    "id": "van-gessel",
-    "title": "Van Gessel",
-    "category": "Badezimmer",
-    "location": "Bocholt",
-    "year": "2024",
-    "description": "Kompaktes Design mit großer Wirkung. Natursteinoptik für ein zeitloses Badezimmer.",
-    "mainImage": "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-1.jpg",
-    "gallery": [
-      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-2.jpg",
-      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-3.jpg",
-      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-4.jpg",
-      "/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-5.jpg"
-    ],
-    "stats": {
-      "area": "30 m²",
-      "duration": "3 Wochen",
-      "materials": "Feinsteinzeug · Natursteinoptik"
-    }
-  },
-  {
-    "id": "landhotel-voshoevel",
-    "title": "Landhotel Voshövel",
-    "category": "Gewerbe | Hotel",
-    "location": "Schermbeck",
-    "year": "2024",
-    "description": "Exklusive Hotelgestaltung mit Terrazzooptik and Metrofliesen. Ein Ort der Gastfreundschaft and des Designs.",
-    "mainImage": "/images/projekte/Voshövel/stonetec-projekt-voshövel-1.jpg",
-    "gallery": [
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-2.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-3.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-4.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-5.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-6.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-7.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-8.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-9.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-10.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-11.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-12.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-13.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-14.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-15.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-16.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-17.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-18.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-19.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-20.jpg",
-      "/images/projekte/Voshövel/stonetec-projekt-voshövel-21.jpg"
-    ],
-    "stats": {
-      "area": "200 m²",
-      "duration": "2 Monate",
-      "materials": "Feinsteinzeug · Terrazzooptik · Metrofliesen"
-    }
-  },
-  {
     "id": "weidemann",
-    "title": "Weidemann",
+    "title": "Exklusives Bad",
     "category": "Badezimmer",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Moderne Kombination aus Beton- and Marmoroptik. Hochwertige Materialien für ein exklusives Bad.",
+    "description": "Moderne Kombination aus Beton- und Marmoroptik. Hochwertige Materialien für ein exklusives Bad.",
     "mainImage": "/images/projekte/Weidemann/stonetec-projekt-weidemann-1.jpg",
     "gallery": [
       "/images/projekte/Weidemann/stonetec-projekt-weidemann-2.jpg",
@@ -519,17 +500,16 @@ const projects = [
     ],
     "stats": {
       "area": "40 m²",
-      "duration": "4 Wochen",
       "materials": "Feinsteinzeug · Betonoptik · Marmoroptik"
     }
   },
   {
     "id": "weidemann-pool",
-    "title": "Weidemann Pool",
+    "title": "Poolgestaltung",
     "category": "Pool | Wellness",
     "location": "Bocholt",
     "year": "2024",
-    "description": "Poolgestaltung in Natursteinoptik. Beständigkeit and Ästhetik für den Außenbereich.",
+    "description": "Poolgestaltung in Natursteinoptik. Beständigkeit und Ästhetik für den Außenbereich.",
     "mainImage": "/images/projekte/Weidemann_Pool/stonetec-projekt-weidemann_pool-1.jpg",
     "gallery": [
       "/images/projekte/Weidemann_Pool/stonetec-projekt-weidemann_pool-2.jpg",
@@ -543,7 +523,6 @@ const projects = [
     ],
     "stats": {
       "area": "30 m²",
-      "duration": "3 Wochen",
       "materials": "Feinsteinzeug · Natursteinoptik"
     }
   }
@@ -680,10 +659,6 @@ function ProjectSection({ project, index }) {
                   <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Fläche</p>
                   <p className="font-sora font-light text-sm text-warm-text">{project.stats.area}</p>
                 </div>
-                <div>
-                  <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Dauer</p>
-                  <p className="font-sora font-light text-sm text-warm-text">{project.stats.duration}</p>
-                </div>
               </div>
             </div>
           </motion.div>
@@ -707,7 +682,7 @@ export default function Projekte() {
           <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
             Portfolio
           </p>
-          <h1 className="font-sora font-extralight text-[clamp(3rem,8vw,6rem)] text-warm-text leading-[0.95] tracking-[-0.04em] max-w-4xl mb-8">
+          <h1 className="font-sora font-extralight text-[clamp(3rem,8vw,6rem)] text-warm-text leading-[1] tracking-[-0.04em] max-w-4xl mb-8">
             Das Beste an unserer Arbeit sieht man nicht.
           </h1>
           <div className="w-24 h-[1px] bg-warm-stein/30 mb-8" />

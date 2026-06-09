@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom'
 export default function SEO({ title, description, keywords, image, canonical }) {
   const location = useLocation()
   const baseUrl = 'https://stonetec-bocholt.de'
-  const fullTitle = title ? `${title} | StoneTec Bocholt` : 'StoneTec — Räume, die man spürt. | Premium Fliesenverlegung Bocholt'
+  const fullTitle = title ? `${title} | stonetec Bocholt` : 'stonetec — Räume, die man spürt. | Premium Fliesenverlegung Bocholt'
   const fullDescription = description || 'Meisterhafte Fliesenverlegung, eigene Keramikmanufaktur und 3D-Visualisierung in Bocholt. 7 Meister, Pauschalpreise, null Subunternehmer.'
-  const fullKeywords = keywords || 'Fliesenleger Bocholt, Großformate, Keramikmanufaktur, Premium Fliesen, 3D Visualisierung, StoneTec'
+  const fullKeywords = keywords || 'Fliesenleger Bocholt, Großformate, Keramikmanufaktur, Premium Fliesen, 3D Visualisierung, stonetec'
   const fullImage = image || `${baseUrl}/images/hero-2.jpg`
   const fullCanonical = canonical || `${baseUrl}${location.pathname}`
 

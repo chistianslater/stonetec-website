@@ -83,7 +83,6 @@ export default function MagazinPost() {
           <span className="px-4 py-1.5 bg-warm-anthrazit/5 font-dm text-[0.7rem] text-warm-mittel uppercase tracking-[2px]">
             {article.category}
           </span>
-          <span className="font-dm text-[0.75rem] text-warm-mittel uppercase tracking-widest">{article.readTime} Lesezeit</span>
         </div>
         
         <h1 className="font-sora font-extralight text-[clamp(2.5rem,5vw,4.5rem)] text-warm-text leading-[1.1] tracking-[-0.03em] mb-8">
@@ -93,7 +92,7 @@ export default function MagazinPost() {
         <div className="flex items-center gap-4 border-t border-warm-anthrazit/10 pt-8">
           <div className="w-10 h-10 rounded-full bg-warm-stein/20 flex items-center justify-center text-warm-text font-sora text-sm">ST</div>
           <div>
-            <p className="font-dm text-[0.85rem] font-semibold text-warm-text">StoneTec Redaktion</p>
+            <p className="font-dm text-[0.85rem] font-semibold text-warm-text">stonetec Redaktion</p>
             <p className="font-dm text-[0.75rem] text-warm-mittel">{article.date}</p>
           </div>
         </div>
