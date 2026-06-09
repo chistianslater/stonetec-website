@@ -25,7 +25,7 @@ const services = [
     subtitle: 'Der Anfang jeder Vision',
     description: 'Wir nehmen uns Zeit, deine Wünsche und Anforderungen genau zu verstehen. In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint.',
     details: 'Dank modernster 3D-Visualisierungen und Virtual-Reality-Technologien kannst du dein Projekt bereits vor der Umsetzung realitätsnah erleben.',
-    image: '/images/website-extract/stonetec_Highlights_rechteckig-5.jpg',
+    image: '/images/website-extract/StoneTec_Highlights_rechteckig-5.jpg',
     features: ['Individuelle Bedarfsanalyse', 'Materialcollagen & Haptik', '3D-Visualisierung', 'VR-Erlebnis']
   },
   {
@@ -34,7 +34,7 @@ const services = [
     subtitle: 'Präzision in jeder Fuge',
     description: 'Unsere erfahrenen Fliesenlegermeister setzen dein Projekt mit höchster Präzision und Sorgfalt um. Wir verwenden ausschließlich hochwertige Materialien und moderne Techniken.',
     details: 'Ob großformatige Keramik, filigrane Mosaike oder klassische Natursteinarbeiten — wir garantieren langlebige und ästhetisch ansprechende Ergebnisse auf Meister-Niveau.',
-    image: '/images/website-extract/stonetec_Highlights_rechteckig-6.jpg',
+    image: '/images/website-extract/StoneTec_Highlights_rechteckig-6.jpg',
     features: ['Großformat-Spezialisten', 'Meistergeführte Teams', 'Staubfreie Sanierung', 'Termintreue']
   },
   {

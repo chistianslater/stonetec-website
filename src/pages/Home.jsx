@@ -355,8 +355,8 @@ function Intro() {
 const services = [
   { img: '/images/website-extract/Harmonie-im-Bad-1.jpg', title: 'Premium Fliesenverlegung', sub: 'Meister-Niveau in jeder Fuge', desc: 'Sieben Fliesenlegermeister. Null Subunternehmer. Großformate, Sanierung, Reparatur — auf höchstem Niveau.', large: true },
   { img: '/images/website-extract/KERAMIKMANUFAKTUR.jpg', title: 'Keramikmanufaktur', sub: 'Unikate aus eigener Fertigung', desc: 'Maßgefertigte Waschtische, Nischenlösungen, SLAB-Verarbeitung — was es von der Stange nicht gibt, fertigen wir selbst.' },
-  { img: '/images/website-extract/stonetec_Startseite_rechteckig.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheidest erst, wenn du siehst, wie es wird.' },
-  { img: '/images/website-extract/stonetec_Startseite_quadratisch.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
+  { img: '/images/website-extract/StoneTec_Startseite_rechteckig.jpg', title: '3D-Planung & Visualisierung', sub: 'Dein Raum, bevor der erste Stein liegt', desc: 'Fotorealistische 3D-CAD-Planung. Du entscheidest erst, wenn du siehst, wie es wird.' },
+  { img: '/images/website-extract/StoneTec_Startseite_quadratisch.jpg', title: 'Ausstellung & Beratung', sub: 'Sehen. Fühlen. Entscheiden.', desc: 'Haptik, Ästhetik und Meister-Fachwissen — in unserem Showroom in Bocholt werden Ideen zu Lösungen.' },
 ]
 
 function ServiceCard({ service, index }) {
@@ -686,7 +686,7 @@ const steps = [
     title: 'Visualisierung', 
     desc: 'Du siehst deinen Raum in 3D, mit echten Materialien. Dazu ein transparenter Pauschalpreis. Keine Überraschungen, keine Nachträge.',
     detail: 'Wir machen deine Vision greifbar, bevor der erste Stein liegt.',
-    img: '/images/website-extract/stonetec_Startseite_rechteckig.jpg'
+    img: '/images/website-extract/StoneTec_Startseite_rechteckig.jpg'
   },
   { 
     num: '03', 
