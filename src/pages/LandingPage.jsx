@@ -8,6 +8,8 @@ const landingPages = {
     description: 'Du suchst einen erstklassigen Fliesenleger in Bocholt? stonetec bietet meisterhafte Verlegung, Großformate und individuelle Beratung für dein Projekt.',
     heroTitle: 'Dein Meister-Fliesenleger in Bocholt.',
     heroSubtitle: 'Präzision, Leidenschaft und sieben Meister unter einem Dach. Wir machen aus Fliesen Räume, die man spürt.',
+    heroImage: '/images/website-extract/Verlegung-2.jpg',
+    contentImage: '/images/projekte/Krasemann/stonetec-projekt-krasemann-1.jpg',
     content: (
       <>
         <p>
@@ -30,6 +32,8 @@ const landingPages = {
     description: 'Plane deine Badsanierung in Bocholt mit stonetec. Von der 3D-Planung bis zur meisterhaften Verlegung — wir schaffen dein Traumbad.',
     heroTitle: 'Badsanierung in Bocholt. Ehrlich & meisterhaft.',
     heroSubtitle: 'Vom ersten Entwurf bis zur letzten Fuge. Wir koordinieren dein Projekt und garantieren ein Ergebnis auf Meister-Niveau.',
+    heroImage: '/images/website-extract/Harmonie-im-Bad-1.jpg',
+    contentImage: '/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-1.jpg',
     content: (
       <>
         <p>
@@ -52,6 +56,8 @@ const landingPages = {
     description: 'Großformatfliesen verlangen Meister-Erfahrung. stonetec ist dein Spezialist für XXL-Fliesen und nahezu fugenlose Flächen.',
     heroTitle: 'Großformate. Keine Kompromisse.',
     heroSubtitle: 'Keramikplatten bis 160 x 320 cm erfordern Spezialwerkzeug und jahrelange Erfahrung. Wir bringen beides mit.',
+    heroImage: '/images/slider-grossformate/stonetec-grossformat-1.jpg',
+    contentImage: '/images/slider-grossformate/stonetec-grossformat-2.jpg',
     content: (
       <>
         <p>
@@ -74,6 +80,8 @@ const landingPages = {
     description: 'In unserer Keramikmanufaktur fertigen wir Waschtische, Treppen und Sonderlösungen aus hochwertiger Keramik — individuell für dich.',
     heroTitle: 'Keramikmanufaktur. Handarbeit aus Bocholt.',
     heroSubtitle: 'Was es von der Stange nicht gibt, fertigen wir selbst. Maßgeschneiderte Unikate aus Meisterhand.',
+    heroImage: '/images/website-extract/KERAMIKMANUFAKTUR.jpg',
+    contentImage: '/images/Keramik-Manufaktur/IMG_5118-web.webp',
     content: (
       <>
         <p>
@@ -96,6 +104,8 @@ const landingPages = {
     description: 'Erlebe dein neues Badezimmer in 3D, bevor der erste Stein liegt. stonetec bietet fotorealistische Planung und Virtual Reality in Bocholt.',
     heroTitle: '3D-Planung. Deine Vision wird greifbar.',
     heroSubtitle: 'Kein Rätselraten mehr. Wir visualisieren dein Projekt mit echten Materialien und Lichtstimmungen — für maximale Entscheidungssicherheit.',
+    heroImage: '/images/website-extract/Raumgefuehl-8-2-scaled-1.jpg',
+    contentImage: '/images/website-extract/Raumgefuehl-4-3.jpg',
     content: (
       <>
         <p>
@@ -148,33 +158,59 @@ export default function LandingPage() {
       <SEO title={page.title} description={page.description} />
       
       {/* Hero */}
-      <section className="pt-48 pb-24 px-6 md:px-12 lg:px-20">
-        <div className="max-w-7xl mx-auto">
-          <Reveal>
-            <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
-              Expertise & Handwerk
-            </p>
-            <h1 className="font-sora font-extralight text-[clamp(2.5rem,6vw,5rem)] text-warm-text leading-[1.1] tracking-[-0.03em] max-w-4xl mb-8">
-              {page.heroTitle}
-            </h1>
-            <p className="font-dm text-xl text-warm-mittel max-w-2xl leading-relaxed">
-              {page.heroSubtitle}
-            </p>
-          </Reveal>
+      <section className="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden bg-black">
+        <div className="absolute inset-0 z-0">
+          <motion.img 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            src={page.heroImage} 
+            alt={page.heroTitle}
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-[#06060640] to-transparent" />
+        </div>
+
+        <div className="relative z-10 w-full px-6 md:px-12 lg:px-20">
+          <div className="max-w-7xl mx-auto">
+            <Reveal>
+              <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-inv-muted mb-4">
+                Expertise & Handwerk
+              </p>
+              <h1 className="font-sora font-extralight text-[clamp(2.5rem,6vw,5rem)] text-inv-light leading-[1.1] tracking-[-0.03em] max-w-4xl mb-8">
+                {page.heroTitle}
+              </h1>
+              <p className="font-dm text-xl text-inv-muted max-w-2xl leading-relaxed">
+                {page.heroSubtitle}
+              </p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* Content */}
+      {/* Content Section */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-white/50">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-7 space-y-8 font-dm text-lg text-warm-mittel leading-relaxed">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-7 space-y-8">
             <Reveal>
-              {page.content}
+              <div className="font-dm text-lg text-warm-mittel leading-relaxed space-y-6">
+                {page.content}
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl mt-12">
+                <img 
+                  src={page.contentImage} 
+                  alt={page.title} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </Reveal>
           </div>
           
           <div className="lg:col-span-5">
-            <Reveal delay={0.2}>
+            <Reveal delay={0.3}>
               <div className="bg-dark-bg rounded-2xl p-10 text-inv-light">
                 <h3 className="font-sora font-light text-2xl mb-8">Warum stonetec?</h3>
                 <ul className="space-y-6">
