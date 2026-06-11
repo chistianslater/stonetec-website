@@ -99,7 +99,7 @@ html {
 body {
   font-family: var(--font-dm);
   color: var(--color-warm-text);
-  background: var(--color-dark-bg);
+  background: var(--color-warm-bg);
   line-height: 1.65;
   overflow-x: hidden;
 }
