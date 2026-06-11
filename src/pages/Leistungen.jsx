@@ -26,7 +26,8 @@ const services = [
     description: 'Wir nehmen uns Zeit, deine Wünsche und Anforderungen genau zu verstehen. In intensiven Beratungsgesprächen entwickeln wir gemeinsam ein maßgeschneidertes Konzept, das Funktionalität und Ästhetik vereint.',
     details: 'Dank modernster 3D-Visualisierungen und Virtual-Reality-Technologien kannst du dein Projekt bereits vor der Umsetzung realitätsnah erleben.',
     image: '/images/website-extract/StoneTec_Highlights_rechteckig-5.jpg',
-    features: ['Individuelle Bedarfsanalyse', 'Materialcollagen & Haptik', '3D-Visualisierung', 'VR-Erlebnis']
+    features: ['Individuelle Bedarfsanalyse', 'Materialcollagen & Haptik', '3D-Visualisierung', 'VR-Erlebnis'],
+    link: '/3d-badplanung-bocholt'
   },
   {
     id: 'verlegung',
@@ -35,7 +36,8 @@ const services = [
     description: 'Unsere erfahrenen Fliesenlegermeister setzen dein Projekt mit höchster Präzision und Sorgfalt um. Wir verwenden ausschließlich hochwertige Materialien und moderne Techniken.',
     details: 'Ob großformatige Keramik, filigrane Mosaike oder klassische Natursteinarbeiten — wir garantieren langlebige und ästhetisch ansprechende Ergebnisse auf Meister-Niveau.',
     image: '/images/website-extract/StoneTec_Highlights_rechteckig-6.jpg',
-    features: ['Großformat-Spezialisten', 'Meistergeführte Teams', 'Staubfreie Sanierung', 'Termintreue']
+    features: ['Großformat-Spezialisten', 'Meistergeführte Teams', 'Staubfreie Sanierung', 'Termintreue'],
+    link: '/fliesenleger-bocholt'
   },
   {
     id: 'manufaktur',
@@ -44,7 +46,8 @@ const services = [
     description: 'In unserer hauseigenen Manufaktur entstehen individuelle Sonderanfertigungen aus Keramik — von maßgeschneiderten Waschtischen über Arbeitsplatten bis hin zu kunstvoll gestalteten Wandpaneelen.',
     details: 'Wir setzen deiner Kreativität keine Grenzen. Jedes Stück ist ein handgefertigtes Unikat, das exakt auf deine Räumlichkeiten und Bedürfnisse zugeschnitten ist.',
     image: '/images/Keramik-Manufaktur/IMG_5118-web.webp',
-    features: ['Maßgefertigte Waschtische', 'Treppenstufen aus Keramik', 'Küchenarbeitsplatten', 'Nischenlösungen']
+    features: ['Maßgefertigte Waschtische', 'Treppenstufen aus Keramik', 'Küchenarbeitsplatten', 'Nischenlösungen'],
+    link: '/keramikmanufaktur-nrw'
   },
   {
     id: 'komplettloesungen',
@@ -53,7 +56,8 @@ const services = [
     description: 'Wir bieten dir alles aus einer Hand — von der ersten Idee bis zur finalen Umsetzung. Unser ganzheitlicher Ansatz ermöglicht es, deine Räumlichkeiten vollständig zu transformieren.',
     details: 'Wir koordinieren alle Gewerke und sorgen für einen reibungslosen Ablauf. So entsteht ein harmonisches Gesamtbild ohne Stress für dich.',
     image: '/images/website-extract/Komplettloesungen.jpg',
-    features: ['Gewerkeübergreifend', 'Projektleitung', 'Pauschalpreisgarantie', 'Sorgenfrei-Paket']
+    features: ['Gewerkeübergreifend', 'Projektleitung', 'Pauschalpreisgarantie', 'Sorgenfrei-Paket'],
+    link: '/badsanierung-bocholt'
   }
 ]
 
@@ -111,7 +115,7 @@ function ServiceSection({ service, index }) {
 
             <Reveal delay={0.5}>
               <Link 
-                to="/kontakt" 
+                to={service.link || "/kontakt"} 
                 className="group inline-flex items-center gap-4 px-8 py-4 border border-warm-text text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-warm-text hover:text-warm-bg transition-all duration-500 rounded-none"
               >
                 <span>Mehr erfahren</span>

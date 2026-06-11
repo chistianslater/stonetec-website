@@ -293,7 +293,7 @@ export default function Kontakt() {
         <Reveal>
           <div className="bg-dark-bg rounded-xl overflow-hidden aspect-[21/9]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2468.6384717856164!2d6.5978!3d51.8399!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8b7c3b7b7b7b7%3A0x0!2zNTHCsDUwJzI0LjAiTiA2wrAzNSc1Mi4wIkU!5e0!3m2!1sde!2sde!4v1600000000000"
+              src="https://maps.google.com/maps?q=stonetec%20GmbH%20Hamalandstraße%202%20Bocholt&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, filter: 'grayscale(100%) invert(92%) contrast(83%)' }}

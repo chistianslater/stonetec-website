@@ -290,8 +290,7 @@ function Hero() {
           </MagneticLink>
           
           <MagneticLink
-            to="#leistungen"
-            onClick={scrollToLeistungen}
+            to="/leistungen"
             className="group inline-flex items-center gap-3 px-8 py-4 border border-inv-light/40 text-inv-light font-dm text-[0.82rem] font-medium tracking-wider uppercase hover:bg-inv-light/10 hover:border-inv-light/70 transition-all duration-300"
           >
             <span>Leistungen ansehen</span>
@@ -310,7 +309,7 @@ function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
+        className="absolute bottom-12 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.6 }}
@@ -423,7 +422,7 @@ function Leistungen() {
         
         <div className="overflow-hidden mb-16">
           <motion.h2 
-            className="font-sora font-extralight text-[clamp(1.8rem,4vw,3.2rem)] text-inv-light leading-tight tracking-[-0.02em] max-w-3xl"
+            className="font-sora font-extralight text-[clamp(1.6rem,4vw,3.2rem)] text-inv-light leading-[1.2] tracking-[-0.02em] max-w-3xl"
             initial={{ y: '100%' }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
@@ -711,10 +710,10 @@ function Prozess() {
     offset: ["start start", "end end"]
   })
 
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-85%'])
+  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-90%'])
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] md:h-[600vh] bg-warm-bg noise">
+    <section ref={targetRef} className="relative h-[500vh] md:h-[600vh] bg-warm-bg noise">
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         <div className="relative flex flex-col w-full">
           {/* Header Area */}
@@ -757,7 +756,7 @@ function Prozess() {
           </div>
 
           {/* Progress Bar & Scroll Indicator */}
-          <div className="absolute bottom-8 left-6 md:left-12 lg:left-20 right-6 md:right-12 lg:right-20 flex flex-col items-center gap-4">
+          <div className="absolute bottom-12 md:bottom-8 left-6 md:left-12 lg:left-20 right-6 md:right-12 lg:right-20 flex flex-col items-center gap-4">
             <div className="w-full h-[2px] bg-warm-anthrazit/5">
               <motion.div 
                 className="h-full bg-warm-stein origin-left"

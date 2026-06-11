@@ -90,6 +90,28 @@ const landingPages = {
       'Individuelle Nischen',
       'Echtes Handwerk'
     ]
+  },
+  '3d-badplanung-bocholt': {
+    title: '3D-Badplanung Bocholt — Dein Bad vorab erleben',
+    description: 'Erlebe dein neues Badezimmer in 3D, bevor der erste Stein liegt. stonetec bietet fotorealistische Planung und Virtual Reality in Bocholt.',
+    heroTitle: '3D-Planung. Deine Vision wird greifbar.',
+    heroSubtitle: 'Kein Rätselraten mehr. Wir visualisieren dein Projekt mit echten Materialien und Lichtstimmungen — für maximale Entscheidungssicherheit.',
+    content: (
+      <>
+        <p>
+          Die größte Herausforderung bei einer Sanierung oder Neugestaltung ist die Vorstellungskraft. Wie wirken die großformatigen Fliesen im Raum? Passt die Fugenfarbe zum Waschtisch? Wie verändert das Licht die Atmosphäre?
+        </p>
+        <p>
+          Mit unserer professionellen 3D-CAD-Planung nehmen wir die Unsicherheit aus dem Prozess. Wir erstellen ein fotorealistisches Modell deines Raumes, in dem du verschiedene Materialien, Formate und Verlegemuster virtuell ausprobieren kannst. So triffst du Entscheidungen, die sich auch Jahre später noch richtig anfühlen.
+        </p>
+      </>
+    ),
+    features: [
+      'Fotorealistische Renderings',
+      'Echte Materialtexturen',
+      'Virtual Reality Erlebnis',
+      'Zentimetergenaue Planung'
+    ]
   }
 }
 

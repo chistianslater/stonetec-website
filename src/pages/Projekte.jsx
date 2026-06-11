@@ -582,14 +582,10 @@ function ProjectSection({ project, index }) {
           </Reveal>
           
           <Reveal delay={0.4}>
-            <div className="grid grid-cols-2 gap-8 py-8 border-y border-warm-anthrazit/10 mb-10">
+            <div className="grid grid-cols-1 gap-8 py-8 border-y border-warm-anthrazit/10 mb-10">
               <div>
-                <p className="font-dm text-[0.7rem] text-warm-mittel uppercase tracking-widest mb-1">Dauer</p>
-                <p className="font-sora font-light text-lg text-warm-text">{project.stats.duration}</p>
-              </div>
-              <div>
-                <p className="font-dm text-[0.7rem] text-warm-mittel uppercase tracking-widest mb-1">Jahr</p>
-                <p className="font-sora font-light text-lg text-warm-text">{project.year}</p>
+                <p className="font-dm text-[0.7rem] text-warm-mittel uppercase tracking-widest mb-1">Material</p>
+                <p className="font-sora font-light text-lg text-warm-text">{project.stats.materials}</p>
               </div>
             </div>
           </Reveal>
@@ -654,15 +650,9 @@ function ProjectSection({ project, index }) {
                 <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Material</p>
                 <p className="font-sora font-light text-sm text-warm-text leading-tight">{project.stats.materials}</p>
               </div>
-              <div className="flex justify-between gap-8">
-                <div>
-                  <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Fläche</p>
-                  <p className="font-sora font-light text-sm text-warm-text">{project.stats.area}</p>
-                </div>
-                <div>
-                  <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Dauer</p>
-                  <p className="font-sora font-light text-sm text-warm-text">{project.stats.duration}</p>
-                </div>
+              <div>
+                <p className="font-dm text-[0.65rem] text-warm-mittel uppercase tracking-[2px] mb-1">Fläche</p>
+                <p className="font-sora font-light text-sm text-warm-text">{project.stats.area}</p>
               </div>
             </div>
           </motion.div>
