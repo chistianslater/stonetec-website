@@ -1,4 +1,5 @@
 import { useState } from 'react'
+// eslint-disable-next-line no-unused-vars -- `motion` is used as `motion.div` in JSX (flat config lacks JSX-member detection)
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import WizardProgress from './WizardProgress.jsx'
 import { StepVorhaben, StepBereich, StepOrt, StepProjekt, StepTermin, StepKontakt } from './WizardSteps.jsx'

@@ -1,21 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
-
-function useReveal(threshold = 0.15) {
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.unobserve(el) } },
-      { threshold }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [threshold])
-  return ref
-}
+import AnfrageWizard from '../components/anfrage/AnfrageWizard.jsx'
 
 function Reveal({ children, className = '', delay = 0 }) {
   return (
@@ -26,27 +10,6 @@ function Reveal({ children, className = '', delay = 0 }) {
 }
 
 export default function Kontakt() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    projectType: '',
-    timeline: '',
-    message: ''
-  })
-  const [submitted, setSubmitted] = useState(false)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Simulate form submission
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
-  }
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
       <SEO 
@@ -137,152 +100,7 @@ export default function Kontakt() {
           {/* Contact Form */}
           <div className="lg:col-span-3">
             <Reveal delay={150}>
-              <div className="bg-dark-bg rounded-xl p-6 md:p-8">
-                <h2 className="font-sora font-light text-xl text-inv-light tracking-[-0.01em] mb-6">
-                  Termin anfragen
-                </h2>
-
-                {submitted ? (
-                  <div className="bg-warm-bg/10 rounded-xl p-6 text-center">
-                    <svg className="w-12 h-12 text-inv-light mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <h3 className="font-sora font-light text-lg text-inv-light mb-2">
-                      Anfrage gesendet
-                    </h3>
-                    <p className="font-dm text-[0.85rem] text-inv-muted">
-                      Wir melden uns innerhalb von 24 Stunden bei dir.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div>
-                        <label htmlFor="name" className="block font-dm text-[0.75rem] text-inv-tagline uppercase tracking-wide mb-2">
-                          Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
-                          placeholder="Dein Name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block font-dm text-[0.75rem] text-inv-tagline uppercase tracking-wide mb-2">
-                          E-Mail *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
-                          placeholder="deine@email.de"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div>
-                        <label htmlFor="phone" className="block font-dm text-[0.75rem] text-inv-tagline uppercase tracking-wide mb-2">
-                          Telefon
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors"
-                          placeholder="+49 ..."
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="projectType" className="block font-dm text-[0.75rem] text-inv-tagline uppercase tracking-wide mb-2">
-                          Projekttyp
-                        </label>
-                        <select
-                          id="projectType"
-                          name="projectType"
-                          value={formData.projectType}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light focus:outline-none focus:border-inv-light/40 transition-colors appearance-none cursor-pointer"
-                        >
-                          <option value="">Bitte wählen</option>
-                          <option value="bad">Badezimmer</option>
-                          <option value="kueche">Küche / Wohnraum</option>
-                          <option value="gewerbe">Gewerbeprojekt</option>
-                          <option value="sanierung">Sanierung / Reparatur</option>
-                          <option value="manufaktur">Manufaktur-Anfrage</option>
-                          <option value="andere">Andere</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="timeline" className="block font-dm text-[0.75rem] text-inv-tagline uppercase tracking-wide mb-2">
-                        Geplanter Zeitraum
-                      </label>
-                      <select
-                        id="timeline"
-                        name="timeline"
-                        value={formData.timeline}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light focus:outline-none focus:border-inv-light/40 transition-colors appearance-none cursor-pointer"
-                      >
-                        <option value="">Bitte wählen</option>
-                        <option value="sofort">Sofort</option>
-                        <option value="1-3">In 1-3 Monaten</option>
-                        <option value="3-6">In 3-6 Monaten</option>
-                        <option value="6-12">In 6-12 Monaten</option>
-                        <option value="spaeter">Später</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block font-dm text-[0.75rem] text-inv-tagline uppercase tracking-wide mb-2">
-                        Deine Nachricht
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        rows={5}
-                        value={formData.message}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors resize-none"
-                        placeholder="Erzähl uns von deinem Projekt, deinen Vorstellungen und was dir wichtig ist..."
-                      />
-                    </div>
-
-                    <div className="flex items-start gap-3 pt-2">
-                      <input
-                        type="checkbox"
-                        id="privacy"
-                        required
-                        className="mt-1 w-4 h-4 rounded-lg border-inv-light/20 bg-inv-light/10 text-warm-text focus:ring-0"
-                      />
-                      <label htmlFor="privacy" className="font-dm text-[0.8rem] text-inv-muted leading-relaxed">
-                        Ich stimme der Verarbeitung meiner Daten gemäß der 
-                        <Link to="/datenschutz" className="text-inv-light hover:underline"> Datenschutzerklärung</Link> zu.
-                      </label>
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="w-full px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.85rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300 rounded-none"
-                    >
-                      Termin anfragen
-                    </button>
-                  </form>
-                )}
-              </div>
+              <AnfrageWizard />
             </Reveal>
           </div>
         </div>
