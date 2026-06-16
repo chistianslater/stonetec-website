@@ -6,7 +6,7 @@ import { StepVorhaben, StepBereich, StepOrt, StepProjekt, StepTermin, StepKontak
 import { submitLead } from '../../lib/heroLeadClient.js'
 
 const INITIAL = {
-  vorhaben: '', bereich: '', zipcode: '', city: '', message: '',
+  vorhaben: '', bereich: [], zipcode: '', city: '', message: '',
   weekdays: [], daytimes: [], firstName: '', lastName: '', email: '', phone: '',
   privacy: false, company: '', images: [],
 }
@@ -24,7 +24,7 @@ export default function AnfrageWizard() {
 
   const steps = [
     { node: (p) => <StepVorhaben {...p} />, valid: () => !!data.vorhaben, auto: true },
-    { node: (p) => <StepBereich {...p} />, valid: () => !!data.bereich, auto: true },
+    { node: (p) => <StepBereich {...p} />, valid: () => data.bereich.length > 0 },
     { node: (p) => <StepOrt {...p} />, valid: () => /^\d{4,5}$/.test(data.zipcode.trim()) },
     { node: (p) => <StepProjekt {...p} />, valid: () => true },
     { node: (p) => <StepTermin {...p} />, valid: () => true },

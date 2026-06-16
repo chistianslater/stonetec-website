@@ -24,7 +24,8 @@ export function validateLead(data) {
 function buildComment(data) {
   const lines = []
   const vorhaben = VORHABEN_LABELS[data.vorhaben] || data.vorhaben || '—'
-  const bereich = BEREICH_LABELS[data.bereich] || data.bereich || '—'
+  const bereichList = Array.isArray(data.bereich) ? data.bereich : (data.bereich ? [data.bereich] : [])
+  const bereich = bereichList.map((b) => BEREICH_LABELS[b] || b).join(', ') || '—'
   lines.push(`Vorhaben: ${vorhaben} · Bereich: ${bereich}`)
   const days = (data.weekdays || []).map((d) => WEEKDAY_LABELS[d] || d).join(', ')
   const zeit = (data.daytimes || []).map((t) => TAGESZEIT_LABELS[t] || t).join(' / ')

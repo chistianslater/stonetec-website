@@ -54,14 +54,15 @@ export function StepVorhaben({ data, update, onAdvance }) {
   )
 }
 
-export function StepBereich({ data, update, onAdvance }) {
+export function StepBereich({ data, update }) {
   return (
     <div>
-      <StepTitle kicker="Dein Projekt" title="Welcher Bereich?" />
+      <StepTitle kicker="Dein Projekt" title="Welche Bereiche?" />
+      <p className="font-dm text-[0.82rem] text-inv-muted -mt-3 mb-5">Mehrfachauswahl möglich — wähle alles, was zum Projekt gehört.</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {BEREICH.map((o) => (
-          <OptionCard key={o.value} label={o.label} selected={data.bereich === o.value}
-            onClick={() => { update('bereich', o.value); onAdvance?.() }} />
+          <OptionCard key={o.value} label={o.label} selected={data.bereich.includes(o.value)}
+            onClick={() => update('bereich', toggle(data.bereich, o.value))} />
         ))}
       </div>
     </div>

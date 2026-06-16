@@ -5,7 +5,7 @@ const valid = {
   firstName: 'Anna', lastName: 'Schmidt',
   email: 'anna@example.com', phone: '+49170123',
   zipcode: '46399', city: 'Bocholt',
-  vorhaben: 'sanierung', bereich: 'bad',
+  vorhaben: 'sanierung', bereich: ['bad', 'kueche'],
   weekdays: ['mo', 'di', 'do'], daytimes: ['vormittags'],
   message: 'Gäste-WC neu', privacy: true,
 }
@@ -40,6 +40,7 @@ describe('buildHeroPayload', () => {
   it('baut einen lesbaren Kommentar mit Vorhaben, Bereich, Erreichbarkeit, Nachricht', () => {
     expect(p.project_match.comment).toContain('Sanierung')
     expect(p.project_match.comment).toContain('Badezimmer')
+    expect(p.project_match.comment).toContain('Küche')
     expect(p.project_match.comment).toContain('Mo, Di, Do')
     expect(p.project_match.comment).toContain('vormittags')
     expect(p.project_match.comment).toContain('Gäste-WC neu')
