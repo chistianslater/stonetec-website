@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Hero API key — never commit the real config
+public/api/config.php
+api/config.php
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
