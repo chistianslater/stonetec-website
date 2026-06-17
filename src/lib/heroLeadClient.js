@@ -1,5 +1,5 @@
 export async function submitLead(formData) {
-  const res = await fetch('/api/lead', {
+  const res = await fetch('/api/lead.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
