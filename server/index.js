@@ -34,16 +34,29 @@ export function createApp() {
       return res.status(500).json({ status: 'error', message: 'Serverkonfiguration unvollständig.' })
     }
     try {
-      const r = await fetch(HERO_URL, {
+      const payload = buildHeroPayload(req.body)
+      const postToHero = (body) => fetch(HERO_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${HERO_KEY}` },
-        body: JSON.stringify(buildHeroPayload(req.body)),
+        body: JSON.stringify(body),
       })
+
+      let r = await postToHero(payload)
+      let imagesDropped = false
+      // Hero dokumentiert das Bildformat nicht öffentlich. Falls die Bilder
+      // abgelehnt werden, ohne Bilder erneut senden — der Lead muss immer ankommen.
+      if (!r.ok && payload.images) {
+        console.error('[lead] Hero lehnte Payload mit Bildern ab', r.status, await r.text())
+        const withoutImages = { ...payload }
+        delete withoutImages.images
+        imagesDropped = true
+        r = await postToHero(withoutImages)
+      }
       if (!r.ok) {
         console.error('[lead] Hero-Fehler', r.status, await r.text())
         return res.status(502).json({ status: 'error', message: 'Übermittlung fehlgeschlagen.' })
       }
-      return res.status(200).json({ status: 'success' })
+      return res.status(200).json({ status: 'success', imagesDropped })
     } catch (err) {
       console.error('[lead] Ausnahme', err)
       return res.status(500).json({ status: 'error', message: 'Unerwarteter Fehler.' })

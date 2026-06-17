@@ -1,5 +1,6 @@
 import OptionCard from './OptionCard.jsx'
 import Chip from './Chip.jsx'
+import { prepareImages } from '../../lib/imagePrep.js'
 
 const inputCls =
   'w-full px-4 py-3 bg-inv-light/10 border border-inv-light/20 rounded-lg font-dm text-[0.9rem] text-inv-light placeholder:text-inv-tagline focus:outline-none focus:border-inv-light/40 transition-colors'
@@ -90,15 +91,45 @@ export function StepOrt({ data, update }) {
 }
 
 export function StepProjekt({ data, update }) {
+  const onFiles = async (e) => {
+    const imgs = await prepareImages(e.target.files)
+    update('images', imgs)
+    e.target.value = ''
+  }
+  const removeImage = (idx) => update('images', data.images.filter((_, i) => i !== idx))
+
   return (
     <div>
       <StepTitle kicker="Details" title="Erzähl uns kurz davon" />
       <label htmlFor="message" className={labelCls}>Beschreibung (optional)</label>
-      <textarea id="message" name="message" rows={5} value={data.message}
+      <textarea id="message" name="message" rows={4} value={data.message}
         onChange={(e) => update('message', e.target.value)}
         className={`${inputCls} resize-none`}
         placeholder="Größe, Wünsche, Material, Zeitvorstellung …" />
-      {/* Bild-Upload wird in Task 10 ergänzt */}
+
+      <p className={`${labelCls} mt-5`}>Bilder (optional)</p>
+      <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-inv-light/25 px-4 py-5 font-dm text-[0.85rem] text-inv-muted hover:border-inv-light/45 transition-colors">
+        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 16.5V18a2 2 0 002 2h14a2 2 0 002-2v-1.5M12 16V4m0 0L8 8m4-4l4 4" />
+        </svg>
+        Fotos vom Projekt hinzufügen
+        <input type="file" accept="image/*" multiple className="hidden" onChange={onFiles} />
+      </label>
+
+      {data.images.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {data.images.map((img, i) => (
+            <div key={i} className="relative h-16 w-16 overflow-hidden rounded-lg border border-inv-light/20">
+              <img src={img.dataUrl} alt={img.name} className="h-full w-full object-cover" />
+              <button type="button" onClick={() => removeImage(i)} aria-label="Bild entfernen"
+                className="absolute right-0 top-0 flex h-5 w-5 items-center justify-center bg-black/60 text-inv-light text-sm leading-none hover:bg-black/80">
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+      <p className="mt-2 font-dm text-[0.72rem] text-inv-tagline">Bis zu 5 Bilder — werden automatisch verkleinert.</p>
     </div>
   )
 }

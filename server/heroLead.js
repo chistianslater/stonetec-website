@@ -52,6 +52,8 @@ export function buildHeroPayload(data) {
   }
   if (data.phone?.trim()) payload.customer.phone_mobile = data.phone.trim()
   if (data.city?.trim()) payload.address.city = data.city.trim()
-  if (Array.isArray(data.images) && data.images.length) payload.images = data.images
+  if (Array.isArray(data.images) && data.images.length) {
+    payload.images = data.images.map((img) => ({ filename: img.name || 'bild.jpg', content: img.dataUrl }))
+  }
   return payload
 }
