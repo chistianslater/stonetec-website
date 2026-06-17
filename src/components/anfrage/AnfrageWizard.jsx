@@ -49,14 +49,28 @@ export default function AnfrageWizard() {
     }
   }
 
+  // Mit Enter weiter bzw. absenden — außer in der Beschreibung (Zeilenumbruch),
+  // auf Buttons/Links (native Aktion) und während des Sendens.
+  const handleKeyDown = (e) => {
+    if (e.key !== 'Enter' || status === 'sending') return
+    const tag = e.target.tagName
+    if (tag === 'TEXTAREA' || tag === 'BUTTON' || tag === 'A') return
+    if (!canNext) return
+    e.preventDefault()
+    if (isLast) handleSubmit()
+    else goNext()
+  }
+
   if (status === 'success') {
     return (
       <div className="bg-dark-bg rounded-xl p-8 text-center">
         <svg className="mx-auto mb-4 h-12 w-12 text-inv-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
         </svg>
-        <h3 className="font-sora font-light text-lg text-inv-light mb-2">Anfrage gesendet</h3>
-        <p className="font-dm text-[0.85rem] text-inv-muted">Wir melden uns innerhalb von 24 Stunden bei dir.</p>
+        <h3 className="font-sora font-light text-lg text-inv-light mb-2">Vielen Dank für deine Terminanfrage</h3>
+        <p className="font-dm text-[0.85rem] text-inv-muted leading-relaxed">
+          Wir melden uns in Kürze telefonisch bei dir zurück, um den genauen Termin abzustimmen.
+        </p>
       </div>
     )
   }
@@ -66,7 +80,14 @@ export default function AnfrageWizard() {
     : { initial: { opacity: 0, x: 24 }, enter: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -24 } }
 
   return (
-    <div className="bg-dark-bg rounded-xl p-6 md:p-8">
+    <div className="bg-dark-bg rounded-xl p-6 md:p-8" onKeyDown={handleKeyDown}>
+      <div className="mb-6">
+        <p className="font-dm text-[0.7rem] uppercase tracking-[2px] text-inv-tagline mb-1">Beratungstermin anfragen</p>
+        <p className="font-dm text-[0.85rem] text-inv-muted leading-relaxed">
+          In wenigen Schritten und unverbindlich — wir melden uns danach telefonisch bei dir, um alles Weitere zu besprechen.
+        </p>
+      </div>
+
       <WizardProgress current={step} total={steps.length} />
 
       <AnimatePresence mode="wait">
@@ -88,7 +109,7 @@ export default function AnfrageWizard() {
         {isLast ? (
           <button type="button" onClick={handleSubmit} disabled={!canNext || status === 'sending'}
             className="px-8 py-3.5 bg-warm-bg text-warm-text font-dm text-[0.85rem] font-semibold uppercase tracking-wider hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
-            {status === 'sending' ? 'Wird gesendet …' : 'Anfrage senden'}
+            {status === 'sending' ? 'Wird gesendet …' : 'Terminanfrage senden'}
           </button>
         ) : (
           <button type="button" onClick={goNext} disabled={!canNext}
@@ -97,6 +118,13 @@ export default function AnfrageWizard() {
           </button>
         )}
       </div>
+
+      <p className="mt-6 border-t border-inv-light/10 pt-4 font-dm text-[0.8rem] text-inv-muted">
+        Du möchtest nur kurz etwas fragen?{' '}
+        <a href="mailto:fliesen@stonetec-bocholt.de" className="text-inv-light underline underline-offset-2 hover:text-white transition-colors">
+          Schreib uns direkt eine E-Mail
+        </a>.
+      </p>
     </div>
   )
 }
