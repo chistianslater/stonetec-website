@@ -110,6 +110,9 @@ export function StepTermin({ data, update }) {
   return (
     <div>
       <StepTitle kicker="Erreichbarkeit" title="Wann passt es dir?" />
+      <p className="font-dm text-[0.82rem] text-inv-muted -mt-3 mb-5 leading-relaxed">
+        Nur deine grobe Präferenz — den genauen Termin stimmen wir anschließend telefonisch mit dir ab.
+      </p>
       <p className={labelCls}>Wochentage</p>
       <div className="flex flex-wrap gap-2 mb-6">
         {WEEKDAYS.map((d) => (
