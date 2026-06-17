@@ -100,6 +100,14 @@ export default function Kontakt() {
           {/* Contact Form */}
           <div className="lg:col-span-3">
             <Reveal delay={150}>
+              <div className="mb-6">
+                <h2 className="font-sora font-extralight text-[clamp(1.9rem,3.2vw,2.8rem)] text-warm-text tracking-[-0.02em] leading-[1.05]">
+                  Beratungstermin anfragen
+                </h2>
+                <p className="font-dm text-[0.95rem] text-warm-mittel mt-3 max-w-xl leading-relaxed">
+                  In wenigen Schritten und unverbindlich — wir melden uns danach telefonisch bei dir, um alles Weitere zu besprechen.
+                </p>
+              </div>
               <AnfrageWizard />
             </Reveal>
           </div>

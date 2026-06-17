@@ -81,13 +81,6 @@ export default function AnfrageWizard() {
 
   return (
     <div className="bg-dark-bg rounded-xl p-6 md:p-8" onKeyDown={handleKeyDown}>
-      <div className="mb-6">
-        <p className="font-dm text-[0.7rem] uppercase tracking-[2px] text-inv-tagline mb-1">Beratungstermin anfragen</p>
-        <p className="font-dm text-[0.85rem] text-inv-muted leading-relaxed">
-          In wenigen Schritten und unverbindlich — wir melden uns danach telefonisch bei dir, um alles Weitere zu besprechen.
-        </p>
-      </div>
-
       <WizardProgress current={step} total={steps.length} />
 
       <AnimatePresence mode="wait">
