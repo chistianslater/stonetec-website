@@ -1,5 +1,6 @@
 import SEO from '../components/SEO.jsx'
 import AnfrageWizard from '../components/anfrage/AnfrageWizard.jsx'
+import MapEmbed from '../components/MapEmbed.jsx'
 
 function Reveal({ children, className = '', delay = 0 }) {
   return (
@@ -117,18 +118,7 @@ export default function Kontakt() {
       {/* Map Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mt-16">
         <Reveal>
-          <div className="bg-dark-bg rounded-xl overflow-hidden aspect-[21/9]">
-            <iframe
-              src="https://maps.google.com/maps?q=stonetec%20GmbH%20Hamalandstraße%202%20Bocholt&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="100%"
-              style={{ border: 0, filter: 'grayscale(100%) invert(92%) contrast(83%)' }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="stonetec Showroom Bocholt"
-            />
-          </div>
+          <MapEmbed />
         </Reveal>
       </div>
     </div>
