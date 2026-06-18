@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
+// eslint-disable-next-line no-unused-vars -- `motion` is used as `motion.*` in JSX (flat config lacks JSX-member detection)
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
 
@@ -532,17 +533,21 @@ const projects = [
 function ProjectSection({ project, index }) {
   const containerRef = useRef(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
   const images = [project.mainImage, ...(project.gallery || [])]
-  
+
   useEffect(() => {
-    if (images.length <= 1) return
-    
+    if (images.length <= 1 || isHovered) return
+
     const interval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % images.length)
     }, 4000)
-    
+
     return () => clearInterval(interval)
-  }, [images.length])
+  }, [images.length, isHovered])
+
+  const goPrev = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  const goNext = () => setCurrentImageIndex((prev) => (prev + 1) % images.length)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -607,8 +612,10 @@ function ProjectSection({ project, index }) {
 
         {/* Image Display */}
         <div className={`lg:col-span-7 relative ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-          <motion.div 
+          <motion.div
             style={{ y }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl bg-dark-bg max-h-[80vh]"
           >
             <AnimatePresence initial={false}>
@@ -624,7 +631,37 @@ function ProjectSection({ project, index }) {
               />
             </AnimatePresence>
             <div className="absolute inset-0 bg-gradient-to-t from-[#06060630] to-transparent pointer-events-none" />
-            
+
+            {/* Navigation Arrows — subtle, fade in on hover */}
+            {images.length > 1 && (
+              <>
+                <motion.button
+                  type="button"
+                  aria-label="Vorheriges Bild"
+                  onClick={goPrev}
+                  initial={false}
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ pointerEvents: isHovered ? 'auto' : 'none' }}
+                  className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-black/25 text-white backdrop-blur-sm hover:bg-black/45 transition-colors"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" /></svg>
+                </motion.button>
+                <motion.button
+                  type="button"
+                  aria-label="Nächstes Bild"
+                  onClick={goNext}
+                  initial={false}
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ pointerEvents: isHovered ? 'auto' : 'none' }}
+                  className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-black/25 text-white backdrop-blur-sm hover:bg-black/45 transition-colors"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
+                </motion.button>
+              </>
+            )}
+
             {/* Image Indicators */}
             {images.length > 1 && (
               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
