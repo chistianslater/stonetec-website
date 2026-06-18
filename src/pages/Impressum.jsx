@@ -77,6 +77,15 @@ export default function Impressum() {
               Verbraucherschlichtungsstelle teilzunehmen.
             </p>
           </Section>
+
+          <Section title="Konzept & Umsetzung">
+            <p>
+              Gestaltung und Umsetzung dieser Website:{' '}
+              <a href="https://schauundhorch.de" target="_blank" rel="noopener noreferrer" className={linkCls}>
+                Schau &amp; Horch
+              </a>
+            </p>
+          </Section>
         </div>
       </div>
     </div>
