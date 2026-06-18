@@ -7,7 +7,7 @@ const KEY = 'stonetec-cookie-consent' // 'accepted' | 'declined'
 // Sobald die Kennungen vorliegen, hier eintragen — dann laden sie automatisch
 // nach Einwilligung. Solange leer, wird nichts geladen.
 const GA_ID = 'G-2CWR9BSMGL' // GA4 Measurement-ID
-const CLARITY_ID = '' // Microsoft Clarity Projekt-ID, z. B. 'abcd1234'
+const CLARITY_ID = 'x8xlypjs2t' // Microsoft Clarity Projekt-ID
 
 export function getConsent() {
   try {
