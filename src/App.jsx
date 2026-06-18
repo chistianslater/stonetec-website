@@ -10,6 +10,7 @@ import Kontakt from './pages/Kontakt.jsx'
 import Magazin from './pages/Magazin.jsx'
 import MagazinPost from './pages/MagazinPost.jsx'
 import LandingPage from './pages/LandingPage.jsx'
+import Impressum from './pages/Impressum.jsx'
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="kontakt" element={<Kontakt />} />
           <Route path="magazin" element={<Magazin />} />
           <Route path="magazin/:id" element={<MagazinPost />} />
+          <Route path="impressum" element={<Impressum />} />
           <Route path=":slug" element={<LandingPage />} />
         </Route>
       </Routes>
