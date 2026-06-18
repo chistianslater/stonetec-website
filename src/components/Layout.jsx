@@ -2,6 +2,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion'
 import Lenis from 'lenis'
+import CookieBanner from './CookieBanner.jsx'
 
 /* ─── Smooth Scrolling Hook ──────────────────────────────────── */
 function useSmoothScroll() {
@@ -231,6 +232,16 @@ function MobileMenu({ isOpen, onClose }) {
 function Header() {
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const landingPageSlugs = [
+    '/fliesenleger-bocholt',
+    '/badsanierung-bocholt',
+    '/grossformatfliesen-verlegen',
+    '/keramikmanufaktur-nrw',
+    '/3d-badplanung-bocholt'
+  ]
+  const isLandingPage = landingPageSlugs.includes(location.pathname)
+  const isTransparentPage = isHome || isLandingPage
+
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [animateLogo, setAnimateLogo] = useState(false)
@@ -263,7 +274,7 @@ function Header() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           scrolled 
             ? 'bg-white/80 backdrop-blur-xl border-b border-black/5 py-3' 
-            : isHome 
+            : isTransparentPage 
               ? 'bg-transparent py-6' 
               : 'bg-warm-bg/95 backdrop-blur-sm py-6 border-b border-warm-anthrazit/10'
         }`}
@@ -271,7 +282,7 @@ function Header() {
         <nav className="flex items-center justify-between px-6 md:px-12 lg:px-20">
           <Link to="/" className={`flex items-center transition-transform duration-500 ${animateLogo ? 'logo-pulse' : ''}`}>
             <FullLogo 
-              variant={scrolled ? 'light' : (isHome ? 'dark' : 'light')}
+              variant={scrolled ? 'light' : (isTransparentPage ? 'dark' : 'light')}
               className="w-32 md:w-36 h-auto" 
               scale={scrolled ? 0.85 : 1}
             />
@@ -283,7 +294,7 @@ function Header() {
                 key={item}
                 to={`/${item.toLowerCase()}`}
                 className={`group relative inline-block font-dm text-[0.95rem] font-medium tracking-[0.08em] uppercase overflow-hidden h-[1.2em] ${
-                  scrolled ? 'text-black' : isHome ? 'text-inv-light' : 'text-warm-mittel'
+                  scrolled ? 'text-black' : isTransparentPage ? 'text-inv-light' : 'text-warm-mittel'
                 }`}
               >
                 <span className="block transition-transform duration-500 ease-out group-hover:-translate-y-full">
@@ -300,7 +311,7 @@ function Header() {
               className={`px-6 py-3 font-dm text-[0.85rem] font-semibold tracking-[0.1em] uppercase transition-all duration-300 ${
                 scrolled 
                   ? 'bg-black text-white hover:bg-warm-anthrazit' 
-                  : isHome 
+                  : isTransparentPage 
                     ? 'bg-inv-light text-warm-text hover:bg-white' 
                     : 'bg-warm-text text-warm-bg hover:bg-warm-anthrazit'
               }`}
@@ -314,9 +325,9 @@ function Header() {
             className="lg:hidden flex flex-col gap-1.5 items-end group cursor-pointer"
             aria-label="Menu öffnen"
           >
-            <span className={`block h-0.5 w-6 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
-            <span className={`block h-0.5 w-4 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
-            <span className={`block h-0.5 w-6 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isHome ? 'bg-inv-light' : 'bg-warm-text'}`} />
+            <span className={`block h-0.5 w-6 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isTransparentPage ? 'bg-inv-light' : 'bg-warm-text'}`} />
+            <span className={`block h-0.5 w-4 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isTransparentPage ? 'bg-inv-light' : 'bg-warm-text'}`} />
+            <span className={`block h-0.5 w-6 transition-all duration-300 group-hover:w-8 ${scrolled ? 'bg-black' : isTransparentPage ? 'bg-inv-light' : 'bg-warm-text'}`} />
           </button>
         </nav>
       </header>
@@ -375,6 +386,7 @@ function Footer() {
             <div className="mt-8 space-y-2 font-dm text-[0.72rem] text-inv-tagline">
               <p><Link to="/impressum" className="hover:text-inv-muted transition-colors">Impressum</Link></p>
               <p><Link to="/datenschutz" className="hover:text-inv-muted transition-colors">Datenschutz</Link></p>
+              <p><button type="button" onClick={() => window.dispatchEvent(new Event('cookie-settings:open'))} className="hover:text-inv-muted transition-colors">Cookie-Einstellungen</button></p>
             </div>
           </div>
         </div>
@@ -405,6 +417,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <CookieBanner />
     </div>
   )
 }

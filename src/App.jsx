@@ -11,6 +11,7 @@ import Magazin from './pages/Magazin.jsx'
 import MagazinPost from './pages/MagazinPost.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import Impressum from './pages/Impressum.jsx'
+import Datenschutz from './pages/Datenschutz.jsx'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="magazin" element={<Magazin />} />
           <Route path="magazin/:id" element={<MagazinPost />} />
           <Route path="impressum" element={<Impressum />} />
+          <Route path="datenschutz" element={<Datenschutz />} />
           <Route path=":slug" element={<LandingPage />} />
         </Route>
       </Routes>
