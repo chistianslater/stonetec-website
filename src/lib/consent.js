@@ -24,6 +24,9 @@ export function setConsent(value) {
     /* localStorage nicht verfügbar — ignorieren */
   }
   if (value === 'accepted') loadAnalytics()
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('cookie-consent:changed', { detail: value }))
+  }
 }
 
 let loaded = false
