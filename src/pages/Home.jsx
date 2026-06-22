@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+// eslint-disable-next-line no-unused-vars -- `motion` is used as `motion.*` in JSX (flat config lacks JSX-member detection)
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO.jsx'
@@ -181,14 +182,6 @@ function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const springY = useSpring(y, { stiffness: 100, damping: 30, restDelta: 0.001 })
-
-  const scrollToLeistungen = (e) => {
-    e.preventDefault()
-    const target = document.querySelector('#leistungen')
-    if (target && window.lenis) {
-      window.lenis.scrollTo(target, { offset: -100 })
-    }
-  }
 
   return (
     <section ref={containerRef} className="relative h-screen min-h-[700px] flex items-end overflow-hidden bg-black">
@@ -625,9 +618,9 @@ function HoverImage({ src, isVisible }) {
 }
 
 /* ─── Process Card Component ──────────────────────────────────── */
-function ProcessCard({ step, i }) {
+function ProcessCard({ step, fullWidth = false }) {
   return (
-    <div className="relative flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw]">
+    <div className={`relative flex-shrink-0 ${fullWidth ? 'w-full' : 'w-[85vw] md:w-[60vw] lg:w-[45vw]'}`}>
       <div className="group bg-white border border-warm-anthrazit/5 p-8 md:p-12 lg:p-16 rounded-2xl h-full flex flex-col justify-between overflow-hidden cursor-pointer shadow-sm relative transition-all duration-500">
         {/* Hover Image Reveal - Pure CSS for maximum stability */}
         <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">
@@ -713,7 +706,33 @@ function Prozess() {
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-90%'])
 
   return (
-    <section ref={targetRef} className="relative h-[500vh] md:h-[600vh] bg-warm-bg noise">
+    <>
+    {/* Mobile: einfacher vertikaler Stapel statt Scroll-Hijacking */}
+    <section className="md:hidden bg-warm-bg noise py-24">
+      <div className="px-6 mb-10">
+        <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">Der Weg</p>
+        <h2 className="font-sora font-extralight text-[clamp(1.9rem,7vw,3.2rem)] text-warm-text leading-tight tracking-[-0.02em]">
+          Vier Schritte.<br />Kein Rätselraten.
+        </h2>
+      </div>
+      <div className="px-6 space-y-6">
+        {steps.map((step) => (
+          <ProcessCard key={step.num} step={step} fullWidth />
+        ))}
+        <div className="bg-dark-bg p-8 rounded-2xl text-center">
+          <h3 className="font-sora font-extralight text-3xl text-inv-light mb-8 leading-tight">Bereit für deinen<br />neuen Raum?</h3>
+          <MagneticLink
+            to="/kontakt"
+            className="inline-block px-10 py-5 bg-warm-bg text-warm-text font-dm text-sm font-semibold tracking-widest uppercase hover:bg-white transition-colors duration-300"
+          >
+            Projekt starten
+          </MagneticLink>
+        </div>
+      </div>
+    </section>
+
+    {/* Desktop: horizontales Scroll-Reveal */}
+    <section ref={targetRef} className="hidden md:block relative h-[600vh] bg-warm-bg noise">
       <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
         <div className="relative flex flex-col w-full">
           {/* Header Area */}
@@ -734,8 +753,8 @@ function Prozess() {
               style={{ x }} 
               className="flex gap-6 md:gap-8 px-6 md:px-12 lg:px-20"
             >
-              {steps.map((step, i) => (
-                <ProcessCard key={step.num} step={step} i={i} />
+              {steps.map((step) => (
+                <ProcessCard key={step.num} step={step} />
               ))}
               
               {/* Final CTA Card */}
@@ -774,6 +793,7 @@ function Prozess() {
         </div>
       </div>
     </section>
+    </>
   )
 }
 

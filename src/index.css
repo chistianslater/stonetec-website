@@ -21,6 +21,10 @@
   --font-dm: 'DM Sans Variable', 'DM Sans', sans-serif;
 }
 
+/* Horizontale Slider ohne sichtbare Scrollleiste */
+.hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
 /* Fallback styles for Magazin content if prose plugin has issues */
 .magazin-content h2 {
   font-family: var(--font-sora);
