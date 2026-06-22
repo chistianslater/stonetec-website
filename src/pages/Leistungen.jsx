@@ -254,7 +254,7 @@ export default function Leistungen() {
           <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-warm-mittel mb-4">
             Unsere Expertise
           </p>
-          <h1 className="font-sora font-extralight text-[clamp(3rem,7vw,5.5rem)] text-warm-text leading-[1] tracking-[-0.03em] max-w-4xl">
+          <h1 className="font-sora font-extralight text-[clamp(1.9rem,7vw,5.5rem)] text-warm-text leading-[1.05] tracking-[-0.03em] max-w-4xl break-words">
             Meisterhandwerk.<br />Neu definiert.
           </h1>
           <p className="font-dm text-[1.1rem] text-warm-mittel max-w-2xl mt-8 leading-relaxed">

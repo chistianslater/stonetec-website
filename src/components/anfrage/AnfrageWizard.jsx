@@ -80,7 +80,7 @@ export default function AnfrageWizard() {
     : { initial: { opacity: 0, x: 24 }, enter: { opacity: 1, x: 0 }, exit: { opacity: 0, x: -24 } }
 
   return (
-    <div className="bg-dark-bg rounded-xl p-6 md:p-8" onKeyDown={handleKeyDown}>
+    <div className="bg-dark-bg rounded-xl p-6 md:p-8 overflow-hidden" onKeyDown={handleKeyDown}>
       <WizardProgress current={step} total={steps.length} />
 
       <AnimatePresence mode="wait">
