@@ -224,7 +224,7 @@ export const articles = [
     category: 'Trends',
     readTime: '6 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/Combination-5.jpg',
+    image: '/images/website-extract/Colour-Combination-8.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -262,7 +262,7 @@ export const articles = [
     category: 'Trends',
     readTime: '5 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/MMD_3468-HDR.jpg',
+    image: '/images/website-extract/Design-Statement-2.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -300,7 +300,7 @@ export const articles = [
     category: 'Planung',
     readTime: '8 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/7920914_orig-Kopieren1.jpg',
+    image: '/images/website-extract/7920914_orig.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -339,7 +339,7 @@ export const articles = [
     category: 'Bad',
     readTime: '7 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/Visu-1_2-1-scaled.jpg',
+    image: '/images/visualisierung.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -377,7 +377,7 @@ export const articles = [
     category: 'Bad',
     readTime: '6 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/Visu-6_1-1-scaled.jpg',
+    image: '/images/website-extract/Lieblingsraum_4.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -454,7 +454,7 @@ export const articles = [
     category: 'Bad',
     readTime: '5 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/BlackWhite_8.jpg',
+    image: '/images/website-extract/Design-Statement-1.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -491,7 +491,7 @@ export const articles = [
     category: 'Waschtisch',
     readTime: '6 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/BlackWhite_2.jpg',
+    image: '/images/website-extract/Design-Statement-3.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -529,7 +529,7 @@ export const articles = [
     category: 'Trends',
     readTime: '7 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/DSC_1243.jpg',
+    image: '/images/website-extract/Interior-Design-1.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -567,7 +567,7 @@ export const articles = [
     category: 'Unternehmen',
     readTime: '6 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/BlackWhite_8.jpg',
+    image: '/images/website-extract/Natural-Beauty-5.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -605,7 +605,7 @@ export const articles = [
     category: 'Fachwissen',
     readTime: '8 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/MMD_6413-HDR.jpg',
+    image: '/images/slider-grossformate/stonetec-grossformat-1.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
@@ -643,7 +643,7 @@ export const articles = [
     category: 'Fachwissen',
     readTime: '7 Min.',
     date: 'Juni 2025',
-    image: 'https://stonetec-bocholt.de/wp-content/uploads/2025/06/MMD_2997-HDR-th.jpg',
+    image: '/images/slider-grossformate/stonetec-grossformat-2.jpg',
     featured: false,
     content: `
       <div className="space-y-12">
