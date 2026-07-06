@@ -41,9 +41,11 @@ export function loadAnalytics() {
     s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
     document.head.appendChild(s)
     window.dataLayer = window.dataLayer || []
-    const gtag = function () { window.dataLayer.push(arguments) }
-    gtag('js', new Date())
-    gtag('config', GA_ID, { anonymize_ip: true })
+    // gtag global exponieren, damit der consent-gated Event-Layer (lib/track.js)
+    // dieselbe Instanz nutzt.
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments) }
+    window.gtag('js', new Date())
+    window.gtag('config', GA_ID, { anonymize_ip: true })
   }
 
   if (CLARITY_ID) {
