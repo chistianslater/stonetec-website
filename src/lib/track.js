@@ -1,7 +1,13 @@
 // Zentrales, consent-gated Event-Tracking für GA4.
 // Feuert Events NUR, wenn der Nutzer eingewilligt hat (getConsent() === 'accepted')
-// und gtag geladen ist. Die Events werden in GA4 als Key Events markiert und als
-// Conversions nach Google Ads importiert (siehe SEO/Fundament-Plan.md, Block A).
+// und gtag geladen ist.
+//
+// Aktuell genutzt für `generate_lead` (erfolgreicher Anfrage-Formular-Abschluss) —
+// das in GA4 fehlende „Lead abgesendet"-Event, das als primäre Conversion nach
+// Google Ads importiert wird (siehe SEO/Tracking-Setup.md).
+//
+// Anruf-/E-Mail-Klicks werden NICHT hier getrackt: dafür existieren bereits die
+// GA4-seitig angelegten Events `phone_click` / `email_click` (kein Doppel-Tracking).
 import { getConsent } from './consent.js'
 
 export function trackEvent(name, params = {}) {
@@ -9,19 +15,4 @@ export function trackEvent(name, params = {}) {
   if (getConsent() !== 'accepted') return
   if (typeof window.gtag !== 'function') return
   window.gtag('event', name, params)
-}
-
-let contactBound = false
-
-// Ein einziger delegierter Listener fängt Klicks auf alle tel:-Links ab —
-// seitenübergreifend und auch für später hinzugefügte Links. Zählt den
-// Anruf-Wunsch als `contact`-Event (schwaches Signal bis echte Call-Conversion).
-export function initContactTracking() {
-  if (contactBound || typeof document === 'undefined') return
-  contactBound = true
-  document.addEventListener('click', (e) => {
-    const link = e.target?.closest?.('a[href^="tel:"]')
-    if (!link) return
-    trackEvent('contact', { method: 'phone' })
-  })
 }
