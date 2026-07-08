@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getConsent, setConsent, loadAnalytics } from '../lib/consent.js'
+import { getConsent, setConsent, initConsentMode } from '../lib/consent.js'
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(() => !getConsent())
 
   useEffect(() => {
-    if (getConsent() === 'accepted') loadAnalytics()
+    // Google-Tag im Consent-Mode-Default "denied" laden (bei jedem Besuch,
+    // unabhängig vom Banner-Klick). Frühere Zustimmung wird intern angewandt.
+    initConsentMode()
 
     const open = () => setVisible(true)
     window.addEventListener('cookie-settings:open', open)
