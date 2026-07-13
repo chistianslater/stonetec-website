@@ -11,14 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Key: zuerst aus der Umgebung, sonst aus config.php (nicht im Repo).
-$key = getenv('HERO_API_KEY');
-if (!$key) {
-    $cfg = @include __DIR__ . '/config.php';
-    if (is_array($cfg) && !empty($cfg['HERO_API_KEY'])) {
-        $key = $cfg['HERO_API_KEY'];
-    }
+// Konfiguration: Umgebungsvariablen haben Vorrang, sonst config.php (nicht im Repo).
+$cfg = @include __DIR__ . '/config.php';
+if (!is_array($cfg)) {
+    $cfg = [];
 }
+$key = getenv('HERO_API_KEY') ?: ($cfg['HERO_API_KEY'] ?? '');
 
 $data = json_decode(file_get_contents('php://input'), true);
 if (!is_array($data)) {
@@ -131,4 +129,59 @@ if ($httpCode < 200 || $httpCode >= 300) {
     exit;
 }
 
+// Server-seitige GA4-Conversion (Measurement Protocol): feuert `generate_lead`
+// unabhängig von Browser, Consent-Timing, Ad-Blockern und 503-Drosselung.
+// Fehler hier brechen die Erfolgsantwort an den Nutzer NIE ab.
+sendGa4LeadEvent($data, $cfg);
+
 echo json_encode(['status' => 'success']);
+
+/**
+ * Sendet das `generate_lead`-Conversion-Event serverseitig an GA4
+ * (Measurement Protocol). Attribuiert über die vom Browser mitgeschickte
+ * client_id/session_id an dieselbe Session (Google-Ads-Attribution bleibt erhalten).
+ */
+function sendGa4LeadEvent(array $data, array $cfg): void {
+    $measurementId = getenv('GA4_MEASUREMENT_ID') ?: ($cfg['GA4_MEASUREMENT_ID'] ?? 'G-2CWR9BSMGL');
+    $apiSecret     = getenv('GA4_API_SECRET') ?: ($cfg['GA4_API_SECRET'] ?? '');
+    if ($apiSecret === '') {
+        error_log('[lead] GA4_API_SECRET fehlt – generate_lead nicht serverseitig gesendet');
+        return;
+    }
+
+    $clientId = trim((string) ($data['ga_client_id'] ?? ''));
+    if ($clientId === '') {
+        // Fallback, damit das Event trotzdem landet (Attribution dann schwächer).
+        $clientId = random_int(100000000, 999999999) . '.' . time();
+    }
+
+    $params = ['method' => 'form', 'form' => 'anfrage_wizard'];
+    $sessionId = trim((string) ($data['ga_session_id'] ?? ''));
+    if ($sessionId !== '') {
+        $params['session_id'] = $sessionId;
+    }
+
+    $body = json_encode([
+        'client_id' => $clientId,
+        'events'    => [['name' => 'generate_lead', 'params' => $params]],
+    ]);
+
+    $url = 'https://www.google-analytics.com/mp/collect?measurement_id=' . urlencode($measurementId)
+         . '&api_secret=' . urlencode($apiSecret);
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
+        CURLOPT_POSTFIELDS     => $body,
+        CURLOPT_TIMEOUT        => 5,
+    ]);
+    $resp = curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $err  = curl_error($ch);
+    curl_close($ch);
+
+    if ($err !== '' || $code < 200 || $code >= 300) {
+        error_log('[lead] GA4 MP Fehler ' . $code . ' ' . $err . ' ' . substr((string) $resp, 0, 300));
+    }
+}

@@ -4,7 +4,6 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import WizardProgress from './WizardProgress.jsx'
 import { StepVorhaben, StepBereich, StepOrt, StepProjekt, StepTermin, StepKontakt } from './WizardSteps.jsx'
 import { submitLead } from '../../lib/heroLeadClient.js'
-import { trackEvent } from '../../lib/track.js'
 
 const INITIAL = {
   vorhaben: '', bereich: [], zipcode: '', city: '', message: '',
@@ -44,7 +43,8 @@ export default function AnfrageWizard() {
     try {
       await submitLead(data)
       setStatus('success')
-      trackEvent('generate_lead', { method: 'form', form: 'anfrage_wizard' })
+      // Conversion `generate_lead` wird jetzt serverseitig in lead.php gefeuert
+      // (GA4 Measurement Protocol) — zuverlässig und immun gegen Ad-Blocker.
     } catch (err) {
       setStatus('error')
       setErrorMsg(err.message || 'Senden fehlgeschlagen.')
