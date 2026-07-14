@@ -25,57 +25,6 @@ if (!is_array($data)) {
     exit;
 }
 
-// TEMPORÄR – Diagnose der GA4-MP-Zustellung. Nutzt den Debug-Endpunkt
-// (liefert validationMessages) und sendet NICHTS an Hero. Nach der
-// Fehlersuche wieder entfernen.
-if (($data['ga_debug'] ?? '') === 'stonetec-mp-check-7431') {
-    $mid = getenv('GA4_MEASUREMENT_ID') ?: ($cfg['GA4_MEASUREMENT_ID'] ?? 'G-2CWR9BSMGL');
-    $sec = resolveGa4Secret($cfg);
-    $cid = trim((string) ($data['ga_client_id'] ?? '')) ?: (random_int(100000000, 999999999) . '.' . time());
-    $dbgBody = json_encode([
-        'client_id' => $cid,
-        'events'    => [['name' => 'generate_lead', 'params' => ['method' => 'form', 'form' => 'anfrage_wizard']]],
-    ]);
-    $dbgUrl = 'https://www.google-analytics.com/debug/mp/collect?measurement_id=' . urlencode($mid) . '&api_secret=' . urlencode($sec);
-    $dch = curl_init($dbgUrl);
-    curl_setopt_array($dch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST           => true,
-        CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
-        CURLOPT_POSTFIELDS     => $dbgBody,
-        CURLOPT_TIMEOUT        => 8,
-    ]);
-    $dResp = curl_exec($dch);
-    $dCode = curl_getinfo($dch, CURLINFO_HTTP_CODE);
-    $dErr  = curl_error($dch);
-    curl_close($dch);
-    // Woher kommen Keys? Nur Namen + Wertlängen, niemals die Werte selbst.
-    $envNames = [];
-    foreach (array_merge($_ENV, $_SERVER, getenv() ?: []) as $k => $v) {
-        if (is_string($k) && preg_match('/GA4|HERO|MEASUREMENT|API_?SECRET/i', $k)) {
-            $envNames[$k] = is_string($v) ? strlen($v) : 0;
-        }
-    }
-    echo json_encode([
-        'status'            => 'debug',
-        'secret_present'    => $sec !== '',
-        'secret_len'        => strlen($sec),
-        'measurement_id'    => $mid,
-        'client_id'         => $cid,
-        'http_code'         => $dCode,
-        'curl_error'        => $dErr,
-        'ga4'               => json_decode((string) $dResp, true) ?? $dResp,
-        // Diagnose: wo liegt der (funktionierende) HERO-Key?
-        'hero_via_getenv'   => getenv('HERO_API_KEY') !== false && getenv('HERO_API_KEY') !== '',
-        'ga4_via_getenv'    => getenv('GA4_API_SECRET') !== false && getenv('GA4_API_SECRET') !== '',
-        'config_php_exists' => file_exists(__DIR__ . '/config.php'),
-        'config_has_hero'   => !empty($cfg['HERO_API_KEY']),
-        'config_has_ga4'    => !empty($cfg['GA4_API_SECRET']),
-        'env_key_names'     => $envNames,
-    ]);
-    exit;
-}
-
 // Honeypot: stille Erfolgsantwort, nichts an Hero senden.
 if (!empty($data['company'])) {
     echo json_encode(['status' => 'success']);
