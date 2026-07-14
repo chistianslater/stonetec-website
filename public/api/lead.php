@@ -25,6 +25,43 @@ if (!is_array($data)) {
     exit;
 }
 
+// TEMPORÄR – Diagnose der GA4-MP-Zustellung. Nutzt den Debug-Endpunkt
+// (liefert validationMessages) und sendet NICHTS an Hero. Nach der
+// Fehlersuche wieder entfernen.
+if (($data['ga_debug'] ?? '') === 'stonetec-mp-check-7431') {
+    $mid = getenv('GA4_MEASUREMENT_ID') ?: ($cfg['GA4_MEASUREMENT_ID'] ?? 'G-2CWR9BSMGL');
+    $sec = getenv('GA4_API_SECRET') ?: ($cfg['GA4_API_SECRET'] ?? '');
+    $cid = trim((string) ($data['ga_client_id'] ?? '')) ?: (random_int(100000000, 999999999) . '.' . time());
+    $dbgBody = json_encode([
+        'client_id' => $cid,
+        'events'    => [['name' => 'generate_lead', 'params' => ['method' => 'form', 'form' => 'anfrage_wizard']]],
+    ]);
+    $dbgUrl = 'https://www.google-analytics.com/debug/mp/collect?measurement_id=' . urlencode($mid) . '&api_secret=' . urlencode($sec);
+    $dch = curl_init($dbgUrl);
+    curl_setopt_array($dch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
+        CURLOPT_POSTFIELDS     => $dbgBody,
+        CURLOPT_TIMEOUT        => 8,
+    ]);
+    $dResp = curl_exec($dch);
+    $dCode = curl_getinfo($dch, CURLINFO_HTTP_CODE);
+    $dErr  = curl_error($dch);
+    curl_close($dch);
+    echo json_encode([
+        'status'         => 'debug',
+        'secret_present' => $sec !== '',
+        'secret_len'     => strlen($sec),
+        'measurement_id' => $mid,
+        'client_id'      => $cid,
+        'http_code'      => $dCode,
+        'curl_error'     => $dErr,
+        'ga4'            => json_decode((string) $dResp, true) ?? $dResp,
+    ]);
+    exit;
+}
+
 // Honeypot: stille Erfolgsantwort, nichts an Hero senden.
 if (!empty($data['company'])) {
     echo json_encode(['status' => 'success']);
