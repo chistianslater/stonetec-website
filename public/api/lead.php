@@ -30,7 +30,7 @@ if (!is_array($data)) {
 // Fehlersuche wieder entfernen.
 if (($data['ga_debug'] ?? '') === 'stonetec-mp-check-7431') {
     $mid = getenv('GA4_MEASUREMENT_ID') ?: ($cfg['GA4_MEASUREMENT_ID'] ?? 'G-2CWR9BSMGL');
-    $sec = getenv('GA4_API_SECRET') ?: ($cfg['GA4_API_SECRET'] ?? '');
+    $sec = resolveGa4Secret($cfg);
     $cid = trim((string) ($data['ga_client_id'] ?? '')) ?: (random_int(100000000, 999999999) . '.' . time());
     $dbgBody = json_encode([
         'client_id' => $cid,
@@ -188,13 +188,32 @@ sendGa4LeadEvent($data, $cfg);
 echo json_encode(['status' => 'success']);
 
 /**
+ * Löst den GA4 Measurement-Protocol-Secret robust auf: zuerst korrekt benannte
+ * Env-Variable/config, dann Fallback über einen Env-Key, dessen Name auf
+ * `A4_API_SECRET` endet — toleriert Panel-Tippfehler/Propagationsverzögerung
+ * beim Hosting (der Wert liegt vor, nur unter abweichendem Namen).
+ */
+function resolveGa4Secret(array $cfg): string {
+    $s = getenv('GA4_API_SECRET') ?: ($cfg['GA4_API_SECRET'] ?? '');
+    if ($s !== '') {
+        return $s;
+    }
+    foreach (array_merge($_ENV, $_SERVER, getenv() ?: []) as $k => $v) {
+        if (is_string($k) && is_string($v) && $v !== '' && preg_match('/A4_API_SECRET$/i', $k)) {
+            return $v;
+        }
+    }
+    return '';
+}
+
+/**
  * Sendet das `generate_lead`-Conversion-Event serverseitig an GA4
  * (Measurement Protocol). Attribuiert über die vom Browser mitgeschickte
  * client_id/session_id an dieselbe Session (Google-Ads-Attribution bleibt erhalten).
  */
 function sendGa4LeadEvent(array $data, array $cfg): void {
     $measurementId = getenv('GA4_MEASUREMENT_ID') ?: ($cfg['GA4_MEASUREMENT_ID'] ?? 'G-2CWR9BSMGL');
-    $apiSecret     = getenv('GA4_API_SECRET') ?: ($cfg['GA4_API_SECRET'] ?? '');
+    $apiSecret     = resolveGa4Secret($cfg);
     if ($apiSecret === '') {
         error_log('[lead] GA4_API_SECRET fehlt – generate_lead nicht serverseitig gesendet');
         return;
