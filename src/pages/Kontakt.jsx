@@ -1,5 +1,6 @@
 import SEO from '../components/SEO.jsx'
 import AnfrageWizard from '../components/anfrage/AnfrageWizard.jsx'
+import AuswahlVorschau from '../components/anfrage/AuswahlVorschau.jsx'
 import MapEmbed from '../components/MapEmbed.jsx'
 
 function Reveal({ children, className = '', delay = 0 }) {
@@ -109,6 +110,9 @@ export default function Kontakt() {
                   In wenigen Schritten und unverbindlich — wir melden uns danach telefonisch bei dir, um alles Weitere zu besprechen.
                 </p>
               </div>
+              {/* Bewusst hier und nicht im Wizard: der Wizard-Kasten ist fast
+                  schwarz, die Vorschau hell — dort wäre sie unlesbar. */}
+              <AuswahlVorschau />
               <AnfrageWizard />
             </Reveal>
           </div>

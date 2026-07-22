@@ -2,7 +2,6 @@ import { useState } from 'react'
 // eslint-disable-next-line no-unused-vars -- `motion` is used as `motion.div` in JSX (flat config lacks JSX-member detection)
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import WizardProgress from './WizardProgress.jsx'
-import AuswahlVorschau from './AuswahlVorschau.jsx'
 import { useMerkzettel } from '../../hooks/useMerkzettel.js'
 import { StepVorhaben, StepBereich, StepOrt, StepProjekt, StepTermin, StepKontakt } from './WizardSteps.jsx'
 import { submitLead } from '../../lib/heroLeadClient.js'
@@ -86,7 +85,6 @@ export default function AnfrageWizard() {
 
   return (
     <div className="bg-dark-bg rounded-xl p-6 md:p-8 overflow-hidden" onKeyDown={handleKeyDown}>
-      <AuswahlVorschau />
       <WizardProgress current={step} total={steps.length} />
 
       <AnimatePresence mode="wait">
