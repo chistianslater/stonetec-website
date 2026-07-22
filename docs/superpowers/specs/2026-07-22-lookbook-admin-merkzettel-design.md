@@ -70,10 +70,12 @@ hochladen" würde Tims Fotos vernichten.
 ```
 
 - Die **Reihenfolge im Array ist die Anzeigereihenfolge** — kein separates `order`-Feld.
-- `id` ist eine kurze, zufällige, **dauerhaft stabile** Kennung (4 Zeichen, `[a-z0-9]`,
-  kollisionsgeprüft über alle Kategorien). Sie wird beim Anlegen vergeben und **nie neu
-  vergeben**, auch nicht nach dem Löschen eines Bildes — sonst würden geteilte Links auf
-  falsche Bilder zeigen.
+- `id` ist eine kurze, **dauerhaft stabile** Kennung (5 Zeichen, `[a-z0-9]`,
+  kollisionsgeprüft über alle Kategorien). Bestandsbilder tragen sprechende IDs
+  (`bad01`, `woh03`, `det14`), damit Fallback im Code und Manifest auf dem Server ohne
+  Abgleich-Mechanik garantiert übereinstimmen; neu hochgeladene Bilder bekommen
+  zufällige IDs aus PHP. Eine ID wird **nie neu vergeben**, auch nicht nach dem Löschen
+  eines Bildes — sonst würden geteilte Links auf falsche Bilder zeigen.
 - `src` ist ein absoluter Pfad. Bestands- und Upload-Bilder stehen gleichberechtigt
   nebeneinander; die Herkunft ist am Pfad erkennbar.
 - Kategorie-Schlüssel sind fest: `badezimmer`, `wohnraum`, `terrasse`, `manufaktur`, `details`.
@@ -114,8 +116,9 @@ Code hinterlegten Kategorienamen.
 | `src/components/lookbook/Lightbox.jsx` | Großansicht inkl. Merken-Herz |
 | `src/lib/lookbookData.js` | Laden, Fallback, Kategorie-Metadaten |
 
-Während des Ladens zeigt das Raster Platzhalterkacheln in der Höhe der späteren Bilder
-(`aspect-[4/5]`) — kein Layout-Sprung, CLS bleibt bei 0.
+Ein Ladezustand mit Platzhalterkacheln entfällt: Die Seite rendert die Fallback-Daten
+sofort und tauscht sie aus, sobald das Manifest eingetroffen ist. Damit ist zu keinem
+Zeitpunkt ein leerer Zustand sichtbar.
 
 ## Admin unter `/admin/`
 
@@ -219,8 +222,8 @@ werden stillschweigend übersprungen, mit Zusatz „1 Bild ist nicht mehr verfü
 mindestens eine ID fehlschlägt. Anschließend wird `?auswahl=` per `history.replaceState`
 aus der Adresszeile entfernt.
 
-Grenze: 40 IDs à 4 Zeichen plus Trennkomma ergeben rund 200 Zeichen Parameter, mit
-Basis-URL etwa 240 Zeichen — für WhatsApp, E-Mail und Messenger unkritisch.
+Grenze: 40 IDs à 5 Zeichen plus Trennkomma ergeben rund 240 Zeichen Parameter, mit
+Basis-URL etwa 280 Zeichen — für WhatsApp, E-Mail und Messenger unkritisch.
 
 **Bewusst nicht gewählt:** serverseitige Kurzlinks (`/s/A7K2M`). Hübscher, aber sie
 erfordern Serverspeicher, eine Aufbewahrungs- und Löschregelung sowie eine Ergänzung der
@@ -260,8 +263,8 @@ Kommentartext. Validierung, Honeypot, Hero-Aufruf und die serverseitige
 
 ## Tracking
 
-Über die bestehende `track()`-Hilfsfunktion (`src/lib/track.js`), consent-gebunden wie
-bisher:
+Über die bestehende `trackEvent()`-Hilfsfunktion (`src/lib/track.js`), consent-gebunden
+wie bisher:
 
 | Event | Auslöser | Parameter |
 |---|---|---|
