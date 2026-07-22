@@ -2,6 +2,8 @@ import { useState } from 'react'
 // eslint-disable-next-line no-unused-vars -- `motion` is used as `motion.div` in JSX (flat config lacks JSX-member detection)
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import WizardProgress from './WizardProgress.jsx'
+import AuswahlVorschau from './AuswahlVorschau.jsx'
+import { useMerkzettel } from '../../hooks/useMerkzettel.js'
 import { StepVorhaben, StepBereich, StepOrt, StepProjekt, StepTermin, StepKontakt } from './WizardSteps.jsx'
 import { submitLead } from '../../lib/heroLeadClient.js'
 
@@ -15,6 +17,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function AnfrageWizard() {
   const reduce = useReducedMotion()
+  const merkzettel = useMerkzettel()
   const [step, setStep] = useState(0)
   const [data, setData] = useState(INITIAL)
   const [status, setStatus] = useState('idle') // idle | sending | success | error
@@ -41,7 +44,7 @@ export default function AnfrageWizard() {
   const handleSubmit = async () => {
     setStatus('sending'); setErrorMsg('')
     try {
-      await submitLead(data)
+      await submitLead({ ...data, lookbookPicks: merkzettel.ids })
       setStatus('success')
       // Conversion `generate_lead` wird jetzt serverseitig in lead.php gefeuert
       // (GA4 Measurement Protocol) — zuverlässig und immun gegen Ad-Blocker.
@@ -83,6 +86,7 @@ export default function AnfrageWizard() {
 
   return (
     <div className="bg-dark-bg rounded-xl p-6 md:p-8 overflow-hidden" onKeyDown={handleKeyDown}>
+      <AuswahlVorschau />
       <WizardProgress current={step} total={steps.length} />
 
       <AnimatePresence mode="wait">
