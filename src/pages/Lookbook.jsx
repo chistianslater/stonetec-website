@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+// eslint-disable-next-line no-unused-vars -- `motion` wird als `motion.div` im JSX genutzt
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
+import ImageCard from '../components/lookbook/ImageCard.jsx'
+import Lightbox from '../components/lookbook/Lightbox.jsx'
+import { loadLookbook, fallbackSections } from '../lib/lookbookData.js'
+import { useMerkzettel } from '../hooks/useMerkzettel.js'
+import { trackEvent } from '../lib/track.js'
 
-/* ─── Reveal Component ─────────────────────────────────────────── */
 function Reveal({ children, delay = 0 }) {
   return (
     <motion.div
@@ -16,396 +21,70 @@ function Reveal({ children, delay = 0 }) {
   )
 }
 
-/* ─── Lookbook Data ──────────────────────────────────────────── */
-const lookbookSections = [
-  {
-    "id": "badezimmer",
-    "title": "Badezimmer",
-    "subtitle": "Räume der Ruhe",
-    "description": "Von der fugenlosen Dusche bis zum monolithischen Waschtisch. Wir verwandeln Badezimmer in private Wellness-Oasen.",
-    "dir": "badezimmer",
-    "images": [
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-1.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-2.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-3.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-4.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-5.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-6.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-7.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-8.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-9.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/badezimmer/stonetec-lookbook-badezimmer-10.jpg",
-        "caption": "Badezimmer Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      }
-    ]
-  },
-  {
-    "id": "wohnraum",
-    "title": "Wohnraum & Boden",
-    "subtitle": "Weite und Beständigkeit",
-    "description": "Großformatige Bodenbeläge schaffen eine durchgängige Optik und ein großzügiges Raumgefühl in jedem Wohnbereich.",
-    "dir": "wohnraum",
-    "images": [
-      {
-        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-1.jpg",
-        "caption": "Wohnraum & Boden Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-2.jpg",
-        "caption": "Wohnraum & Boden Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-3.jpg",
-        "caption": "Wohnraum & Boden Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-4.jpg",
-        "caption": "Wohnraum & Boden Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-5.jpg",
-        "caption": "Wohnraum & Boden Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-6.jpg",
-        "caption": "Wohnraum & Boden Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/wohnraum/stonetec-lookbook-wohnraum-7.jpg",
-        "caption": "Wohnraum & Boden Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      }
-    ]
-  },
-  {
-    "id": "terrasse",
-    "title": "Terrasse & Pool",
-    "subtitle": "Sommerliche Eleganz",
-    "description": "Keramik im Außenbereich verbindet Ästhetik mit extremer Beständigkeit gegen Witterung und Frost.",
-    "dir": "terrasse",
-    "images": [
-      {
-        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-1.jpg",
-        "caption": "Terrasse & Pool Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-2.jpg",
-        "caption": "Terrasse & Pool Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-3.jpg",
-        "caption": "Terrasse & Pool Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-4.jpg",
-        "caption": "Terrasse & Pool Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-5.jpg",
-        "caption": "Terrasse & Pool Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-6.jpg",
-        "caption": "Terrasse & Pool Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/terrasse/stonetec-lookbook-terrasse-7.jpg",
-        "caption": "Terrasse & Pool Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      }
-    ]
-  },
-  {
-    "id": "manufaktur",
-    "title": "Keramikmanufaktur",
-    "subtitle": "Unikate aus Meisterhand",
-    "description": "In unserer eigenen Manufaktur fertigen wir Waschtische, Treppenstufen und Sonderlösungen aus Keramik — passgenau für dein Projekt.",
-    "dir": "manufaktur",
-    "images": [
-      {
-        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-1.jpg",
-        "caption": "Keramikmanufaktur Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-2.jpg",
-        "caption": "Keramikmanufaktur Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-3.jpg",
-        "caption": "Keramikmanufaktur Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-4.jpg",
-        "caption": "Keramikmanufaktur Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-5.jpg",
-        "caption": "Keramikmanufaktur Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-6.jpg",
-        "caption": "Keramikmanufaktur Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/manufaktur/stonetec-lookbook-manufaktur-7.jpg",
-        "caption": "Keramikmanufaktur Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      }
-    ]
-  },
-  {
-    "id": "details",
-    "title": "Details & Handwerk",
-    "subtitle": "Präzision im Fokus",
-    "description": "Wahre Meisterschaft zeigt sich im Detail. Wir legen Wert auf perfekte Kanten, saubere Fugen und eine durchdachte Planung.",
-    "dir": "details",
-    "images": [
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-1.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-2.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-3.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-4.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-5.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-6.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-7.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-8.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-9.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-10.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-11.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-12.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-13.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      },
-      {
-        "src": "/images/lookbook/details/stonetec-lookbook-details-14.jpg",
-        "caption": "Details & Handwerk Inspiration",
-        "specs": "Meisterhafte Verlegung"
-      }
-    ]
-  }
-]
-
-/* ─── Image Card Component ───────────────────────────────────── */
-function ImageCard({ image, index, onClick }) {
-  return (
-    <Reveal delay={index * 0.05}>
-      <div className="group cursor-pointer" onClick={onClick}>
-        <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-4 shadow-sm">
-          <img
-            src={image.src}
-            alt={image.caption}
-            className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#06060680] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
-          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-            <p className="font-dm text-[0.65rem] text-inv-muted uppercase tracking-[2px] mb-1">{image.specs}</p>
-            <h4 className="font-sora font-light text-sm text-inv-light">{image.caption}</h4>
-          </div>
-        </div>
-      </div>
-    </Reveal>
-  )
-}
-
-/* ─── Lightbox Component ─────────────────────────────────────── */
-function Lightbox({ image, onClose, onNext, onPrev }) {
-  if (!image) return null
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 md:p-12"
-      onClick={onClose}
-    >
-      <button 
-        onClick={onClose}
-        className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-[110]"
-      >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      <button 
-        onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors z-[110] p-4"
-      >
-        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <button 
-        onClick={(e) => { e.stopPropagation(); onNext(); }}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors z-[110] p-4"
-      >
-        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      <motion.div 
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="relative max-w-7xl w-full h-full flex flex-col items-center justify-center"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <img 
-          src={image.src} 
-          alt={image.caption}
-          className="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-lg"
-        />
-        <div className="mt-8 text-center">
-          <p className="font-dm text-[0.7rem] text-white/40 uppercase tracking-[3px] mb-2">{image.specs}</p>
-          <h3 className="font-sora font-extralight text-xl md:text-2xl text-white">{image.caption}</h3>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-/* ─── Main Component ─────────────────────────────────────────── */
 export default function Lookbook() {
+  // Die Bestandsdaten stehen sofort — die Seite ist zu keiner Sekunde leer.
+  // Das Manifest vom Server ersetzt sie, sobald es eingetroffen ist.
+  const [sections, setSections] = useState(() => fallbackSections())
   const [activeSection, setActiveSection] = useState('badezimmer')
   const [selectedImageIndex, setSelectedImageIndex] = useState(null)
-  
-  const currentSection = lookbookSections.find(s => s.id === activeSection)
+  const merkzettel = useMerkzettel()
 
-  const handleNext = () => {
-    setSelectedImageIndex((prev) => (prev + 1) % currentSection.images.length)
-  }
+  useEffect(() => {
+    let cancelled = false
+    loadLookbook().then((next) => {
+      if (!cancelled) setSections(next)
+    })
+    return () => { cancelled = true }
+  }, [])
 
-  const handlePrev = () => {
-    setSelectedImageIndex((prev) => (prev - 1 + currentSection.images.length) % currentSection.images.length)
-  }
+  const currentSection = useMemo(
+    () => sections.find((s) => s.id === activeSection) ?? sections[0],
+    [sections, activeSection],
+  )
+  const images = currentSection?.images ?? []
+
+  const handleTogglePick = useCallback((image) => {
+    const nowPicked = merkzettel.toggle(image.id)
+    trackEvent(nowPicked ? 'add_to_wishlist' : 'remove_from_wishlist', {
+      item_id: image.id,
+      item_category: activeSection,
+    })
+  }, [merkzettel, activeSection])
+
+  const handleNext = useCallback(() => {
+    setSelectedImageIndex((prev) => (prev + 1) % images.length)
+  }, [images.length])
+
+  const handlePrev = useCallback(() => {
+    setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }, [images.length])
+
+  // Wechselt der Datenstand, während die Großansicht offen ist, kann der Index
+  // ins Leere zeigen. Das wird hier abgeleitet statt per Effekt nachgezogen:
+  // ein synchrones setState im Effekt löst eine zweite Renderrunde aus.
+  const selectedImage = selectedImageIndex !== null ? (images[selectedImageIndex] ?? null) : null
 
   return (
     <div className="bg-warm-bg min-h-screen pt-48 pb-24">
-      <SEO 
+      <SEO
         title="Lookbook — Inspiration für dein Zuhause"
         description="Lass dich von unseren Referenzen inspirieren. Badezimmer, Wohnräume und maßgefertigte Keramik-Unikate in höchster Qualität."
       />
 
       <AnimatePresence>
-        {selectedImageIndex !== null && (
-          <Lightbox 
-            image={currentSection.images[selectedImageIndex]} 
+        {selectedImage && (
+          <Lightbox
+            image={selectedImage}
+            categoryLabel={currentSection.title}
+            isPicked={merkzettel.has(selectedImage.id)}
+            onTogglePick={() => handleTogglePick(selectedImage)}
             onClose={() => setSelectedImageIndex(null)}
             onNext={handleNext}
             onPrev={handlePrev}
           />
         )}
       </AnimatePresence>
+
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
         <Reveal>
@@ -417,6 +96,7 @@ export default function Lookbook() {
           </h1>
           <p className="font-dm text-[1.1rem] text-warm-mittel max-w-2xl leading-relaxed">
             Materialien, Ideen, Details. Entdecke die Möglichkeiten moderner Keramik und lass dich von unseren Realisierungen inspirieren.
+            Was dir gefällt, kannst du mit dem Herz merken und uns mit deiner Anfrage schicken.
           </p>
         </Reveal>
       </div>
@@ -424,19 +104,18 @@ export default function Lookbook() {
       {/* Navigation */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
         <div className="flex flex-wrap gap-3 md:gap-4 border-b border-warm-anthrazit/10 pb-8">
-          {lookbookSections.map(section => (
+          {sections.map((section) => (
             <button
               key={section.id}
-              onClick={() => setActiveSection(section.id)}
+              type="button"
+              onClick={() => { setActiveSection(section.id); setSelectedImageIndex(null) }}
               className={`px-6 py-3 font-dm text-[0.82rem] font-semibold tracking-wider uppercase transition-all duration-500 relative ${
-                activeSection === section.id 
-                  ? 'text-warm-text' 
-                  : 'text-warm-mittel hover:text-warm-text'
+                activeSection === section.id ? 'text-warm-text' : 'text-warm-mittel hover:text-warm-text'
               }`}
             >
               {section.title}
               {activeSection === section.id && (
-                <motion.div 
+                <motion.div
                   layoutId="activeTab"
                   className="absolute bottom-0 left-0 right-0 h-[2px] bg-warm-stein"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
@@ -447,7 +126,7 @@ export default function Lookbook() {
         </div>
       </div>
 
-      {/* Active Section Content */}
+      {/* Aktive Kategorie */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <AnimatePresence mode="wait">
           <motion.div
@@ -464,12 +143,15 @@ export default function Lookbook() {
                   {currentSection.description}
                 </p>
               </div>
-              {currentSection.images.map((img, i) => (
-                <ImageCard 
-                  key={img.src} 
-                  image={img} 
-                  index={i} 
-                  onClick={() => setSelectedImageIndex(i)}
+              {images.map((img, i) => (
+                <ImageCard
+                  key={img.id}
+                  image={img}
+                  index={i}
+                  categoryLabel={currentSection.title}
+                  isPicked={merkzettel.has(img.id)}
+                  onTogglePick={() => handleTogglePick(img)}
+                  onOpen={() => setSelectedImageIndex(i)}
                 />
               ))}
             </div>
@@ -477,22 +159,21 @@ export default function Lookbook() {
         </AnimatePresence>
       </div>
 
-      {/* CTA Section */}
+      {/* CTA */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-32 mt-24">
         <div className="bg-dark-bg rounded-3xl p-12 md:p-24 text-center noise relative overflow-hidden">
           <Reveal>
             <h2 className="font-sora font-extralight text-[clamp(2rem,5vw,3.5rem)] text-inv-light leading-tight tracking-[-0.02em] mb-12 relative z-10">
               Vom Lookbook zur Realität.<br />Lass uns planen.
             </h2>
-            <Link 
+            <Link
               to="/kontakt"
               className="inline-block bg-inv-light text-dark-bg font-dm text-[0.7rem] uppercase tracking-[3px] px-12 py-6 rounded-full hover:bg-warm-mittel hover:text-inv-light transition-all duration-500 relative z-10"
             >
               Beratungstermin vereinbaren
             </Link>
           </Reveal>
-          
-          {/* Decorative elements */}
+
           <div className="absolute top-0 right-0 w-64 h-64 bg-warm-stein/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-warm-mittel/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         </div>
