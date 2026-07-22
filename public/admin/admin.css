@@ -115,3 +115,87 @@ input[type="file"] {
 }
 
 .klein { font-size: 0.8rem; color: var(--mid); margin-bottom: 0; }
+
+.kategorie { margin-bottom: 2.5rem; }
+
+.kategorie h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.9rem;
+}
+
+.anzahl {
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: var(--line);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--mid);
+}
+
+.fotos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+}
+
+.foto {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.5rem;
+  cursor: grab;
+}
+
+.foto.zieht { opacity: 0.4; }
+
+.foto img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 0.5rem;
+  pointer-events: none; /* sonst zieht der Browser das Bild statt der Kachel */
+}
+
+.foto .caption {
+  font-size: 0.82rem;
+  padding: 0.4rem 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.loeschen {
+  width: 100%;
+  margin: 0;
+  padding: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--mid);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.loeschen:hover { color: var(--fehler); border-color: var(--fehler); opacity: 1; }
+
+.statusleiste {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  background: var(--akzent);
+  color: #fff;
+  font-size: 0.85rem;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 18%);
+}
+
+.statusleiste.fehlerhaft { background: var(--fehler); }

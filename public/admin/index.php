@@ -95,6 +95,39 @@ $angemeldet = admin_is_logged_in();
       <button type="submit">Hochladen</button>
       <p class="klein">Große Handyfotos sind kein Problem — sie werden automatisch verkleinert und von Standortdaten befreit.</p>
     </form>
+
+    <?php $manifest = lookbook_read(); ?>
+    <?php foreach ($kategorieTitel as $key => $titel): ?>
+      <section class="kategorie" data-section="<?= htmlspecialchars($key, ENT_QUOTES, 'UTF-8') ?>">
+        <h2><?= htmlspecialchars($titel, ENT_QUOTES, 'UTF-8') ?>
+          <span class="anzahl"><?= count($manifest['sections'][$key]) ?></span>
+        </h2>
+
+        <?php if ($manifest['sections'][$key] === []): ?>
+          <p class="klein">Noch keine Fotos in dieser Kategorie.</p>
+        <?php else: ?>
+          <ul class="fotos">
+            <?php foreach ($manifest['sections'][$key] as $img): ?>
+              <li class="foto" draggable="true" data-id="<?= htmlspecialchars($img['id'], ENT_QUOTES, 'UTF-8') ?>">
+                <img src="<?= htmlspecialchars($img['src'], ENT_QUOTES, 'UTF-8') ?>" alt="" loading="lazy">
+                <input
+                  type="text"
+                  class="caption"
+                  value="<?= htmlspecialchars($img['caption'], ENT_QUOTES, 'UTF-8') ?>"
+                  placeholder="Bildunterschrift (optional)"
+                  maxlength="160"
+                  data-id="<?= htmlspecialchars($img['id'], ENT_QUOTES, 'UTF-8') ?>">
+                <button type="button" class="loeschen" data-id="<?= htmlspecialchars($img['id'], ENT_QUOTES, 'UTF-8') ?>">Löschen</button>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php endif; ?>
+      </section>
+    <?php endforeach; ?>
+
+    <div id="statusleiste" class="statusleiste" hidden></div>
+    <script>window.ADMIN_CSRF = <?= json_encode(admin_csrf_token()) ?>;</script>
+    <script src="admin.js"></script>
   </main>
 <?php endif; ?>
 </body>
