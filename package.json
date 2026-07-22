@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "start": "node server.js"
+    "start": "node server.js",
+    "lookbook:manifest": "node scripts/generate-lookbook-manifest.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.2.8",

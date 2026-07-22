@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Erzeugtes Lookbook-Manifest — gehoert per FTP nach <docroot>/uploads/, nicht ins Repo
+build-output
+
 # Hero API key — never commit the real config
 public/api/config.php
 api/config.php
