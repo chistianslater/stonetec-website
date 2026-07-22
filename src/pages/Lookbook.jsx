@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
 import ImageCard from '../components/lookbook/ImageCard.jsx'
 import Lightbox from '../components/lookbook/Lightbox.jsx'
+import MerkzettelBar from '../components/lookbook/MerkzettelBar.jsx'
 import { loadLookbook, fallbackSections } from '../lib/lookbookData.js'
 import { useMerkzettel } from '../hooks/useMerkzettel.js'
+import { parseShareParam, hasShareParam, stripShareParam } from '../lib/merkzettelShare.js'
 import { trackEvent } from '../lib/track.js'
 
 function Reveal({ children, delay = 0 }) {
@@ -28,13 +30,36 @@ export default function Lookbook() {
   const [activeSection, setActiveSection] = useState('badezimmer')
   const [selectedImageIndex, setSelectedImageIndex] = useState(null)
   const merkzettel = useMerkzettel()
+  const [sharedInfo, setSharedInfo] = useState(null) // {applied: number, missing: number}
 
   useEffect(() => {
     let cancelled = false
     loadLookbook().then((next) => {
-      if (!cancelled) setSections(next)
+      if (cancelled) return
+      setSections(next)
+
+      // Geteilten Link übernehmen — erst jetzt, weil wir den Bildbestand kennen
+      // müssen, um fehlende IDs benennen zu können.
+      if (typeof window === 'undefined' || !hasShareParam(window.location.search)) return
+      const wanted = parseShareParam(window.location.search)
+      const known = new Set(next.flatMap((s) => s.images.map((img) => img.id)))
+      const applied = wanted.filter((id) => known.has(id))
+
+      // Ersetzen, nicht ergänzen: der Empfänger soll genau das sehen, was
+      // geteilt wurde.
+      merkzettel.replaceAll(applied)
+      setSharedInfo({ applied: applied.length, missing: wanted.length - applied.length })
+      trackEvent('view_shared_selection', { item_count: applied.length })
+
+      // Parameter aus der Adresszeile nehmen, damit ein Neuladen die eigene
+      // Auswahl nicht erneut überschreibt.
+      const rest = stripShareParam(window.location.search)
+      window.history.replaceState({}, '', `${window.location.pathname}${rest}${window.location.hash}`)
     })
     return () => { cancelled = true }
+    // merkzettel.replaceAll ist über den Store stabil; der Effekt soll genau
+    // einmal beim Betreten der Seite laufen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const currentSection = useMemo(
@@ -100,6 +125,21 @@ export default function Lookbook() {
           </p>
         </Reveal>
       </div>
+
+      {sharedInfo && (
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-10">
+          <div className="rounded-2xl border border-warm-anthrazit/15 bg-warm-anthrazit/5 px-6 py-4">
+            <p className="font-dm text-[0.88rem] text-warm-text">
+              Geteilte Auswahl — {sharedInfo.applied === 1 ? '1 Bild' : `${sharedInfo.applied} Bilder`}
+              {sharedInfo.missing > 0 && (
+                <span className="text-warm-mittel">
+                  {' '}({sharedInfo.missing === 1 ? '1 Bild ist' : `${sharedInfo.missing} Bilder sind`} nicht mehr verfügbar)
+                </span>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Navigation */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 mb-16">
@@ -178,6 +218,8 @@ export default function Lookbook() {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-warm-mittel/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         </div>
       </div>
+
+      <MerkzettelBar sections={sections} />
     </div>
   )
 }
