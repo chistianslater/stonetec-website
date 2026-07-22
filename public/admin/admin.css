@@ -84,3 +84,34 @@ button:hover { opacity: 0.9; }
 .abmelden { color: var(--mid); font-size: 0.9rem; }
 
 .inhalt { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1.25rem 6rem; }
+
+.hinweis {
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  background: #eef3ee;
+  color: #2c4a2f;
+  font-size: 0.9rem;
+}
+
+.upload {
+  padding: 1.25rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.upload label { margin-top: 0.75rem; }
+.upload label:first-of-type { margin-top: 0; }
+
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+
+.klein { font-size: 0.8rem; color: var(--mid); margin-bottom: 0; }
