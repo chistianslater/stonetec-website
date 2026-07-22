@@ -5,6 +5,8 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
+require __DIR__ . '/lookbook_store.php';
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['status' => 'error', 'message' => 'Method not allowed']);
@@ -76,6 +78,33 @@ if ($days || $zeit) {
 }
 $message = trim($data['message'] ?? '');
 if ($message !== '') $lines[] = 'Nachricht: "' . $message . '"';
+
+// Merkzettel: die vom Besucher gemerkten Lookbook-Bilder als klickbare Links.
+// Bewusst Links statt Dateianhänge — das images-Format der Hero-API ist nicht
+// dokumentiert, Links funktionieren garantiert.
+$picks = $data['lookbookPicks'] ?? [];
+if (is_array($picks) && $picks !== []) {
+    // Feste Basis-URL statt HTTP_HOST: der Host-Header ist vom Aufrufer
+    // steuerbar und würde sonst fremde Links ins CRM tragen.
+    $siteUrl = rtrim(getenv('SITE_URL') ?: ($cfg['SITE_URL'] ?? 'https://stonetec-bocholt.de'), '/');
+    $entries = lookbook_resolve_ids(lookbook_read(), $picks, 20);
+
+    if ($entries !== []) {
+        $count = count($entries);
+        $kopf = 'Merkzettel (' . $count . ($count === 1 ? ' Bild' : ' Bilder');
+        if (count($picks) > $count) {
+            $kopf .= ' von ' . count($picks) . ' ausgewählten';
+        }
+        $kopf .= '):';
+
+        $block = [$kopf];
+        foreach ($entries as $img) {
+            $block[] = $siteUrl . $img['src'];
+        }
+        $lines[] = implode("\n", $block);
+    }
+}
+
 $comment = implode("\n", $lines);
 
 $payload = [
