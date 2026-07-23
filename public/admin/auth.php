@@ -26,6 +26,22 @@ function admin_config(): array
 function admin_password_hash(): string
 {
     $cfg = admin_config();
+
+    // Bevorzugt: base64-kodierter Hash aus der Umgebungsvariable.
+    // base64 enthält kein '$' — deshalb kann das Hosting-Panel den Wert nicht
+    // verändern (bcrypt-Hashes mit '$' werden dort zerstört, siehe die analoge
+    // GA4-Workaround-Logik in api/lead.php). Die Umgebungsvariable überlebt
+    // zudem jeden Rebuild des Webroots.
+    $b64 = getenv('ADMIN_PW_HASH_B64') ?: ($cfg['ADMIN_PW_HASH_B64'] ?? '');
+    if (is_string($b64) && $b64 !== '') {
+        $decoded = base64_decode($b64, true);
+        // Nur einen plausiblen bcrypt-Hash akzeptieren, keine Dekodier-Reste.
+        if (is_string($decoded) && str_starts_with($decoded, '$2')) {
+            return $decoded;
+        }
+    }
+
+    // Fallback: roher Hash aus Umgebung oder config.php (falls dort gesetzt).
     return (string) (getenv('ADMIN_PW_HASH') ?: ($cfg['ADMIN_PW_HASH'] ?? ''));
 }
 
