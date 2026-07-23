@@ -75,8 +75,8 @@ function admin_is_logged_in(): bool
 }
 
 /* ─── Drosselung ────────────────────────────────────────────────
-   Dateibasierter Zähler je IP unter /uploads/.private/throttle/.
-   Das Verzeichnis ist per .htaccess vollständig vom Web abgeschottet. */
+   Dateibasierter Zähler je IP unter <home>/lookbook-uploads/.private/throttle/.
+   Liegt ausserhalb public_html und ist zusätzlich per .htaccess abgeschottet. */
 
 function admin_private_dir(): string
 {
@@ -194,10 +194,10 @@ function admin_check_csrf(?string $token): bool
 }
 
 /* ─── Schutzdateien im Upload-Verzeichnis ─────────────────────
-   /uploads/ liegt nicht im Repo und wird zur Laufzeit angelegt — die
+   <home>/lookbook-uploads/ liegt nicht im Repo und wird zur Laufzeit angelegt — die
    Schutzdateien muss deshalb PHP schreiben, sonst werden sie beim Einrichten
-   vergessen. Die Website nutzt bereits .htaccess für ihr Routing, AllowOverride
-   ist also aktiv. */
+   vergessen. Die Ausführsperre ist dort unkritisch (der Ordner ist ohnehin nicht
+   web-erreichbar), schadet aber nicht und bleibt als doppelter Boden. */
 
 function admin_ensure_upload_guards(): void
 {

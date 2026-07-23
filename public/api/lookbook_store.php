@@ -1,9 +1,12 @@
 <?php
 // Gemeinsame Funktionen für das Lookbook-Manifest.
 //
-// Das Manifest liegt bewusst AUSSERHALB des Deploy-Baums unter <docroot>/uploads/.
-// Da dieses Verzeichnis nie Teil von dist/ ist, überlebt es jedes Website-Update.
-// Eingebunden von api/lookbook.php, api/lead.php und den Dateien unter admin/.
+// Das Manifest liegt bewusst AUSSERHALB von public_html, als Geschwister des
+// Webroots unter <home>/lookbook-uploads/. Hostinger baut public_html bei jedem
+// Deploy neu und löscht dabei alles Nicht-Repo — ein Ordner IM Webroot (früher
+// <docroot>/uploads/) überlebt das NICHT. Ausserhalb von public_html fasst der
+// Deploy nichts an, also überleben Manifest und hochgeladene Fotos jedes Update.
+// Eingebunden von api/lookbook.php, api/img.php, api/lead.php und admin/.
 
 declare(strict_types=1);
 
@@ -16,10 +19,16 @@ function lookbook_section_keys(): array
     return LOOKBOOK_SECTIONS;
 }
 
-/** <docroot>/uploads — sowohl von api/ als auch von admin/ aus eine Ebene höher. */
+/**
+ * <home>/lookbook-uploads — deploy-fest, weil ausserhalb public_html.
+ *
+ * Von api/  (public_html/api)   → dirname(__DIR__, 2) = <home>.
+ * Von admin/(public_html/admin) → dirname(__DIR__, 2) = <home>.
+ * Beide liegen genau eine Ebene unter public_html, die Rechnung stimmt für beide.
+ */
 function lookbook_dir(): string
 {
-    return dirname(__DIR__) . '/uploads';
+    return dirname(__DIR__, 2) . '/lookbook-uploads';
 }
 
 function lookbook_file(): string

@@ -12,8 +12,12 @@ dist
 dist-ssr
 *.local
 
-# Erzeugtes Lookbook-Manifest — gehoert per FTP nach <docroot>/uploads/, nicht ins Repo
+# Erzeugtes Lookbook-Manifest — gehoert nach <home>/lookbook-uploads/, nicht ins Repo
 build-output
+
+# Lokaler Upload-/Manifest-Ordner bei Tests mit `php -S` (auf dem Server liegt er
+# ausserhalb public_html). Darf nie ins Repo.
+/lookbook-uploads
 
 # Hero API key — never commit the real config
 public/api/config.php

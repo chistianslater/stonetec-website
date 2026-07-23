@@ -64,27 +64,43 @@ Der Kunde pflegt die Lookbook-Fotos selbst — ohne Build und ohne Deploy.
 ### Die eine Regel, die niemand brechen darf
 
 ```
-<docroot>/uploads/     ← beim Deploy NIEMALS löschen oder überschreiben
+<home>/lookbook-uploads/     ← liegt AUSSERHALB public_html, Deploy fasst es nicht an
 ```
 
 Hier liegen alle vom Kunden hochgeladenen Fotos **und** `lookbook.json` mit Reihenfolge
 und Bildunterschriften. Das Verzeichnis ist bewusst nicht Teil von `dist/` und existiert
-nicht im Repo. Ein „Webroot leeren und neu hochladen" vernichtet die gesamte Pflegearbeit
-des Kunden.
+nicht im Repo.
+
+**Warum ausserhalb von `public_html`?** Hostinger baut `public_html` bei **jedem** Deploy
+komplett neu und löscht dabei alles Nicht-Repo. Ein Upload-Ordner **im** Webroot (früher
+`<docroot>/uploads/`) überlebt das nicht. Als Geschwister des Webroots
+(`<home>/lookbook-uploads/`) wird er vom Deploy nicht angefasst und überlebt jedes Update.
+Die PHP-Dateien finden ihn über `dirname(__DIR__, 2) . '/lookbook-uploads'`
+(`api/lookbook_store.php`, `lookbook_dir()`).
+
+Weil dieser Ordner ausserhalb des Webroots liegt, sind hochgeladene Bilder nicht direkt
+per URL erreichbar — sie werden über das Passthrough-Skript `api/img.php` ausgeliefert
+(`src` = `/api/img.php?p=<kategorie>/<datei>`). Bestandsbilder unter `/images/lookbook/...`
+bleiben im Repo und werden direkt ausgeliefert.
 
 Beim Deploy werden ausschließlich die Inhalte von `dist/` ersetzt: `index.html`,
 `assets/`, `api/`, `admin/`, `images/`.
 
 ### Ersteinrichtung (einmalig)
 
-1. **Manifest erzeugen und hochladen**
+1. **Initiales Manifest an die persistente Stelle legen**
 
-   ```bash
-   npm run lookbook:manifest
-   ```
+   Das Manifest muss einmalig unter `<home>/lookbook-uploads/lookbook.json` liegen,
+   sonst würde der erste Upload ein Manifest mit nur diesem einen Bild erzeugen und die
+   45 Bestandsbilder verdrängen. Zwei Wege:
 
-   Ergebnis: `build-output/uploads/lookbook.json` mit den 45 Bestandsbildern. Diese Datei
-   per FTP nach `<docroot>/uploads/lookbook.json` legen.
+   - **Per Seeder (kein FTP nötig):** `api/seed.php` einmal im Browser aufrufen — es
+     schreibt die 45 Bestandsbilder an die persistente Stelle, aber nur falls dort noch
+     kein Manifest liegt (überschreibt nie vorhandene Daten). Danach `api/seed.php`
+     wieder löschen.
+   - **Per FTP:** `npm run lookbook:manifest` erzeugt `build-output/uploads/lookbook.json`
+     mit den 45 Bestandsbildern; diese Datei nach `<home>/lookbook-uploads/lookbook.json`
+     legen.
 
 2. **Admin-Passwort setzen**
 
@@ -100,9 +116,11 @@ Beim Deploy werden ausschließlich die Inhalte von `dist/` ersetzt: `index.html`
 
 3. **Schreibrechte prüfen**
 
-   Der Webserver-Benutzer muss in `<docroot>/uploads/` schreiben dürfen. Beim ersten
-   Aufruf von `/admin/` legt PHP `uploads/.htaccess` und `uploads/.private/` selbst an —
-   beides schottet hochgeladene Dateien gegen Ausführung ab.
+   Der Webserver-Benutzer muss in `<home>/lookbook-uploads/` schreiben dürfen (das ist
+   erfüllt, wenn `api/probe.php`/`api/seed.php` „schreibbar: JA" bzw. „geschrieben" melden).
+   Beim ersten Aufruf von `/admin/` legt PHP dort `.htaccess` und `.private/` selbst an —
+   beides schottet hochgeladene Dateien gegen Ausführung ab. (Die Ausführsperre ist hier
+   unkritisch, weil der Ordner ohnehin nicht web-erreichbar ist, schadet aber nicht.)
 
 4. **Funktion prüfen**
 

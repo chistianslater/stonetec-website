@@ -76,9 +76,11 @@ if ($aktion === 'upload') {
 
         // $manifest waechst mit — dadurch kann lookbook_new_id() denselben
         // Zufallswert innerhalb eines Uploads nicht zweimal vergeben.
+        // Die Datei liegt jetzt ausserhalb public_html und ist nicht direkt per
+        // URL erreichbar — der Manifest-src zeigt deshalb auf den Passthrough.
         $manifest['sections'][$kategorie][] = [
             'id'      => lookbook_new_id($manifest),
-            'src'     => '/uploads/lookbook/' . $kategorie . '/' . $ergebnis['file'],
+            'src'     => '/api/img.php?p=' . $kategorie . '/' . $ergebnis['file'],
             'caption' => '',
         ];
         $erfolgreich++;
@@ -180,11 +182,15 @@ if ($aktion === 'delete') {
 
     // Nur selbst hochgeladene Dateien werden gelöscht. Bestandsbilder unter
     // /images/ gehören zum Deploy und verschwinden lediglich aus der Liste.
-    if (str_starts_with($treffer['src'], '/uploads/lookbook/')) {
-        $pfad = lookbook_dir() . substr($treffer['src'], strlen('/uploads'));
+    // Hochgeladene Bilder tragen den Passthrough-src /api/img.php?p=<kat>/<datei>.
+    $praefix = '/api/img.php?p=';
+    if (str_starts_with($treffer['src'], $praefix)) {
+        $rel  = substr($treffer['src'], strlen($praefix));
+        $pfad = lookbook_dir() . '/lookbook/' . $rel;
         $echt = realpath($pfad);
-        $wurzel = realpath(lookbook_dir());
-        // Doppelter Boden gegen Pfad-Ausbrüche über ../ im Manifest.
+        // Wurzel bewusst eng auf .../lookbook: so kann ein manipuliertes Manifest
+        // mit ../ nicht das Manifest selbst oder .private/ treffen.
+        $wurzel = realpath(lookbook_dir() . '/lookbook');
         if ($echt !== false && $wurzel !== false && str_starts_with($echt, $wurzel . DIRECTORY_SEPARATOR)) {
             @unlink($echt);
         }
