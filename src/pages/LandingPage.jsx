@@ -1,6 +1,45 @@
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO.jsx'
+import AnfrageWizard from '../components/anfrage/AnfrageWizard.jsx'
+import AuswahlVorschau from '../components/anfrage/AuswahlVorschau.jsx'
+import ProjektGalerie from '../components/landing/ProjektGalerie.jsx'
+import ProzessSchritte from '../components/landing/ProzessSchritte.jsx'
+import KundenStimmen from '../components/landing/KundenStimmen.jsx'
+import FaqBlock from '../components/landing/FaqBlock.jsx'
+
+// Bad-Projekte aus /projekte (echte Referenzen, keine Stockfotos)
+const badGallery = [
+  { src: '/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-1.jpg', title: 'Privates Bad' },
+  { src: '/images/projekte/Derksen/stonetec-projekt-derksen-1.jpg', title: 'Natürliches Bad' },
+  { src: '/images/projekte/Weidemann/stonetec-projekt-weidemann-1.jpg', title: 'Exklusives Bad' },
+  { src: '/images/projekte/Klump/stonetec-projekt-klump-1.jpg', title: 'Stilvolles Badkonzept' },
+  { src: '/images/projekte/Moritz/stonetec-projekt-moritz-1.jpg', title: 'Harmonisches Bad' },
+  { src: '/images/projekte/Kempkes_&_Storm/stonetec-projekt-kempkes__storm-1.jpg', title: 'Modernes Retro-Bad' },
+]
+
+const badFaq = [
+  {
+    frage: 'Was kostet eine Badsanierung?',
+    antwort: 'Das hängt von Größe, Ausstattung und Aufwand ab — seriös lässt sich das erst nach einem Blick auf dein Bad sagen. Deshalb bekommst du nach Erstberatung und 3D-Planung ein Festpreis-Angebot: ein Preis, keine versteckten Kosten, Festpreis-Garantie.',
+  },
+  {
+    frage: 'Wie lange dauert die Sanierung?',
+    antwort: 'Je nach Umfang unterschiedlich — nach der Planung bekommst du einen verbindlichen Zeitplan, und daran halten wir uns. Ein Team koordiniert alle Schritte, du musst nichts organisieren.',
+  },
+  {
+    frage: 'Muss ich mich um andere Gewerke kümmern?',
+    antwort: 'Nein. Alles aus einer Hand heißt bei uns: ein Ansprechpartner, keine Subunternehmer, keine Koordination zwischen verschiedenen Firmen.',
+  },
+  {
+    frage: 'Wie funktioniert die 3D-Badplanung?',
+    antwort: 'Wir erstellen ein fotorealistisches Modell deines Bads, in dem du Materialien, Formate und Verlegemuster virtuell ausprobierst. Du entscheidest erst, wenn du siehst, wie es wird.',
+  },
+  {
+    frage: 'In welcher Region seid ihr unterwegs?',
+    antwort: 'Unser Zuhause ist Bocholt — wir arbeiten am gesamten Niederrhein und im Westmünsterland, vom Kreis Borken über Wesel und Duisburg bis Düsseldorf.',
+  },
+]
 
 const landingPages = {
   'fliesenleger-bocholt': {
@@ -30,8 +69,8 @@ const landingPages = {
   'badsanierung-bocholt': {
     title: 'Badsanierung Bocholt — Alles aus einer Hand',
     description: 'Plane deine Badsanierung in Bocholt mit stonetec. Von der 3D-Planung bis zur meisterhaften Verlegung — wir schaffen dein Traumbad.',
-    heroTitle: 'Badsanierung in Bocholt. Ehrlich & meisterhaft.',
-    heroSubtitle: 'Vom ersten Entwurf bis zur letzten Fuge. Wir koordinieren dein Projekt und garantieren ein Ergebnis auf Meister-Niveau.',
+    heroTitle: 'Badsanierung vom Meisterbetrieb. Ehrlich & meisterhaft.',
+    heroSubtitle: 'Vom ersten Entwurf bis zur letzten Fuge — von Bocholt über den Niederrhein bis Düsseldorf. Wir koordinieren dein Projekt und garantieren ein Ergebnis auf Meister-Niveau.',
     heroImage: '/images/website-extract/Harmonie-im-Bad-1.jpg',
     contentImage: '/images/projekte/Van_Gessel/stonetec-projekt-van_gessel-1.jpg',
     content: (
@@ -49,7 +88,9 @@ const landingPages = {
       '3D-Badplanung',
       'Termintreue',
       'Saubere Baustelle'
-    ]
+    ],
+    gallery: badGallery,
+    faq: badFaq
   },
   'grossformatfliesen-verlegen': {
     title: 'Großformatfliesen verlegen — Präzision bis 320 cm',
@@ -121,7 +162,9 @@ const landingPages = {
       'Echte Materialtexturen',
       'Virtual Reality Erlebnis',
       'Zentimetergenaue Planung'
-    ]
+    ],
+    gallery: badGallery,
+    faq: badFaq
   }
 }
 
@@ -158,7 +201,7 @@ export default function LandingPage() {
       <SEO title={page.title} description={page.description} />
       
       {/* Hero */}
-      <section className="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden bg-black">
+      <section className="relative min-h-[70vh] py-28 md:py-36 flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
           <motion.img 
             initial={{ scale: 1.1 }}
@@ -182,6 +225,23 @@ export default function LandingPage() {
               </h1>
               <p className="font-dm text-xl text-inv-muted max-w-2xl leading-relaxed">
                 {page.heroSubtitle}
+              </p>
+              <div className="mt-10 flex flex-wrap items-center gap-5">
+                <a
+                  href="#anfrage"
+                  className="px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300"
+                >
+                  Kostenlose Erstberatung
+                </a>
+                <a
+                  href="tel:+4928719912480"
+                  className="px-8 py-4 border border-inv-muted/40 text-inv-light font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:border-inv-light transition-colors duration-300"
+                >
+                  Jetzt anrufen
+                </a>
+              </div>
+              <p className="mt-6 font-dm text-[0.8rem] tracking-wide text-inv-muted">
+                <span className="text-warm-stein">★</span> 5,0 bei Google (31 Rezensionen) &middot; 7 Fliesenlegermeister &middot; Festpreis-Garantie
               </p>
             </Reveal>
           </div>
@@ -221,17 +281,89 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-12">
-                  <Link 
-                    to="/kontakt"
+                <div className="mt-12 space-y-4">
+                  <a
+                    href="#anfrage"
                     className="block w-full py-4 bg-warm-bg text-warm-text text-center font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300"
                   >
                     Jetzt anfragen
-                  </Link>
+                  </a>
+                  <a
+                    href="tel:+4928719912480"
+                    className="block w-full py-4 border border-inv-muted/40 text-inv-light text-center font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:border-inv-light transition-colors duration-300"
+                  >
+                    +49 (0) 2871 99 12 480
+                  </a>
                 </div>
               </div>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* Projekt-Galerie — visueller Beweis vor der Anfrage */}
+      {page.gallery && (
+        <section className="py-24 px-6 md:px-12 lg:px-20">
+          <div className="max-w-7xl mx-auto">
+            <Reveal>
+              <ProjektGalerie items={page.gallery} />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* Prozess — nimmt die Angst vor der Baustelle */}
+      {page.gallery && (
+        <section className="py-24 px-6 md:px-12 lg:px-20 bg-dark-bg">
+          <div className="max-w-7xl mx-auto">
+            <Reveal>
+              <ProzessSchritte />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* Kundenstimmen — echte Google-Rezensionen */}
+      {page.gallery && (
+        <section className="py-24 px-6 md:px-12 lg:px-20">
+          <div className="max-w-7xl mx-auto">
+            <Reveal>
+              <KundenStimmen />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ — Einwandbehandlung */}
+      {page.faq && (
+        <section className="py-24 px-6 md:px-12 lg:px-20 bg-white/50">
+          <div className="max-w-7xl mx-auto">
+            <Reveal>
+              <FaqBlock items={page.faq} />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* Anfrage Section — Formular direkt auf der Seite, kein Umweg über /kontakt */}
+      <section id="anfrage" className="py-24 px-6 md:px-12 lg:px-20 scroll-mt-24">
+        <div className="max-w-3xl mx-auto">
+          <Reveal>
+            <div className="mb-6">
+              <h2 className="font-sora font-extralight text-[clamp(1.9rem,3.2vw,2.8rem)] text-warm-text tracking-[-0.02em] leading-[1.05]">
+                Jetzt unverbindlich anfragen
+              </h2>
+              <p className="font-dm text-[0.95rem] text-warm-mittel mt-3 max-w-xl leading-relaxed">
+                In wenigen Schritten — wir melden uns danach telefonisch bei dir.
+                Oder ruf direkt an:{' '}
+                <a href="tel:+4928719912480" className="whitespace-nowrap text-warm-text underline underline-offset-4 hover:text-warm-anthrazit transition-colors">
+                  +49 (0) 2871 99 12 480
+                </a>
+              </p>
+            </div>
+            <AuswahlVorschau />
+            <AnfrageWizard />
+          </Reveal>
         </div>
       </section>
 
@@ -243,17 +375,17 @@ export default function LandingPage() {
               Bereit für dein Projekt?
             </h2>
             <p className="font-dm text-lg text-warm-mittel mb-12 leading-relaxed">
-              Lass uns gemeinsam über deine Ideen sprechen. Ehrlich, kompetent und auf den Punkt. 
+              Lass uns gemeinsam über deine Ideen sprechen. Ehrlich, kompetent und auf den Punkt.
               Besuche uns in unserem Showroom in Bocholt oder vereinbare direkt einen Termin.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Link 
-                to="/kontakt"
+              <a
+                href="#anfrage"
                 className="px-10 py-5 bg-dark-bg text-inv-light font-dm text-sm font-semibold tracking-widest uppercase hover:bg-black transition-all duration-500"
               >
                 Termin vereinbaren
-              </Link>
-              <Link 
+              </a>
+              <Link
                 to="/projekte"
                 className="px-10 py-5 border border-warm-anthrazit/20 text-warm-text font-dm text-sm font-semibold tracking-widest uppercase hover:bg-warm-anthrazit/5 transition-all duration-500"
               >
