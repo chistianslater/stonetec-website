@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-export default function SEO({ title, description, keywords, image, canonical }) {
+export default function SEO({ title, description, keywords, image, canonical, jsonLd }) {
   const location = useLocation()
   const baseUrl = 'https://stonetec-bocholt.de'
   const fullTitle = title ? `${title} | stonetec Bocholt` : 'stonetec — Räume, die man spürt. | Premium Fliesenverlegung Bocholt'
@@ -34,6 +34,25 @@ export default function SEO({ title, description, keywords, image, canonical }) 
     const linkCanonical = document.querySelector('link[rel="canonical"]')
     if (linkCanonical) linkCanonical.setAttribute('href', fullCanonical)
   }, [fullTitle, fullDescription, fullKeywords, fullImage, fullCanonical])
+
+  // Strukturierte Daten (z. B. FAQPage) als eigenes JSON-LD-Script pflegen —
+  // pro Seite maximal eins; beim Routenwechsel ohne jsonLd wird es entfernt.
+  const jsonLdString = jsonLd ? JSON.stringify(jsonLd) : null
+  useEffect(() => {
+    const SCRIPT_ID = 'seo-jsonld'
+    let el = document.getElementById(SCRIPT_ID)
+    if (!jsonLdString) {
+      if (el) el.remove()
+      return
+    }
+    if (!el) {
+      el = document.createElement('script')
+      el.type = 'application/ld+json'
+      el.id = SCRIPT_ID
+      document.head.appendChild(el)
+    }
+    el.textContent = jsonLdString
+  }, [jsonLdString])
 
   return null
 }

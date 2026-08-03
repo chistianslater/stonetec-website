@@ -196,10 +196,23 @@ export default function LandingPage() {
     )
   }
 
+  // FAQPage-Schema für Seiten mit FAQ-Block (Rich Results / AI Overviews).
+  const faqJsonLd = page.faq
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: page.faq.map((f) => ({
+          '@type': 'Question',
+          name: f.frage,
+          acceptedAnswer: { '@type': 'Answer', text: f.antwort },
+        })),
+      }
+    : undefined
+
   return (
     <div className="bg-warm-bg min-h-screen">
-      <SEO title={page.title} description={page.description} />
-      
+      <SEO title={page.title} description={page.description} jsonLd={faqJsonLd} />
+
       {/* Hero */}
       <section className="relative min-h-[70vh] py-28 md:py-36 flex items-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">

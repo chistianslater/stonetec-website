@@ -2,6 +2,13 @@
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
+
+  # 301: rankende Alt-URLs der Vorgängerseite auf die neuen Magazin-Ratgeber
+  # (liefen vorher in den SPA-Catch-all und damit auf eine Soft-404).
+  RewriteRule ^die-fugenfarbe/?$ /magazin/die-fugenfarbe [R=301,L]
+  RewriteRule ^wie-finde-ich-das-passende-fliesenformat/?$ /magazin/wie-finde-ich-das-passende-fliesenformat [R=301,L]
+  RewriteRule ^wohnwelt-fahnenbruck-voerde/?$ /projekte [R=301,L]
+  RewriteRule ^lumina-badausstellung/?$ /projekte [R=301,L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]

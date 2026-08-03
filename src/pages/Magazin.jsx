@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SEO from '../components/SEO.jsx'
+import { ratgeberArticles } from '../data/ratgeberArticles.js'
 
 /* ─── Reveal Component ───────────────────────────────────────── */
 function Reveal({ children, className = '', delay = 0 }) {
@@ -19,6 +20,8 @@ function Reveal({ children, className = '', delay = 0 }) {
 
 /* ─── Magazine Data ──────────────────────────────────────────── */
 export const articles = [
+  // Ratgeber (August 2026) — retten die rankenden Alt-URLs, siehe data/ratgeberArticles.js
+  ...ratgeberArticles,
   {
     id: 'grossformatfliesen-verlegen-in-bocholt',
     title: 'Großformatfliesen verlegen in Bocholt – Präzision, Technik und Meisterkompetenz',
