@@ -22,10 +22,15 @@ export function getGaClientId() {
   return parts.length >= 4 ? `${parts[2]}.${parts[3]}` : null
 }
 
-// _ga_<STREAM> = "GS1.1.<session_id>.<...>"  →  session_id = 3. Feld
+// GS1-Format: "GS1.1.<session_id>.<...>" (Punkt-getrennt)
+// GS2-Format (gtag.js seit 2025): "GS2.1.s<session_id>$o<n>$g<n>$..." —
+// das 3. Punkt-Feld trägt die restlichen Werte $-getrennt und die session_id
+// mit "s"-Präfix.
 export function getGaSessionId() {
   const raw = readCookie(SESSION_COOKIE)
   if (!raw) return null
   const parts = raw.split('.')
-  return parts.length >= 3 ? parts[2] : null
+  if (parts.length < 3) return null
+  const match = parts[2].match(/^s?(\d+)/)
+  return match ? match[1] : null
 }

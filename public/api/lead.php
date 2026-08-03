@@ -203,7 +203,9 @@ function sendGa4LeadEvent(array $data, array $cfg): void {
         $clientId = random_int(100000000, 999999999) . '.' . time();
     }
 
-    $params = ['method' => 'form', 'form' => 'anfrage_wizard'];
+    // engagement_time_msec ist Pflicht, damit das MP-Event in den
+    // GA4-Standardreports/Sessions gezählt wird (Google-MP-Doku).
+    $params = ['method' => 'form', 'form' => 'anfrage_wizard', 'engagement_time_msec' => 100];
     $sessionId = trim((string) ($data['ga_session_id'] ?? ''));
     if ($sessionId !== '') {
         $params['session_id'] = $sessionId;

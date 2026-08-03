@@ -5,6 +5,8 @@ import WizardProgress from './WizardProgress.jsx'
 import { useMerkzettel } from '../../hooks/useMerkzettel.js'
 import { StepVorhaben, StepBereich, StepOrt, StepProjekt, StepTermin, StepKontakt } from './WizardSteps.jsx'
 import { submitLead } from '../../lib/heroLeadClient.js'
+import { getGaClientId } from '../../lib/gaClient.js'
+import { trackEvent } from '../../lib/track.js'
 
 const INITIAL = {
   vorhaben: '', bereich: [], zipcode: '', city: '', message: '',
@@ -45,8 +47,16 @@ export default function AnfrageWizard() {
     try {
       await submitLead({ ...data, lookbookPicks: merkzettel.ids })
       setStatus('success')
-      // Conversion `generate_lead` wird jetzt serverseitig in lead.php gefeuert
-      // (GA4 Measurement Protocol) — zuverlässig und immun gegen Ad-Blocker.
+      // Conversion `generate_lead`: primär serverseitig in lead.php (GA4
+      // Measurement Protocol, attribuiert über client_id/session_id aus den
+      // _ga-Cookies — immun gegen Ad-Blocker). Ohne _ga-Cookie (Consent
+      // verweigert) kann das MP-Event keiner Session zugeordnet werden;
+      // dann feuert zusätzlich der cookielose gtag-Ping, den Google für
+      // Conversion-Modeling (Ads-Import) nutzt. Nie beides mit Attribution
+      // → kein Doppelzählen in den GA4-Reports.
+      if (!getGaClientId()) {
+        trackEvent('generate_lead', { method: 'form', form: 'anfrage_wizard' })
+      }
     } catch (err) {
       setStatus('error')
       setErrorMsg(err.message || 'Senden fehlgeschlagen.')
