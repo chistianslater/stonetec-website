@@ -26,10 +26,10 @@ export default function CookieBanner() {
     <div
       role="dialog"
       aria-label="Cookie-Hinweis"
-      className="fixed inset-x-0 bottom-0 z-50 p-4 md:p-6"
+      className="fixed inset-x-0 bottom-0 z-50 p-3 md:p-6"
     >
-      <div className="mx-auto max-w-3xl rounded-xl bg-dark-bg p-6 shadow-2xl shadow-black/30 md:flex md:items-center md:gap-8">
-        <p className="font-dm text-[0.85rem] text-inv-muted leading-relaxed">
+      <div className="mx-auto max-w-3xl rounded-xl bg-dark-bg p-4 shadow-2xl shadow-black/30 md:flex md:items-center md:gap-8 md:p-6">
+        <p className="font-dm text-[0.78rem] text-inv-muted leading-snug md:text-[0.85rem] md:leading-relaxed">
           Wir verwenden notwendige Cookies für den Betrieb der Seite. Mit deiner
           Einwilligung nutzen wir zusätzlich Statistik-Dienste (Google Analytics,
           Microsoft Clarity), um die Seite zu verbessern. Mehr dazu in der{' '}
@@ -38,18 +38,18 @@ export default function CookieBanner() {
           </Link>
           .
         </p>
-        <div className="mt-5 flex shrink-0 gap-3 md:mt-0">
+        <div className="mt-3 flex shrink-0 gap-2 md:mt-0 md:gap-3">
           <button
             type="button"
             onClick={() => choose('declined')}
-            className="flex-1 whitespace-nowrap rounded-lg border border-inv-light/25 px-5 py-3 font-dm text-[0.8rem] font-medium text-inv-light hover:border-inv-light/50 transition-colors md:flex-none"
+            className="flex-1 whitespace-nowrap rounded-lg border border-inv-light/25 px-4 py-2.5 font-dm text-[0.78rem] font-medium text-inv-light hover:border-inv-light/50 transition-colors md:flex-none md:px-5 md:py-3 md:text-[0.8rem]"
           >
             Nur notwendige
           </button>
           <button
             type="button"
             onClick={() => choose('accepted')}
-            className="flex-1 whitespace-nowrap rounded-lg bg-warm-bg px-5 py-3 font-dm text-[0.8rem] font-semibold uppercase tracking-wider text-warm-text hover:bg-white transition-colors md:flex-none"
+            className="flex-1 whitespace-nowrap rounded-lg bg-warm-bg px-4 py-2.5 font-dm text-[0.78rem] font-semibold uppercase tracking-wider text-warm-text hover:bg-white transition-colors md:flex-none md:px-5 md:py-3 md:text-[0.8rem]"
           >
             Alle akzeptieren
           </button>

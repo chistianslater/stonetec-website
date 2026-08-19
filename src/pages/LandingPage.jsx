@@ -7,6 +7,7 @@ import ProjektGalerie from '../components/landing/ProjektGalerie.jsx'
 import ProzessSchritte from '../components/landing/ProzessSchritte.jsx'
 import KundenStimmen from '../components/landing/KundenStimmen.jsx'
 import FaqBlock from '../components/landing/FaqBlock.jsx'
+import StickyCta from '../components/landing/StickyCta.jsx'
 
 // Bad-Projekte aus /projekte (echte Referenzen, keine Stockfotos)
 const badGallery = [
@@ -408,6 +409,8 @@ export default function LandingPage() {
           </Reveal>
         </div>
       </section>
+
+      <StickyCta />
     </div>
   )
 }
