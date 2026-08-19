@@ -1,6 +1,14 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # 301: Kanonischer Host — www. und http:// bündeln auf https://stonetec-bocholt.de
+  # (GSC führte http(s)://www… als eigene Seite mit separaten Klicks; das teilt
+  # Ranking-Signale. Muss VOR allen anderen Regeln stehen.)
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^(.*)$ https://stonetec-bocholt.de/$1 [R=301,L]
+
   RewriteRule ^index\.html$ - [L]
 
   # 301: rankende Alt-URLs der Vorgängerseite auf die neuen Magazin-Ratgeber
