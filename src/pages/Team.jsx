@@ -116,18 +116,18 @@ const teamGroups = [
       {
         id: 18,
         name: 'Noah Pokart',
-        role: 'Angehender Fliesen-, Platten- und Mosaiklegermeister',
+        role: 'Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Die nächste Generation des Handwerks.',
         image: '/images/website-extract/Noah-Pokart.jpg',
-        expertise: ['Innovation', 'Lernen', 'Präzision']
+        expertise: ['Innovation', 'Präzision', 'Technik']
       },
       {
         id: 19,
         name: 'Ben Brendjes',
-        role: 'Angehender Fliesen-, Platten- und Mosaiklegermeister',
+        role: 'Fliesen-, Platten- und Mosaiklegermeister',
         quote: 'Meisterschaft liegt in der Familie.',
         image: '/images/website-extract/Ben-Brendjes.jpg',
-        expertise: ['Handwerk', 'Zukunft', 'Details']
+        expertise: ['Handwerk', 'Details', 'Bäder']
       }
     ]
   },
