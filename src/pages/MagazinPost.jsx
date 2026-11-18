@@ -3,6 +3,16 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { articles } from './Magazin.jsx'
 import SEO from '../components/SEO.jsx'
+import ArticleCta from '../components/magazin/ArticleCta.jsx'
+import { splitContentAtCta } from '../lib/articleCta.js'
+
+const proseClasses = `magazin-content prose prose-lg prose-stone max-w-none font-dm text-warm-text/90 leading-relaxed
+  prose-headings:font-sora prose-headings:font-light prose-headings:tracking-tight prose-headings:text-warm-text
+  prose-h2:text-3xl prose-h2:mt-20 prose-h2:mb-8 prose-h2:pb-4 prose-h2:border-b prose-h2:border-warm-anthrazit/5
+  prose-h3:text-xl prose-h3:mt-12 prose-h3:mb-4 prose-h3:font-medium
+  prose-p:mb-8 prose-p:text-[1.1rem]
+  prose-blockquote:border-l-warm-stein prose-blockquote:italic prose-blockquote:text-2xl prose-blockquote:font-light prose-blockquote:my-16 prose-blockquote:pl-8 prose-blockquote:text-warm-mittel
+  prose-ul:my-8 prose-li:mb-2`
 
 /* ─── Hover Preview Component ────────────────────────────────── */
 function HoverPreview({ image, isVisible }) {
@@ -63,6 +73,8 @@ export default function MagazinPost() {
     )
   }
 
+  const contentParts = splitContentAtCta(article.content)
+
   return (
     <article className="bg-warm-bg min-h-screen pt-48 pb-24">
       <SEO 
@@ -107,18 +119,18 @@ export default function MagazinPost() {
 
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 md:px-12">
-        <div 
-          className="magazin-content prose prose-lg prose-stone max-w-none font-dm text-warm-text/90 leading-relaxed
-            prose-headings:font-sora prose-headings:font-light prose-headings:tracking-tight prose-headings:text-warm-text
-            prose-h2:text-3xl prose-h2:mt-20 prose-h2:mb-8 prose-h2:pb-4 prose-h2:border-b prose-h2:border-warm-anthrazit/5
-            prose-h3:text-xl prose-h3:mt-12 prose-h3:mb-4 prose-h3:font-medium
-            prose-p:mb-8 prose-p:text-[1.1rem]
-            prose-blockquote:border-l-warm-stein prose-blockquote:italic prose-blockquote:text-2xl prose-blockquote:font-light prose-blockquote:my-16 prose-blockquote:pl-8 prose-blockquote:text-warm-mittel
-            prose-ul:my-8 prose-li:mb-2
-          "
-          dangerouslySetInnerHTML={{ __html: article.content }}
+        <div
+          className={proseClasses}
+          dangerouslySetInnerHTML={{ __html: contentParts.before }}
         />
-        
+        <ArticleCta cta={article.cta} articleId={article.id} />
+        {contentParts.after && (
+          <div
+            className={`${proseClasses} mt-16`}
+            dangerouslySetInnerHTML={{ __html: contentParts.after }}
+          />
+        )}
+
         {/* Post Navigation */}
         <div className="mt-32 grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-warm-anthrazit/10 pt-16 relative">
           {prevArticle ? (

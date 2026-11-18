@@ -16,6 +16,15 @@ export const ratgeberArticles = [
     date: 'August 2026',
     image: '/images/projekte/Derksen/stonetec-projekt-derksen-1.jpg',
     featured: false,
+    // Brücke zur Anfrage: der Artikel bringt die meisten organischen Klicks
+    // der Domain, aber bislang keine Anfragen (Maßnahme 2026-10-7).
+    cta: {
+      label: 'Du planst gerade dein Bad?',
+      title: 'Fliese, Fuge, Licht: Sieh dein Bad, bevor es entsteht.',
+      text: 'Wir planen dein Bad fotorealistisch in 3D, mit deinen Fliesen und der passenden Fuge. Danach bekommst du einen Festpreis. 7 Fliesenlegermeister, ein Ansprechpartner, keine Subunternehmer.',
+      primary: { label: 'Bad planen', to: '/badsanierung-bocholt' },
+      secondary: { label: 'So läuft die 3D-Planung', to: '/3d-badplanung-bocholt' },
+    },
     content: `
       <div class="space-y-12">
         <section>
@@ -84,7 +93,9 @@ export const ratgeberArticles = [
             </table>
           </div>
         </section>
-
+      </div>
+<!--cta-->
+      <div class="space-y-12">
         <section>
           <h2 class="text-3xl font-light tracking-tight mb-6">Silbergraue Fugen: der Allrounder</h2>
           <p>Silbergrau ist aus gutem Grund die meistverarbeitete Fugenfarbe: Sie ist hell genug, um Flächen ruhig und großzügig wirken zu lassen, aber unempfindlicher als Reinweiß. Zu weißen Fliesen sind silbergraue Fugen die Empfehlung Nummer eins — die Fläche bleibt hell, die Fuge auch nach Jahren gepflegt. Auch zu hellgrauen Fliesen, Betonoptik und vielen Steinoptiken passt Silbergrau nahezu immer.</p>
