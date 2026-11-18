@@ -8,6 +8,7 @@ import ProzessSchritte from '../components/landing/ProzessSchritte.jsx'
 import KundenStimmen from '../components/landing/KundenStimmen.jsx'
 import FaqBlock from '../components/landing/FaqBlock.jsx'
 import StickyCta from '../components/landing/StickyCta.jsx'
+import { HeroOffer, TrustPoints } from '../components/landing/HeroOffer.jsx'
 
 // Bad-Projekte aus /projekte (echte Referenzen, keine Stockfotos)
 const badGallery = [
@@ -84,6 +85,20 @@ const landingPages = {
         </p>
       </>
     ),
+    // Angebot + Vertrauen above the fold (Ads-Maßnahme 2026-10-7): Paid-Besucher
+    // sollen ohne Scrollen sehen, was sie bekommen und wer es macht.
+    heroOffer: {
+      label: 'So läuft dein Bad bei uns',
+      steps: ['Erstberatung', '3D-Planung deines Bads', 'Festpreis-Angebot'],
+      text: 'Erst siehst du dein neues Bad in 3D. Dann bekommst du einen Festpreis, und der gilt.',
+    },
+    primaryCta: 'Bad in 3D planen lassen',
+    trustPoints: [
+      '7 Fliesenlegermeister im eigenen Betrieb',
+      'Ein Ansprechpartner von der Beratung bis zur Abnahme',
+      'Keine Subunternehmer',
+      '5,0 bei Google (31 Rezensionen)',
+    ],
     features: [
       'Komplettbetreuung',
       '3D-Badplanung',
@@ -210,12 +225,16 @@ export default function LandingPage() {
       }
     : undefined
 
+  // Seiten mit Angebotsblock: Hero straffen, damit Angebot + CTA mobil
+  // ohne Scrollen sichtbar sind (Untertitel erst ab Tablet).
+  const isCompactHero = Boolean(page.heroOffer)
+
   return (
     <div className="bg-warm-bg min-h-screen">
       <SEO title={page.title} description={page.description} jsonLd={faqJsonLd} />
 
       {/* Hero */}
-      <section className="relative min-h-[70vh] py-28 md:py-36 flex items-center overflow-hidden bg-black">
+      <section className={`relative min-h-[70vh] ${isCompactHero ? 'pt-32 pb-16 md:py-36' : 'py-28 md:py-36'} flex items-center overflow-hidden bg-black`}>
         <div className="absolute inset-0 z-0">
           <motion.img 
             initial={{ scale: 1.1 }}
@@ -234,29 +253,34 @@ export default function LandingPage() {
               <p className="font-dm text-[0.68rem] font-medium tracking-[3px] uppercase text-inv-muted mb-4">
                 Expertise & Handwerk
               </p>
-              <h1 className="font-sora font-extralight text-[clamp(2.5rem,6vw,5rem)] text-inv-light leading-[1.1] tracking-[-0.03em] max-w-4xl mb-8">
+              <h1 className={`font-sora font-extralight ${isCompactHero ? 'text-[clamp(2.1rem,5vw,4.25rem)] mb-6' : 'text-[clamp(2.5rem,6vw,5rem)] mb-8'} text-inv-light leading-[1.1] tracking-[-0.03em] max-w-4xl`}>
                 {page.heroTitle}
               </h1>
-              <p className="font-dm text-xl text-inv-muted max-w-2xl leading-relaxed">
+              <p className={`font-dm text-xl text-inv-muted max-w-2xl leading-relaxed ${isCompactHero ? 'hidden md:block' : ''}`}>
                 {page.heroSubtitle}
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-5">
+              <HeroOffer offer={page.heroOffer} />
+              <div className={`${page.heroOffer ? 'mt-8' : 'mt-10'} flex flex-wrap items-center gap-5`}>
                 <a
                   href="#anfrage"
                   className="px-8 py-4 bg-warm-bg text-warm-text font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:bg-white transition-colors duration-300"
                 >
-                  Kostenlose Erstberatung
+                  {page.primaryCta || 'Kostenlose Erstberatung'}
                 </a>
                 <a
                   href="tel:+4928719912480"
                   className="px-8 py-4 border border-inv-muted/40 text-inv-light font-dm text-[0.82rem] font-semibold tracking-wider uppercase hover:border-inv-light transition-colors duration-300"
                 >
-                  Jetzt anrufen
+                  {page.trustPoints ? 'Anrufen: 02871 99 12 480' : 'Jetzt anrufen'}
                 </a>
               </div>
-              <p className="mt-6 font-dm text-[0.8rem] tracking-wide text-inv-muted">
-                <span className="text-warm-stein">★</span> 5,0 bei Google (31 Rezensionen) &middot; 7 Fliesenlegermeister &middot; Festpreis-Garantie
-              </p>
+              {page.trustPoints ? (
+                <TrustPoints items={page.trustPoints} />
+              ) : (
+                <p className="mt-6 font-dm text-[0.8rem] tracking-wide text-inv-muted">
+                  <span className="text-warm-stein">★</span> 5,0 bei Google (31 Rezensionen) &middot; 7 Fliesenlegermeister &middot; Festpreis-Garantie
+                </p>
+              )}
             </Reveal>
           </div>
         </div>
