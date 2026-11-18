@@ -159,10 +159,27 @@ const landingPages = {
   '3d-badplanung-bocholt': {
     title: '3D-Badplanung Bocholt — Dein Bad vorab erleben',
     description: 'Erlebe dein neues Badezimmer in 3D, bevor der erste Stein liegt. stonetec bietet fotorealistische Planung und Virtual Reality in Bocholt.',
-    heroTitle: '3D-Planung. Deine Vision wird greifbar.',
-    heroSubtitle: 'Kein Rätselraten mehr. Wir visualisieren dein Projekt mit echten Materialien und Lichtstimmungen — für maximale Entscheidungssicherheit.',
-    heroImage: '/images/website-extract/Raumgefuehl-8-2-scaled-1.jpg',
-    contentImage: '/images/website-extract/Raumgefuehl-4-3.jpg',
+    heroTitle: '3D-Badplanung in Bocholt. Erst sehen, dann Festpreis.',
+    heroSubtitle: 'Wir planen dein Bad fotorealistisch, mit echten Materialien und deinem Licht. Danach bekommst du einen Festpreis, der gilt.',
+    // Landingpage-Erfahrung (Ads-Maßnahme 2026-10-8): leichtere Bilder,
+    // Festpreis-Angebot im Hero, Anfrage direkt nach dem ersten Inhaltsblock.
+    heroImage: '/images/lp/3d-badplanung-hero-1920.webp',
+    heroImageSize: { width: 1920, height: 1314 },
+    contentImage: '/images/lp/3d-badplanung-raum-1200.webp',
+    contentImageSize: { width: 1200, height: 1128 },
+    heroOffer: {
+      label: 'So kommst du zu deinem Bad',
+      steps: ['Erstberatung', '3D-Planung deines Bads', 'Festpreis-Angebot'],
+      text: 'Du siehst Fliesen, Fugen und Licht in deinem Raum, bevor gebaut wird. Danach steht der Preis fest.',
+    },
+    primaryCta: '3D-Planung anfragen',
+    trustPoints: [
+      '7 Fliesenlegermeister im eigenen Betrieb',
+      'Ein Ansprechpartner von der Beratung bis zur Abnahme',
+      'Keine Subunternehmer',
+      '5,0 bei Google (31 Rezensionen)',
+    ],
+    anfrageEarly: true,
     content: (
       <>
         <p>
@@ -229,6 +246,31 @@ export default function LandingPage() {
   // ohne Scrollen sichtbar sind (Untertitel erst ab Tablet).
   const isCompactHero = Boolean(page.heroOffer)
 
+  // Anfrage Section — Formular direkt auf der Seite, kein Umweg über /kontakt.
+  // Mit `anfrageEarly` direkt nach dem ersten Inhaltsblock statt am Seitenende.
+  const anfrageSection = (
+    <section id="anfrage" className="py-24 px-6 md:px-12 lg:px-20 scroll-mt-24">
+      <div className="max-w-3xl mx-auto">
+        <Reveal>
+          <div className="mb-6">
+            <h2 className="font-sora font-extralight text-[clamp(1.9rem,3.2vw,2.8rem)] text-warm-text tracking-[-0.02em] leading-[1.05]">
+              Jetzt unverbindlich anfragen
+            </h2>
+            <p className="font-dm text-[0.95rem] text-warm-mittel mt-3 max-w-xl leading-relaxed">
+              In wenigen Schritten — wir melden uns danach telefonisch bei dir.
+              Oder ruf direkt an:{' '}
+              <a href="tel:+4928719912480" className="whitespace-nowrap text-warm-text underline underline-offset-4 hover:text-warm-anthrazit transition-colors">
+                +49 (0) 2871 99 12 480
+              </a>
+            </p>
+          </div>
+          <AuswahlVorschau />
+          <AnfrageWizard />
+        </Reveal>
+      </div>
+    </section>
+  )
+
   return (
     <div className="bg-warm-bg min-h-screen">
       <SEO title={page.title} description={page.description} jsonLd={faqJsonLd} />
@@ -240,8 +282,11 @@ export default function LandingPage() {
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            src={page.heroImage} 
+            src={page.heroImage}
             alt={page.heroTitle}
+            {...page.heroImageSize}
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-[#06060640] to-transparent" />
@@ -299,8 +344,11 @@ export default function LandingPage() {
             <Reveal delay={0.2}>
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl mt-12">
                 <img 
-                  src={page.contentImage} 
-                  alt={page.title} 
+                  src={page.contentImage}
+                  alt={page.title}
+                  {...page.contentImageSize}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -338,6 +386,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {page.anfrageEarly && anfrageSection}
 
       {/* Projekt-Galerie — visueller Beweis vor der Anfrage */}
       {page.gallery && (
@@ -383,27 +433,7 @@ export default function LandingPage() {
         </section>
       )}
 
-      {/* Anfrage Section — Formular direkt auf der Seite, kein Umweg über /kontakt */}
-      <section id="anfrage" className="py-24 px-6 md:px-12 lg:px-20 scroll-mt-24">
-        <div className="max-w-3xl mx-auto">
-          <Reveal>
-            <div className="mb-6">
-              <h2 className="font-sora font-extralight text-[clamp(1.9rem,3.2vw,2.8rem)] text-warm-text tracking-[-0.02em] leading-[1.05]">
-                Jetzt unverbindlich anfragen
-              </h2>
-              <p className="font-dm text-[0.95rem] text-warm-mittel mt-3 max-w-xl leading-relaxed">
-                In wenigen Schritten — wir melden uns danach telefonisch bei dir.
-                Oder ruf direkt an:{' '}
-                <a href="tel:+4928719912480" className="whitespace-nowrap text-warm-text underline underline-offset-4 hover:text-warm-anthrazit transition-colors">
-                  +49 (0) 2871 99 12 480
-                </a>
-              </p>
-            </div>
-            <AuswahlVorschau />
-            <AnfrageWizard />
-          </Reveal>
-        </div>
-      </section>
+      {!page.anfrageEarly && anfrageSection}
 
       {/* CTA Section */}
       <section className="py-32 px-6 md:px-12 lg:px-20">
