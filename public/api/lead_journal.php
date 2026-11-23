@@ -239,10 +239,47 @@ function resolveGa4Secret(array $cfg): string
 }
 
 /**
+ * Ort der privaten Konfigurationsdatei: <home>/domains/<domain>/lead-config.php, also
+ * ein Geschwister von public_html. Dort überlebt sie jeden Deploy (Hostinger baut
+ * public_html bei jedem Build neu) und ist nicht per URL erreichbar.
+ *
+ * Warum nicht nur Umgebungsvariablen: Die Variablen im hPanel gelten bei Vite-Publish
+ * nur für den BUILD (".env" beim Bauen), nicht für PHP zur Laufzeit. Hostinger empfiehlt
+ * für PHP-Anwendungen ausdrücklich eine Konfigurationsdatei außerhalb des Repos.
+ * Für Tests per LEAD_PRIVATE_CONFIG überschreibbar.
+ */
+function lead_private_config_file(): string
+{
+    $override = getenv('LEAD_PRIVATE_CONFIG');
+    if (is_string($override) && $override !== '') {
+        return $override;
+    }
+    return dirname(__DIR__, 2) . '/lead-config.php';
+}
+
+/**
+ * Lädt die Konfiguration: zuerst api/config.php (Altbestand), darüber die private
+ * Datei außerhalb des Webroots (hat Vorrang). Liefert immer ein Array.
+ */
+function lead_load_config(): array
+{
+    $merged = [];
+    foreach ([__DIR__ . '/config.php', lead_private_config_file()] as $file) {
+        if (is_readable($file)) {
+            $cfg = @include $file;
+            if (is_array($cfg)) {
+                $merged = array_merge($merged, $cfg);
+            }
+        }
+    }
+    return $merged;
+}
+
+/**
  * Liest eine Konfigurationsvariable robust. Auf Shared Hosting (LiteSpeed/Apache) ist
  * eine Umgebungsvariable je nach Setup nur in getenv(), nur in $_SERVER/$_ENV oder mit
  * dem Präfix REDIRECT_ sichtbar (z. B. nach internem Rewrite). Reihenfolge: Umgebung,
- * danach config.php. Leerer String = nicht gesetzt.
+ * danach die Konfigurationsdateien (siehe lead_load_config). Leerer String = nicht gesetzt.
  */
 function lead_env(string $name, array $cfg = []): string
 {

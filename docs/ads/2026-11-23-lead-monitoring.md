@@ -26,20 +26,29 @@ lead_health.php (Token) ──► Wächter (täglich)  ──► Telegram bei Ab
 
 ## Einrichtung
 
-### 1. Server (Hostinger → Umgebungsvariablen, dann deployen)
+### 1. Server: Konfigurationsdatei außerhalb des Webroots
 
-| Variable | Wert |
-|---|---|
-| `LEAD_HEALTH_TOKEN` | Zufallswert, mind. 24 Zeichen: `openssl rand -hex 24` |
-| `LEAD_FALLBACK_EMAIL` | Adresse, die Notfall-Anfragen bekommt (z. B. Tims Postfach) |
+**Wichtig:** Die Umgebungsvariablen im hPanel gelten bei diesem Hosting (Vite-Publish) nur beim *Build* („variables loaded from .env“),
+nicht für PHP zur Laufzeit. Deshalb liest PHP seine Geheimnisse aus einer Datei **neben** `public_html`, die jeden Deploy überlebt
+(wie `lookbook-uploads/`): `/home/<user>/domains/stonetec-bocholt.de/lead-config.php`. Anlegen im hPanel-Dateimanager:
 
-Hinweis: Hostinger zerstört `$` in Umgebungsvariablen (siehe Admin-Hash-Commit) — nur Hex/Buchstaben verwenden.
+```php
+<?php return [
+    'HERO_API_KEY'        => '…',
+    'GA4_API_SECRET'      => '…',
+    'GA4_MEASUREMENT_ID'  => 'G-2CWR9BSMGL',
+    'LEAD_HEALTH_TOKEN'   => '…',   // openssl rand -hex 24 — nur Hex/Buchstaben, kein "$"
+    'LEAD_FALLBACK_EMAIL' => '…',   // Adresse, die Notfall-Anfragen bekommt
+    'ADMIN_PW_HASH_B64'   => '…',   // optional, falls das Lookbook-Admin dieselbe Quelle nutzen soll
+];
+```
+Dateirechte 0640. Datei nie committen. Vorlage: `public/api/config.example.php`.
 
-Prüfen nach dem Deploy:
+Prüfen nach dem Anlegen (kein Deploy nötig):
 ```bash
 curl -s -H "X-Lead-Token: $LEAD_HEALTH_TOKEN" "https://stonetec-bocholt.de/api/lead_health.php?days=7&check_ga4=1"
 ```
-Erwartet: `config` mit vier `true`, `ga4_check.ok: true`. Ohne Token → 401.
+Erwartet: `config` mit `hero_key_set`, `ga4_secret_set`, `fallback_mail_set`, `private_config_found` alle `true`, `ga4_check.ok: true`. Ohne Token → 401.
 
 ### 2. Wächter (Mac mini, täglich)
 

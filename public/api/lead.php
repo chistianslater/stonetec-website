@@ -15,10 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Konfiguration: Umgebungsvariablen haben Vorrang, sonst config.php (nicht im Repo).
-$cfg = @include __DIR__ . '/config.php';
-if (!is_array($cfg)) {
-    $cfg = [];
-}
+$cfg = lead_load_config();
 $key = lead_env('HERO_API_KEY', $cfg);
 
 $data = json_decode(file_get_contents('php://input'), true);
