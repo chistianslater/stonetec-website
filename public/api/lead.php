@@ -6,6 +6,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 require __DIR__ . '/lookbook_store.php';
+require __DIR__ . '/lead_journal.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -51,12 +52,31 @@ if ($errors) {
     exit;
 }
 
-if (!$key) {
-    error_log('[lead] HERO_API_KEY fehlt');
-    http_response_code(500);
-    echo json_encode(['status' => 'error', 'message' => 'Serverkonfiguration unvollständig.']);
-    exit;
-}
+// Journal: Eingang der (gültigen) Anfrage festhalten, BEVOR irgendein externer
+// Dienst angefragt wird. So bleibt jede Anfrage nachvollziehbar, auch wenn Hero
+// oder GA4 ausfallen. Keine Klartext-Kontaktdaten, nur Hash + technische Werte.
+$leadId = lead_journal_new_id();
+lead_journal_append([
+    'id'            => $leadId,
+    'stage'         => 'received',
+    'gclid'         => lead_journal_clean_click_id($data['gclid'] ?? null),
+    'gbraid'        => lead_journal_clean_click_id($data['gbraid'] ?? null),
+    'wbraid'        => lead_journal_clean_click_id($data['wbraid'] ?? null),
+    'consent'       => lead_journal_clean_consent($data['consent'] ?? null),
+    'path'          => lead_journal_clean_path($data['landing_path'] ?? null),
+    'has_ga_client' => trim((string) ($data['ga_client_id'] ?? '')) !== '',
+]);
+lead_journal_prune_sometimes();
+
+// Bricht die Verarbeitung ab, bevor Hero oder Fallback-Mail beantwortet haben
+// (PHP-Fehler, Timeout), bleibt der Eintrag sonst ohne Ausgang. Dann einen
+// Fehlschlag festhalten, damit der Wächter die Anfrage als VERLOREN erkennt.
+$leadSettled = false;
+register_shutdown_function(function () use (&$leadSettled, $leadId): void {
+    if (!$leadSettled) {
+        lead_journal_append(['id' => $leadId, 'stage' => 'hero', 'ok' => false, 'code' => -1]);
+    }
+});
 
 // Lesbaren Kommentar bauen (erscheint im Hero-Logbuch).
 $vorhabenLabels  = ['neubau' => 'Neubau', 'sanierung' => 'Sanierung', 'reparatur' => 'Reparatur'];
@@ -71,8 +91,10 @@ $bereich = implode(', ', array_map(fn($b) => $bereichLabels[$b] ?? $b, $bereichA
 if ($bereich === '') $bereich = '—';
 
 $lines = ["Vorhaben: $vorhaben · Bereich: $bereich"];
-$days = implode(', ', array_map(fn($d) => $weekdayLabels[$d] ?? $d, $data['weekdays'] ?? []));
-$zeit = implode(' / ', array_map(fn($t) => $tageszeitLabels[$t] ?? $t, $data['daytimes'] ?? []));
+$weekdays = is_array($data['weekdays'] ?? null) ? $data['weekdays'] : [];
+$daytimes = is_array($data['daytimes'] ?? null) ? $data['daytimes'] : [];
+$days = implode(', ', array_map(fn($d) => $weekdayLabels[$d] ?? $d, $weekdays));
+$zeit = implode(' / ', array_map(fn($t) => $tageszeitLabels[$t] ?? $t, $daytimes));
 if ($days || $zeit) {
     $lines[] = 'Erreichbarkeit: ' . ($days ?: 'flexibel') . ($zeit ? " – $zeit" : '');
 }
@@ -131,70 +153,71 @@ if ($phone !== '') $payload['customer']['phone_mobile'] = $phone;
 $city = trim($data['city'] ?? '');
 if ($city !== '') $payload['address']['city'] = $city;
 
-$heroUrl = getenv('HERO_API_URL') ?: 'https://login.hero-software.de/api/v1/Projects/create';
-$ch = curl_init($heroUrl);
-curl_setopt_array($ch, [
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST           => true,
-    CURLOPT_HTTPHEADER     => ['Content-Type: application/json', 'Authorization: Bearer ' . $key],
-    CURLOPT_POSTFIELDS     => json_encode($payload),
-    CURLOPT_TIMEOUT        => 20,
-]);
-$response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$curlErr  = curl_error($ch);
-curl_close($ch);
+// Übermittlung an Hero. Jede Stufe landet im Journal; schlägt Hero fehl, geht die
+// Anfrage — wenn LEAD_FALLBACK_EMAIL gesetzt ist — per Mail an den Betrieb, damit
+// kein Lead verloren geht. Nur wenn auch das scheitert, sieht der Besucher einen
+// Fehler.
+$heroCode = 0;
+$heroOk = false;
+if (!$key) {
+    error_log('[lead] HERO_API_KEY fehlt');
+} else {
+    $heroUrl = getenv('HERO_API_URL') ?: 'https://login.hero-software.de/api/v1/Projects/create';
+    $ch = curl_init($heroUrl);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_HTTPHEADER     => ['Content-Type: application/json', 'Authorization: Bearer ' . $key],
+        CURLOPT_POSTFIELDS     => json_encode($payload),
+        CURLOPT_TIMEOUT        => 20,
+    ]);
+    $response = curl_exec($ch);
+    $heroCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlErr  = curl_error($ch);
 
-if ($curlErr) {
-    error_log('[lead] cURL-Fehler: ' . $curlErr);
-    http_response_code(500);
-    echo json_encode(['status' => 'error', 'message' => 'Unerwarteter Fehler.']);
-    exit;
+    if ($curlErr) {
+        error_log('[lead] cURL-Fehler: ' . $curlErr);
+    } elseif ($heroCode < 200 || $heroCode >= 300) {
+        error_log('[lead] Hero-Fehler ' . $heroCode . ' ' . substr((string) $response, 0, 500));
+    } else {
+        $heroOk = true;
+    }
 }
-if ($httpCode < 200 || $httpCode >= 300) {
-    error_log('[lead] Hero-Fehler ' . $httpCode . ' ' . substr((string) $response, 0, 500));
-    http_response_code(502);
-    echo json_encode(['status' => 'error', 'message' => 'Übermittlung fehlgeschlagen.']);
+lead_journal_append(['id' => $leadId, 'stage' => 'hero', 'ok' => $heroOk, 'code' => $heroCode]);
+$leadSettled = true;
+
+$delivered = $heroOk;
+if (!$heroOk) {
+    $mailOk = sendLeadFallbackMail($data, $comment, $cfg, $leadId);
+    lead_journal_append(['id' => $leadId, 'stage' => 'mail', 'ok' => $mailOk, 'code' => 0]);
+    $delivered = $mailOk;
+}
+
+if (!$delivered) {
+    http_response_code($key ? 502 : 500);
+    echo json_encode(['status' => 'error', 'message' => $key ? 'Übermittlung fehlgeschlagen.' : 'Serverkonfiguration unvollständig.']);
     exit;
 }
 
 // Server-seitige GA4-Conversion (Measurement Protocol): feuert `generate_lead`
 // unabhängig von Browser, Consent-Timing, Ad-Blockern und 503-Drosselung.
-// Fehler hier brechen die Erfolgsantwort an den Nutzer NIE ab.
-sendGa4LeadEvent($data, $cfg);
+// Fehler hier brechen die Erfolgsantwort an den Nutzer NIE ab — sie landen im Journal.
+$ga4 = sendGa4LeadEvent($data, $cfg);
+lead_journal_append(['id' => $leadId, 'stage' => 'ga4', 'ok' => $ga4['ok'], 'code' => $ga4['code']]);
 
 echo json_encode(['status' => 'success']);
-
-/**
- * Löst den GA4 Measurement-Protocol-Secret robust auf: zuerst korrekt benannte
- * Env-Variable/config, dann Fallback über einen Env-Key, dessen Name auf
- * `A4_API_SECRET` endet — toleriert Panel-Tippfehler/Propagationsverzögerung
- * beim Hosting (der Wert liegt vor, nur unter abweichendem Namen).
- */
-function resolveGa4Secret(array $cfg): string {
-    $s = getenv('GA4_API_SECRET') ?: ($cfg['GA4_API_SECRET'] ?? '');
-    if ($s !== '') {
-        return $s;
-    }
-    foreach (array_merge($_ENV, $_SERVER, getenv() ?: []) as $k => $v) {
-        if (is_string($k) && is_string($v) && $v !== '' && preg_match('/A4_API_SECRET$/i', $k)) {
-            return $v;
-        }
-    }
-    return '';
-}
 
 /**
  * Sendet das `generate_lead`-Conversion-Event serverseitig an GA4
  * (Measurement Protocol). Attribuiert über die vom Browser mitgeschickte
  * client_id/session_id an dieselbe Session (Google-Ads-Attribution bleibt erhalten).
  */
-function sendGa4LeadEvent(array $data, array $cfg): void {
+function sendGa4LeadEvent(array $data, array $cfg): array {
     $measurementId = getenv('GA4_MEASUREMENT_ID') ?: ($cfg['GA4_MEASUREMENT_ID'] ?? 'G-2CWR9BSMGL');
     $apiSecret     = resolveGa4Secret($cfg);
     if ($apiSecret === '') {
         error_log('[lead] GA4_API_SECRET fehlt – generate_lead nicht serverseitig gesendet');
-        return;
+        return ['ok' => false, 'code' => 0];
     }
 
     $clientId = trim((string) ($data['ga_client_id'] ?? ''));
@@ -229,9 +252,43 @@ function sendGa4LeadEvent(array $data, array $cfg): void {
     $resp = curl_exec($ch);
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $err  = curl_error($ch);
-    curl_close($ch);
 
-    if ($err !== '' || $code < 200 || $code >= 300) {
+    $ok = $err === '' && $code >= 200 && $code < 300;
+    if (!$ok) {
         error_log('[lead] GA4 MP Fehler ' . $code . ' ' . $err . ' ' . substr((string) $resp, 0, 300));
     }
+    return ['ok' => $ok, 'code' => $code];
+}
+
+/**
+ * Notfall-Weg, wenn Hero die Anfrage nicht annimmt: schickt die Anfrage per Mail
+ * an LEAD_FALLBACK_EMAIL (Umgebungsvariable oder config.php). Ohne gesetzte
+ * Adresse passiert nichts (Rückgabe false). Kopfzeilen-Injection verhindert $clean
+ * (entfernt CR/LF); Reply-To wird zusätzlich nur bei gültiger Adresse gesetzt.
+ */
+function sendLeadFallbackMail(array $data, string $comment, array $cfg, string $leadId): bool {
+    $to = getenv('LEAD_FALLBACK_EMAIL') ?: ($cfg['LEAD_FALLBACK_EMAIL'] ?? '');
+    if (!is_string($to) || filter_var($to, FILTER_VALIDATE_EMAIL) === false) {
+        return false;
+    }
+    $clean = fn($v): string => trim(str_replace(["\r", "\n"], ' ', (string) $v));
+    $body = implode("\n", [
+        'Diese Anfrage konnte NICHT an Hero übermittelt werden und kommt deshalb per Mail.',
+        'Bitte manuell in Hero anlegen. (Referenz: ' . $leadId . ')',
+        '',
+        'Name:    ' . $clean($data['firstName'] ?? '') . ' ' . $clean($data['lastName'] ?? ''),
+        'E-Mail:  ' . $clean($data['email'] ?? ''),
+        'Telefon: ' . $clean($data['phone'] ?? ''),
+        'PLZ/Ort: ' . $clean($data['zipcode'] ?? '') . ' ' . $clean($data['city'] ?? ''),
+        '',
+        $comment,
+    ]);
+    $replyTo = filter_var($clean($data['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+    $headers = array_filter([
+        'From: StoneTec Website <noreply@stonetec-bocholt.de>',
+        $replyTo !== false ? 'Reply-To: ' . $replyTo : null,
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+    ]);
+    return @mail($to, '=?UTF-8?B?' . base64_encode('Anfrage per Notfall-Weg (Hero nicht erreichbar)') . '?=', $body, implode("\r\n", $headers));
 }

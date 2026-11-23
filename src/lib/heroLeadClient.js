@@ -1,4 +1,6 @@
 import { getGaClientId, getGaSessionId } from './gaClient.js'
+import { getClickIds } from './adsClickId.js'
+import { getConsent } from './consent.js'
 
 export async function submitLead(formData) {
   // GA client_id/session_id mitschicken, damit die serverseitige Conversion
@@ -7,6 +9,11 @@ export async function submitLead(formData) {
     ...formData,
     ga_client_id: getGaClientId(),
     ga_session_id: getGaSessionId(),
+    // Für das Lead-Journal (lead.php): Klick-ID, Einwilligungsstand und Landingpage
+    // machen die Anfrage unabhängig von GA4 an die Anzeige rückführbar.
+    ...getClickIds(),
+    consent: getConsent(),
+    landing_path: typeof window === 'undefined' ? null : (window.location?.pathname ?? null),
   }
   const res = await fetch('/api/lead.php', {
     method: 'POST',

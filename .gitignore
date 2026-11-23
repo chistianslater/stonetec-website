@@ -33,3 +33,4 @@ api/config.php
 *.njsproj
 *.sln
 *.sw?
+/lead-journal
