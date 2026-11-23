@@ -19,7 +19,7 @@ $cfg = @include __DIR__ . '/config.php';
 if (!is_array($cfg)) {
     $cfg = [];
 }
-$key = getenv('HERO_API_KEY') ?: ($cfg['HERO_API_KEY'] ?? '');
+$key = lead_env('HERO_API_KEY', $cfg);
 
 $data = json_decode(file_get_contents('php://input'), true);
 if (!is_array($data)) {
@@ -267,8 +267,8 @@ function sendGa4LeadEvent(array $data, array $cfg): array {
  * (entfernt CR/LF); Reply-To wird zusätzlich nur bei gültiger Adresse gesetzt.
  */
 function sendLeadFallbackMail(array $data, string $comment, array $cfg, string $leadId): bool {
-    $to = getenv('LEAD_FALLBACK_EMAIL') ?: ($cfg['LEAD_FALLBACK_EMAIL'] ?? '');
-    if (!is_string($to) || filter_var($to, FILTER_VALIDATE_EMAIL) === false) {
+    $to = lead_env('LEAD_FALLBACK_EMAIL', $cfg);
+    if (filter_var($to, FILTER_VALIDATE_EMAIL) === false) {
         return false;
     }
     $clean = fn($v): string => trim(str_replace(["\r", "\n"], ' ', (string) $v));
