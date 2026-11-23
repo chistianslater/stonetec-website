@@ -11,8 +11,8 @@ Formular ──► lead.php ──► (1) Lead-Journal  (jede Anfrage, jede Stuf
                       ├─► (2) Hero (CRM)    ── bei Fehler: Fallback-Mail an LEAD_FALLBACK_EMAIL
                       └─► (3) GA4 Measurement Protocol  (Ergebnis wird im Journal festgehalten)
 
-lead_health.php (Token) ──► Wächter (täglich)  ──► Telegram bei Abweichung
-                        └─► Offline-Upload (täglich) ──► Google Ads (uploadClickConversions)
+lead_health.php (Token) ──► Wächter (täglich 08:00) ──► Mail bei Abweichung
+                        └─► Offline-Upload (GEPARKT, siehe Abschnitt 3)
 ```
 
 | Baustein | Datei | Aufgabe |
@@ -22,7 +22,7 @@ lead_health.php (Token) ──► Wächter (täglich)  ──► Telegram bei Ab
 | Health | `public/api/lead_health.php` | Token-geschützt: Kennzahlen, Konfigurationsstatus, GA4-Debug-Prüfung, Export pro Anfrage. |
 | Klick-ID | `src/lib/adsClickId.js` | gclid/gbraid/wbraid aus der URL; Speicherung nur nach Zustimmung. |
 | Wächter | `scripts/lead-watchdog.mjs` | Gleicht Journal ↔ GA4 ↔ Ads ab, meldet per Telegram. |
-| Upload | `scripts/ads-offline-upload.mjs` | Meldet Anfragen mit Klick-ID + Einwilligung als Offline-Conversion an Ads zurück. |
+| Upload (geparkt) | `scripts/ads-offline-upload.mjs` | Würde Anfragen mit Klick-ID + Einwilligung als Offline-Conversion an Ads melden — für dieses Konto von Google nicht freigeschaltet (siehe Abschnitt 3). |
 
 ## Einrichtung
 
@@ -70,14 +70,17 @@ Trockenlauf ohne Versand/Zustand: `--dry`.
 Geprüft werden u. a.: Endpunkt erreichbar, Konfiguration vollständig, Hero-/GA4-Zustellfehler, **verlorene Anfragen** (eingegangen, aber weder Hero noch Mail — auch bei PHP-Abstürzen), keine Leads trotz Traffic,
 Journal ↔ GA4 (14-Tage-Fenster, 2 Tage Verzug), Anfragen mit Klick-ID ohne Ads-Conversion.
 
-### 3. Offline-Upload nach Google Ads (erst nach Freigabe)
+### 3. Offline-Upload nach Google Ads — GEPARKT (Stand 23.11.2026)
 
-1. Trockenlauf: `node scripts/ads-offline-upload.mjs --create-action` (validateOnly, ändert nichts).
-2. Anlegen: `… --create-action --apply` → Conversion-Aktion „StoneTec Lead (Server)", **sekundär** (steuert kein Bidding).
-3. Die ID aus `resourceName` als `ADS_OFFLINE_CONVERSION_ACTION_ID` setzen.
-4. `node scripts/ads-offline-upload.mjs` (zeigt, was hochgeladen würde) → `--validate` → `--apply`.
-5. Nach einigen Wochen vergleichen: stimmen Journal, GA4 und Offline-Upload überein? **Erst dann** entscheiden, ob die Server-Aktion
-   die primäre Lead-Conversion wird (und `generate_lead` aus GA4 auf sekundär geht) — niemals beide primär (Doppelzählung).
+Das Skript `scripts/ads-offline-upload.mjs` ist gebaut und im Trockenlauf geprüft, wird aber **nicht eingesetzt**:
+
+- Die Conversion-Aktion „StoneTec Lead (Server)" (ID `7914066457`, Typ Klick-Upload, **sekundär**) existiert in Konto `1011974649`.
+- Google lehnt den Upload für dieses Konto ab: `CUSTOMER_NOT_ALLOWLISTED_FOR_THIS_FEATURE` — `UploadClickConversions` ist nur noch für Altnutzer
+  freigeschaltet, neue Integrationen müssen die **Data Manager API** nutzen (voraussichtlich mit neuem OAuth-Scope).
+- Entscheidung 23.11.2026: nicht umsetzen. Der GA4-Import von `generate_lead` bleibt der Weg zu Ads; der Wächter warnt, wenn Anfragen mit
+  Klick-ID in Ads nicht ankommen.
+- Die Aktion **nicht primär** schalten (sonst Doppelzählung mit `generate_lead`). Kein `--apply` mit dem Skript.
+- Falls später gewünscht: Skript auf die Data Manager API umstellen; die Aktion bleibt dafür nutzbar.
 
 ## Datenschutz
 
