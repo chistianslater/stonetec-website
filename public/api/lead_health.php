@@ -35,9 +35,13 @@ if (!is_array($cfg)) {
     $cfg = [];
 }
 
-$expected = getenv('LEAD_HEALTH_TOKEN') ?: ($cfg['LEAD_HEALTH_TOKEN'] ?? '');
-if (!is_string($expected) || strlen($expected) < 24) {
-    health_fail(503, 'Nicht konfiguriert');
+$expected = lead_env('LEAD_HEALTH_TOKEN', $cfg);
+if (strlen($expected) < 24) {
+    // Nur Namen (keine Werte) der sichtbaren LEAD_*-Variablen: zeigt, ob die Variable
+    // überhaupt bei PHP ankommt oder unter anderem Namen/zu kurz vorliegt.
+    http_response_code(503);
+    echo json_encode(['status' => 'error', 'message' => 'Nicht konfiguriert', 'visible_lead_vars' => lead_env_names(), 'token_length_ok' => false]);
+    exit;
 }
 // Manche Shared-Hosting-Setups entfernen den Authorization-Header; X-Lead-Token ist der Ersatz.
 $header = $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
@@ -60,9 +64,9 @@ $result = [
     'now'     => $now,
     'days'    => $days,
     'config'  => [
-        'hero_key_set'       => (getenv('HERO_API_KEY') ?: ($cfg['HERO_API_KEY'] ?? '')) !== '',
+        'hero_key_set'       => lead_env('HERO_API_KEY', $cfg) !== '',
         'ga4_secret_set'     => $secret !== '',
-        'fallback_mail_set'  => (getenv('LEAD_FALLBACK_EMAIL') ?: ($cfg['LEAD_FALLBACK_EMAIL'] ?? '')) !== '',
+        'fallback_mail_set'  => lead_env('LEAD_FALLBACK_EMAIL', $cfg) !== '',
         'journal_writable'   => is_dir(lead_journal_dir()) ? is_writable(lead_journal_dir()) : is_writable(dirname(lead_journal_dir())),
     ],
     'summary' => lead_journal_summary($leads, $now),

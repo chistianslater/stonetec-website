@@ -237,3 +237,33 @@ function resolveGa4Secret(array $cfg): string
     }
     return '';
 }
+
+/**
+ * Liest eine Konfigurationsvariable robust. Auf Shared Hosting (LiteSpeed/Apache) ist
+ * eine Umgebungsvariable je nach Setup nur in getenv(), nur in $_SERVER/$_ENV oder mit
+ * dem Präfix REDIRECT_ sichtbar (z. B. nach internem Rewrite). Reihenfolge: Umgebung,
+ * danach config.php. Leerer String = nicht gesetzt.
+ */
+function lead_env(string $name, array $cfg = []): string
+{
+    foreach ([getenv($name), $_ENV[$name] ?? null, $_SERVER[$name] ?? null, $_SERVER['REDIRECT_' . $name] ?? null] as $value) {
+        if (is_string($value) && $value !== '') {
+            return $value;
+        }
+    }
+    $fromCfg = $cfg[$name] ?? '';
+    return is_string($fromCfg) ? $fromCfg : '';
+}
+
+/** Namen (nie Werte) aller sichtbaren LEAD_*-Variablen — Diagnose, wenn eine fehlt. */
+function lead_env_names(): array
+{
+    $names = [];
+    foreach (array_merge(array_keys($_ENV), array_keys($_SERVER), array_keys(getenv() ?: [])) as $key) {
+        if (is_string($key) && preg_match('/^(REDIRECT_)?LEAD_[A-Z_]+$/', $key)) {
+            $names[$key] = true;
+        }
+    }
+    ksort($names);
+    return array_keys($names);
+}
