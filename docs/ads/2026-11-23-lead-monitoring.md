@@ -59,7 +59,11 @@ GA4_SERVICE_ACCOUNT_FILE=/pfad/zum/service-account.json   # optional, aktiviert 
 GOOGLE_ADS_DEVELOPER_TOKEN=… GOOGLE_ADS_CLIENT_ID=… GOOGLE_ADS_CLIENT_SECRET=… GOOGLE_ADS_REFRESH_TOKEN=…  # optional
 TELEGRAM_BOT_TOKEN=… TELEGRAM_CHAT_ID=…                  # optional
 ```
-Aufruf (z. B. LaunchAgent täglich 08:00): `set -a; . ~/.lead-watchdog/env; set +a; node scripts/lead-watchdog.mjs`
+Aufruf: `set -a; . ~/.lead-watchdog/env; set +a; node scripts/lead-watchdog.mjs`
+
+**Mail statt Telegram (Standard bei StoneTec):** Mit `--channel=agent` versendet das Skript selbst nichts, sondern liefert im JSON
+`notify`, `subject` und `text`. Ein täglich geplanter Agent-Lauf (T3 „scheduled task“, 08:00) führt es aus und sendet bei
+`notify: true` die Mail an christian@schauundhorch.de. Mailweg testen: `--channel=agent --test-mail --dry`.
 Exit-Code 0 = ok, 1 = Warnung, 2 = Alarm. Meldungen nur bei Änderung oder nach 24 h Dauerstörung; Entwarnung einmalig.
 Trockenlauf ohne Versand/Zustand: `--dry`.
 

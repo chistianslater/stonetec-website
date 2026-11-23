@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 // Täglicher Wächter für die Lead-Kette (Formular → Hero → GA4 → Google Ads).
 //
-//   node scripts/lead-watchdog.mjs            prüft, meldet bei Bedarf per Telegram
-//   node scripts/lead-watchdog.mjs --dry      prüft nur, sendet nichts, schreibt keinen Zustand
+//   node scripts/lead-watchdog.mjs                    prüft, meldet bei Bedarf per Telegram
+//   node scripts/lead-watchdog.mjs --channel=agent    prüft und liefert "notify"/"subject"/"text" im JSON;
+//                                                     der aufrufende Agent versendet die Mail
+//   node scripts/lead-watchdog.mjs --dry              prüft nur, sendet nichts, schreibt keinen Zustand
+//   node scripts/lead-watchdog.mjs --test-mail        erzwingt notify=true mit Testtext (Mailweg prüfen)
 //
 // Exit-Code: 0 = ok, 1 = Warnung, 2 = Alarm. Ausgabe: JSON auf stdout.
 //
@@ -22,6 +25,8 @@ import { evaluateLeadHealth, formatAlert, nextState, reconciliationDates, should
 import { adsAccessToken, adsCredentialsFromEnv, adsSearch, ga4AccessToken, ga4Report } from './lib/googleApis.mjs'
 
 const DRY = process.argv.includes('--dry')
+const AGENT_CHANNEL = process.argv.includes('--channel=agent')
+const TEST_MAIL = process.argv.includes('--test-mail')
 const ADS_CUSTOMER = '1011974649'
 const env = process.env
 const nowSec = Math.floor(Date.now() / 1000)
@@ -106,14 +111,19 @@ const text = formatAlert(result)
 
 const stateFile = env.LEAD_WATCHDOG_STATE || path.join(os.homedir(), '.lead-watchdog', 'stonetec.json')
 const prev = await readState(stateFile)
+const due = TEST_MAIL || shouldNotify(prev, result, nowSec)
 let notified = false
-if (!DRY && shouldNotify(prev, result, nowSec)) {
-  notified = await safe('telegram', () => notifyTelegram(text)) === true
+if (!DRY && !TEST_MAIL && due) {
+  // Agent-Kanal: Der Agent versendet die Mail; der Zustand gilt ab jetzt als gemeldet.
+  notified = AGENT_CHANNEL ? true : (await safe('telegram', () => notifyTelegram(text)) === true)
 }
+const statusLabel = result.status === 'alarm' ? 'ALARM' : result.status === 'warn' ? 'Warnung' : 'Entwarnung'
+const subject = TEST_MAIL ? '[StoneTec] Lead-Wächter: Testmail' : `[StoneTec] Lead-Kette: ${statusLabel}`
+const mailText = TEST_MAIL ? 'Testmail des Lead-Wächters. Der Mailweg funktioniert.\n\n' + text : text
 if (!DRY) {
   await mkdir(path.dirname(stateFile), { recursive: true })
   await writeFile(stateFile, JSON.stringify(nextState(prev, result, nowSec, notified), null, 2))
 }
 
-process.stdout.write(JSON.stringify({ ...result, text, summary: health?.summary ?? null, ga4, ads, notified }, null, 2) + '\n')
+process.stdout.write(JSON.stringify({ ...result, text: mailText, subject, notify: AGENT_CHANNEL && due, summary: health?.summary ?? null, ga4, ads, notified }, null, 2) + '\n')
 process.exit(result.status === 'alarm' ? 2 : result.status === 'warn' ? 1 : 0)

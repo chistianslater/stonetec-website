@@ -1,14 +1,16 @@
 <?php
 // Zugang zum Lookbook-Admin.
 //
-// Ein einziges Passwort, als bcrypt-Hash in der nicht committeten config.php
-// (gleiches Muster wie HERO_API_KEY). Keine Benutzerverwaltung, keine
+// Ein einziges Passwort, als bcrypt-Hash in der nicht committeten Konfiguration
+// (api/config.php oder <home>/domains/<domain>/lead-config.php, gleiches Muster wie
+// HERO_API_KEY). Keine Benutzerverwaltung, keine
 // Registrierung, keine Passwort-vergessen-Funktion — der Zugang ist für eine
 // Person gedacht.
 
 declare(strict_types=1);
 
 require __DIR__ . '/../api/lookbook_store.php';
+require __DIR__ . '/../api/lead_journal.php'; // lead_load_config(): Konfiguration inkl. privater Datei außerhalb des Webroots
 
 const ADMIN_SESSION_FLAG  = 'lookbook_admin_ok';
 const ADMIN_SESSION_START = 'lookbook_admin_since';
@@ -17,10 +19,11 @@ const ADMIN_SESSION_TTL   = 8 * 3600;
 const ADMIN_MAX_ATTEMPTS  = 5;
 const ADMIN_LOCK_SECONDS  = 900;
 
+// Die hPanel-Umgebungsvariablen erreichen PHP bei Vite-Publish nicht zur Laufzeit; deshalb
+// kommt der Hash aus der Konfigurationsdatei neben public_html (überlebt jeden Deploy).
 function admin_config(): array
 {
-    $cfg = @include __DIR__ . '/../api/config.php';
-    return is_array($cfg) ? $cfg : [];
+    return lead_load_config();
 }
 
 function admin_password_hash(): string
@@ -32,7 +35,7 @@ function admin_password_hash(): string
     // verändern (bcrypt-Hashes mit '$' werden dort zerstört, siehe die analoge
     // GA4-Workaround-Logik in api/lead.php). Die Umgebungsvariable überlebt
     // zudem jeden Rebuild des Webroots.
-    $b64 = getenv('ADMIN_PW_HASH_B64') ?: ($cfg['ADMIN_PW_HASH_B64'] ?? '');
+    $b64 = lead_env('ADMIN_PW_HASH_B64', $cfg);
     if (is_string($b64) && $b64 !== '') {
         $decoded = base64_decode($b64, true);
         // Nur einen plausiblen bcrypt-Hash akzeptieren, keine Dekodier-Reste.
@@ -42,7 +45,7 @@ function admin_password_hash(): string
     }
 
     // Fallback: roher Hash aus Umgebung oder config.php (falls dort gesetzt).
-    return (string) (getenv('ADMIN_PW_HASH') ?: ($cfg['ADMIN_PW_HASH'] ?? ''));
+    return lead_env('ADMIN_PW_HASH', $cfg);
 }
 
 function admin_start_session(): void
